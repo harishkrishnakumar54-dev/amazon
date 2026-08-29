@@ -10,6 +10,7 @@ from scraper.amazon_search import (
     AmazonSearchScraper,
     AmazonBlockedException,
     AmazonNavigationException,
+    AmazonNavigationResult,
     check_amazon_block,
     is_valid_amazon_html,
     is_legitimate_zero_results
@@ -22,7 +23,7 @@ def run_amazon_navigation_tests():
     print("==================================================")
 
     # -------------------------------------------------------------
-    # TEST 1: chrome-error://chromewebdata/ MUST NOT BE REPORTED AS NO_PRODUCTS
+    # TEST 1: chrome-error:// MUST FAIL AND NEVER REPORT NO_PRODUCTS
     # -------------------------------------------------------------
     print("\n--- TEST 1: chrome-error:// MUST FAIL AND NEVER REPORT NO_PRODUCTS ---")
     mock_page = MagicMock()
@@ -58,7 +59,7 @@ def run_amazon_navigation_tests():
             assert False, "Should have raised AmazonNavigationException for chrome-error://, NEVER return empty list"
         except AmazonNavigationException as ane:
             print(f"PASS: Correctly raised AmazonNavigationException: {ane}")
-            assert "Download is starting" in ane.reason or "Navigation Error" in ane.reason
+            assert "chrome-error" in ane.reason or "Download is starting" in ane.reason or "Navigation Error" in ane.reason
             assert mock_sleep.call_count >= 2, f"Expected backoff sleep calls, got {mock_sleep.call_count}"
             print("PASS: Verified chrome-error:// was treated as NAVIGATION_FAILURE and raised AmazonNavigationException.")
 
@@ -76,7 +77,7 @@ def run_amazon_navigation_tests():
     mock_ctx_resp = MagicMock()
     mock_ctx_resp.status = 200
     mock_ctx_resp.headers = {"content-type": "text/html"}
-    mock_ctx_resp.text.return_value = "<html><head><title>Amazon.in: Men's Casual Shoes</title></head><body>Amazon Results <a href='/dp/B09PVFJ2P4'>Sparx Shoe</a></body></html>"
+    mock_ctx_resp.text.return_value = "<html><head><title>Amazon.in: Men's Casual Shoes</title></head><body><div class='s-search-results'><div data-asin='B09PVFJ2P4'><a href='/dp/B09PVFJ2P4'>Sparx Shoe</a></div></div></body></html>"
     mock_page_rec.context.request.get.return_value = mock_ctx_resp
 
     mock_link = MagicMock()
@@ -108,7 +109,7 @@ def run_amazon_navigation_tests():
     mock_page_direct.goto.return_value = mock_resp_direct
     mock_page_direct.title.return_value = "Amazon.in: Men's Sports Shoes"
     mock_page_direct.url = "https://www.amazon.in/s?k=Men%27s+Sports+Shoes"
-    mock_page_direct.content.return_value = "<html><head><title>Amazon.in: Men's Sports Shoes</title></head><body><div class='s-main-slot'>Amazon Sports <a href='/dp/B01MRN1BY4'>Shoes</a></div></body></html>"
+    mock_page_direct.content.return_value = "<html><head><title>Amazon.in: Men's Sports Shoes</title></head><body><div class='s-main-slot' data-asin='B01MRN1BY4'><a href='/dp/B01MRN1BY4'>Shoes</a></div></body></html>"
     
     mock_link_sports = MagicMock()
     mock_link_sports.get_attribute.return_value = "/dp/B01MRN1BY4"
@@ -137,7 +138,7 @@ def run_amazon_navigation_tests():
     mock_page_empty.goto.return_value = mock_resp_empty
     mock_page_empty.title.return_value = "Amazon.in : nonexistentitemxyz123"
     mock_page_empty.url = "https://www.amazon.in/s?k=nonexistentitemxyz123"
-    mock_page_empty.content.return_value = "<html><head><title>Amazon.in : nonexistentitemxyz123</title></head><body>No results for nonexistentitemxyz123. Try checking your spelling.</body></html>"
+    mock_page_empty.content.return_value = "<html><head><title>Amazon.in : nonexistentitemxyz123</title></head><body><div class='nav-logo'>Amazon</div><div>No results for nonexistentitemxyz123. Try checking your spelling or use more general terms.</div></body></html>"
     mock_page_empty.query_selector_all.return_value = []
     mock_page_empty.query_selector.return_value = None
 
