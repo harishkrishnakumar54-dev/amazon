@@ -1,0 +1,126 @@
+[
+  {
+    "business": "Cocoblu Retail",
+    "field": "Business Name",
+    "value": "Cocoblu Retail",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A1WYWER0W24N8S&asin=B09PVFJ2P4&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-29T18:46:31.276719"
+  },
+  {
+    "seller": "Cocoblu Retail",
+    "field": "Website",
+    "query": "Cocoblu Retail official website",
+    "provider": "Yahoo",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.cocoblu.in/",
+      "https://www.cocoblu.in/about-us/"
+    ],
+    "timestamp": "2026-08-29T18:46:37.082442",
+    "status": "results_found"
+  },
+  {
+    "business": "Cocoblu Retail",
+    "field": "Website URL",
+    "value": "https://www.cocoblu.in/",
+    "status": "VERIFIED",
+    "source": "Official Website Discovery",
+    "source_url": "https://www.cocoblu.in/",
+    "timestamp": "2026-08-29T18:46:39.227080"
+  },
+  {
+    "business": "Cocoblu Retail",
+    "field": "Legal Entity Name",
+    "value": "Floor Cocoblu Retail Limited",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.cocoblu.in/",
+    "timestamp": "2026-08-29T18:46:39.962055"
+  },
+  {
+    "business": "Cocoblu Retail",
+    "field": "Email Address",
+    "value": "care@cocoblu.in",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.cocoblu.in/",
+    "timestamp": "2026-08-29T18:46:39.965613"
+  },
+  {
+    "seller": "Cocoblu Retail",
+    "field": "PAN",
+    "query": "Floor Cocoblu Retail Limited PAN card number",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.livspace.com/in/magazine/types-flooring-available-india",
+      "https://www.orientbell.com/tiles/floor-tiles",
+      "https://mytyles.com/tiles/floor-tiles",
+      "https://www.merriam-webster.com/dictionary/floor"
+    ],
+    "timestamp": "2026-08-29T18:46:49.014391",
+    "status": "results_found"
+  },
+  {
+    "seller": "Cocoblu Retail",
+    "field": "GST",
+    "query": "Floor Cocoblu Retail Limited GSTIN registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.livspace.com/in/magazine/types-flooring-available-india",
+      "https://www.orientbell.com/tiles/floor-tiles",
+      "https://mytyles.com/tiles/floor-tiles",
+      "https://www.merriam-webster.com/dictionary/floor"
+    ],
+    "timestamp": "2026-08-29T18:47:26.572808",
+    "status": "results_found"
+  },
+  {
+    "seller": "Cocoblu Retail",
+    "field": "Owner",
+    "query": "Floor Cocoblu Retail Limited director owner founder",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.livspace.com/in/magazine/types-flooring-available-india",
+      "https://www.orientbell.com/tiles/floor-tiles",
+      "https://mytyles.com/tiles/floor-tiles",
+      "https://www.merriam-webster.com/dictionary/floor"
+    ],
+    "timestamp": "2026-08-29T18:47:50.425037",
+    "status": "results_found"
+  },
+  {
+    "seller": "Cocoblu Retail",
+    "field": "Address",
+    "query": "Floor Cocoblu Retail Limited registered office address corporate office",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.livspace.com/in/magazine/types-flooring-available-india",
+      "https://www.orientbell.com/tiles/floor-tiles",
+      "https://mytyles.com/tiles/floor-tiles",
+      "https://www.merriam-webster.com/dictionary/floor"
+    ],
+    "timestamp": "2026-08-29T18:48:17.648510",
+    "status": "results_found"
+  },
+  {
+    "seller": "Cocoblu Retail",
+    "field": "Phone",
+    "query": "Cocoblu Retail phone contact number customer support",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://it.ccm.net/faq/29720-visualizza-le-storie-nascoste-di-instagram-in-anonimo-online",
+      "https://it.ccm.net/faq/22335-come-ripostare-una-storia-su-instagram-senza-tag-da-pc",
+      "https://forums.commentcamarche.net/forum/affich-35360771-probleme-bouton-shopping-instagram",
+      "https://forums.commentcamarche.net/forum/affich-37160801-recuperer-compte-instagram-sans-numero-avec-l-authentification-a-deux-facteurs"
+    ],
+    "timestamp": "2026-08-29T18:48:32.869773",
+    "status": "results_found"
+  }
+]

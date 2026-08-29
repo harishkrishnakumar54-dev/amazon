@@ -43,7 +43,16 @@ class AmazonPublicSource(SellerDiscoverySource):
                 safe_close_page(search_scraper.page)
 
     def extract_seller_offers(self, product_info: Dict[str, Any]) -> List[Dict[str, Any]]:
+        asin = product_info.get("asin", "Unknown")
+        print(f"\nSELLER OFFER EXTRACTION")
+        print(f"ASIN: {asin}")
+        print(f"Browser: {'OPEN' if self.browser_mgr.is_alive() else 'CLOSED'}")
+        print(f"Context: {'OPEN' if self.browser_mgr.is_alive() else 'CLOSED'}")
+        print(f"Creating seller-offer page...")
+
         page = self.browser_mgr.new_page()
+        print(f"Page created: YES")
+
         enriched_offers = []
         try:
             product_scraper = AmazonProductScraper(
@@ -101,3 +110,6 @@ class AmazonPublicSource(SellerDiscoverySource):
 
         finally:
             safe_close_page(page)
+            print(f"Closing seller-offer page: YES")
+            print(f"Browser: {'OPEN' if self.browser_mgr.is_alive() else 'CLOSED'}")
+            print(f"Context: {'OPEN' if self.browser_mgr.is_alive() else 'CLOSED'}")

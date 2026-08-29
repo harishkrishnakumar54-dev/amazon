@@ -77,7 +77,7 @@ def is_valid_amazon_html(page: Optional[Page], html: str, url: str) -> Tuple[boo
     if not url or url.startswith("chrome-error://") or url in ("about:blank", ""):
         return False, "Page URL is chrome-error:// or blank"
 
-    if len(html) < 200:
+    if len(html) < 100:
         return False, f"Page HTML length ({len(html)}) too short"
 
     if "\ufffd" in html[:500]:

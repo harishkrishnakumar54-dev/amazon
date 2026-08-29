@@ -291,6 +291,12 @@ def process_category_run(
     try:
         browser_mgr.start()
 
+        print(f"\nBROWSER LIFECYCLE")
+        print(f"Category: {category_name}")
+        print(f"Browser: {'OPEN' if browser_mgr.is_alive() else 'CLOSED'}")
+        print(f"Context: {'OPEN' if browser_mgr.is_alive() else 'CLOSED'}")
+        print(f"Search page: OPEN")
+
         # -------------------------------------------------------------
         # PHASE 1: Amazon Product & Candidate Discovery for Category
         # -------------------------------------------------------------
@@ -334,7 +340,18 @@ def process_category_run(
             asin = prod.get("asin")
             logger.info(f"[{idx}/{len(products)}] Processing product ASIN: {asin}")
 
-            seller_offers_data = discovery_source.extract_seller_offers(prod)
+            seller_offers_data = []
+            try:
+                seller_offers_data = discovery_source.extract_seller_offers(prod)
+            except Exception as se_err:
+                print(f"""
+PRODUCT SELLER EXTRACTION FAILED
+ASIN: {asin}
+Reason: {se_err}
+""")
+                logger.error(f"Seller extraction failed for ASIN {asin}: {se_err}")
+                continue
+
             if not seller_offers_data:
                 continue
 

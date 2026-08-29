@@ -87,7 +87,13 @@ def run_amazon_navigation_tests():
 
     scraper = AmazonSearchScraper(mock_page_rec, max_retries=3)
 
-    with patch("time.sleep"):
+    with patch("time.sleep"), patch("urllib.request.urlopen") as mock_http:
+        mock_http_resp = MagicMock()
+        mock_http_resp.status = 200
+        mock_http_resp.headers = {"Content-Type": "text/html"}
+        mock_http_resp.read.return_value = b"<html><head><title>Amazon.in: Men's Casual Shoes</title></head><body><div class='s-search-results'><div data-asin='B09PVFJ2P4'><a href='/dp/B09PVFJ2P4'>Sparx Shoe</a></div></div></body></html>"
+        mock_http.return_value.__enter__.return_value = mock_http_resp
+
         products = scraper.discover_products(
             "https://www.amazon.in/s?k=Men%27s+Casual+Shoes",
             limit=5,
