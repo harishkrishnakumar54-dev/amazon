@@ -16,7 +16,7 @@ from database.repository import SellerRepository
 from database.models import SellerRecord, SellerOffer, CategoryRun
 from scraper.browser import BrowserManager, safe_close_page
 from scraper.amazon_public import AmazonPublicSource
-from scraper.amazon_search import AmazonBlockedException
+from scraper.amazon_search import AmazonBlockedException, AmazonNavigationException
 from extraction.seller_extractor import SellerExtractor
 from extraction.normalizer import normalize_seller_key
 from extraction.public_enrichment import PublicEnrichmentEngine, MAX_ENRICHMENT_TIME_PER_SELLER
@@ -304,6 +304,18 @@ def process_category_run(
             logger.error(f"Category '{category_name}' BLOCKED by Amazon: {abe}")
             return {
                 "status": "BLOCKED",
+                "category": category_name,
+                "sellers_count": 0,
+                "added_count": 0,
+                "db_file": db_file,
+                "master_file": master_file
+            }
+        except AmazonNavigationException as ane:
+            category_final_status = "FAILED"
+            repo.update_category_run_status(category_run_id, category_name, "FAILED", 0, 0)
+            logger.error(f"Category '{category_name}' NAVIGATION FAILED: {ane}")
+            return {
+                "status": "FAILED",
                 "category": category_name,
                 "sellers_count": 0,
                 "added_count": 0,

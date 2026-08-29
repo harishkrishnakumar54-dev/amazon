@@ -32,12 +32,15 @@ class AmazonPublicSource(SellerDiscoverySource):
 
     def discover_products(self, search_url: str, limit: int = 10, max_pages: int = 1, category_name: str = "") -> List[Dict[str, Any]]:
         page = self.browser_mgr.new_page()
+        search_scraper = None
         try:
-            search_scraper = AmazonSearchScraper(page)
+            search_scraper = AmazonSearchScraper(page, browser_mgr=self.browser_mgr)
             products = search_scraper.discover_products(search_url, limit=limit, max_pages=max_pages, category_name=category_name)
             return products
         finally:
             safe_close_page(page)
+            if search_scraper and hasattr(search_scraper, "page") and search_scraper.page != page:
+                safe_close_page(search_scraper.page)
 
     def extract_seller_offers(self, product_info: Dict[str, Any]) -> List[Dict[str, Any]]:
         page = self.browser_mgr.new_page()
