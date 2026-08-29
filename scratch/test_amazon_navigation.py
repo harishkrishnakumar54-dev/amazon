@@ -11,7 +11,8 @@ from scraper.amazon_search import (
     AmazonBlockedException,
     AmazonNavigationException,
     check_amazon_block,
-    verify_amazon_search_page
+    is_valid_amazon_html,
+    is_legitimate_zero_results
 )
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError, Error as PlaywrightError
 
@@ -21,24 +22,26 @@ def run_amazon_navigation_tests():
     print("==================================================")
 
     # -------------------------------------------------------------
-    # TEST 1: Page.goto: Download is starting on all 3 attempts without fallback
+    # TEST 1: chrome-error://chromewebdata/ MUST NOT BE REPORTED AS NO_PRODUCTS
     # -------------------------------------------------------------
-    print("\n--- TEST 1: Download is starting Failure Across All Retries ---")
+    print("\n--- TEST 1: chrome-error:// MUST FAIL AND NEVER REPORT NO_PRODUCTS ---")
     mock_page = MagicMock()
     mock_page.goto.side_effect = Exception("Page.goto: Download is starting")
+    mock_page.url = "chrome-error://chromewebdata/"
+    mock_page.title.return_value = ""
+    mock_page.content.return_value = "<html><body></body></html>"
     mock_page.query_selector.return_value = None
     mock_page.query_selector_all.return_value = []
-    mock_page.content.return_value = ""
-    mock_page.title.return_value = ""
     mock_page.context.request.get.side_effect = Exception("Context request failed")
 
     mock_bm = MagicMock()
     fresh_page = MagicMock()
     fresh_page.goto.side_effect = Exception("Page.goto: Download is starting")
+    fresh_page.url = "chrome-error://chromewebdata/"
+    fresh_page.title.return_value = ""
+    fresh_page.content.return_value = "<html><body></body></html>"
     fresh_page.query_selector.return_value = None
     fresh_page.query_selector_all.return_value = []
-    fresh_page.content.return_value = ""
-    fresh_page.title.return_value = ""
     fresh_page.context.request.get.side_effect = Exception("Context request failed")
     mock_bm.new_page.return_value = fresh_page
 
@@ -48,31 +51,32 @@ def run_amazon_navigation_tests():
         mock_urlopen.side_effect = Exception("HTTP Fallback failed")
         try:
             scraper.discover_products(
-                "https://www.amazon.in/s?k=mens+casual+shoes",
+                "https://www.amazon.in/s?k=Men%27s+Casual+Shoes",
                 limit=5,
                 category_name="Men's Casual Shoes"
             )
-            assert False, "Should have raised AmazonNavigationException after 3 failed attempts"
+            assert False, "Should have raised AmazonNavigationException for chrome-error://, NEVER return empty list"
         except AmazonNavigationException as ane:
             print(f"PASS: Correctly raised AmazonNavigationException: {ane}")
             assert "Download is starting" in ane.reason or "Navigation Error" in ane.reason
             assert mock_sleep.call_count >= 2, f"Expected backoff sleep calls, got {mock_sleep.call_count}"
-            print("PASS: Verified 3 retries and final AmazonNavigationException.")
+            print("PASS: Verified chrome-error:// was treated as NAVIGATION_FAILURE and raised AmazonNavigationException.")
 
     # -------------------------------------------------------------
-    # TEST 2: Download is starting on goto -> Recover via context.request fallback
+    # TEST 2: goto Download Error -> Recovery via Context Request
     # -------------------------------------------------------------
     print("\n--- TEST 2: goto Download Error -> Recovery via Context Request ---")
     mock_page_rec = MagicMock()
     mock_page_rec.goto.side_effect = Exception("Page.goto: Download is starting")
-    mock_page_rec.query_selector.side_effect = [None, MagicMock()] # 1st check in settle returns None, after set_content returns mock
-    mock_page_rec.content.return_value = "<html><body>Amazon Search Page <a href='/dp/B09PVFJ2P4'>Shoe</a></body></html>"
-    mock_page_rec.title.return_value = "Amazon.in : Men's Casual Shoes"
+    mock_page_rec.url = "chrome-error://chromewebdata/"
+    mock_page_rec.title.return_value = ""
+    mock_page_rec.content.return_value = ""
+    mock_page_rec.query_selector.return_value = MagicMock()
     
     mock_ctx_resp = MagicMock()
     mock_ctx_resp.status = 200
     mock_ctx_resp.headers = {"content-type": "text/html"}
-    mock_ctx_resp.text.return_value = "<html><body>Amazon Results <a href='/dp/B09PVFJ2P4'>Sparx Shoe</a></body></html>"
+    mock_ctx_resp.text.return_value = "<html><head><title>Amazon.in: Men's Casual Shoes</title></head><body>Amazon Results <a href='/dp/B09PVFJ2P4'>Sparx Shoe</a></body></html>"
     mock_page_rec.context.request.get.return_value = mock_ctx_resp
 
     mock_link = MagicMock()
@@ -84,7 +88,7 @@ def run_amazon_navigation_tests():
 
     with patch("time.sleep"):
         products = scraper.discover_products(
-            "https://www.amazon.in/s?k=mens+casual+shoes",
+            "https://www.amazon.in/s?k=Men%27s+Casual+Shoes",
             limit=5,
             category_name="Men's Casual Shoes"
         )
@@ -103,7 +107,8 @@ def run_amazon_navigation_tests():
     mock_resp_direct.headers = {"content-type": "text/html; charset=utf-8"}
     mock_page_direct.goto.return_value = mock_resp_direct
     mock_page_direct.title.return_value = "Amazon.in: Men's Sports Shoes"
-    mock_page_direct.url = "https://www.amazon.in/s?k=mens+sports+shoes"
+    mock_page_direct.url = "https://www.amazon.in/s?k=Men%27s+Sports+Shoes"
+    mock_page_direct.content.return_value = "<html><head><title>Amazon.in: Men's Sports Shoes</title></head><body><div class='s-main-slot'>Amazon Sports <a href='/dp/B01MRN1BY4'>Shoes</a></div></body></html>"
     
     mock_link_sports = MagicMock()
     mock_link_sports.get_attribute.return_value = "/dp/B01MRN1BY4"
@@ -113,7 +118,7 @@ def run_amazon_navigation_tests():
 
     scraper = AmazonSearchScraper(mock_page_direct, max_retries=3)
     products = scraper.discover_products(
-        "https://www.amazon.in/s?k=mens+sports+shoes",
+        "https://www.amazon.in/s?k=Men%27s+Sports+Shoes",
         limit=5,
         category_name="Men's Sports Shoes"
     )
@@ -132,7 +137,7 @@ def run_amazon_navigation_tests():
     mock_page_empty.goto.return_value = mock_resp_empty
     mock_page_empty.title.return_value = "Amazon.in : nonexistentitemxyz123"
     mock_page_empty.url = "https://www.amazon.in/s?k=nonexistentitemxyz123"
-    mock_page_empty.content.return_value = "<html><body>No results for nonexistentitemxyz123. Try checking your spelling.</body></html>"
+    mock_page_empty.content.return_value = "<html><head><title>Amazon.in : nonexistentitemxyz123</title></head><body>No results for nonexistentitemxyz123. Try checking your spelling.</body></html>"
     mock_page_empty.query_selector_all.return_value = []
     mock_page_empty.query_selector.return_value = None
 
@@ -151,6 +156,8 @@ def run_amazon_navigation_tests():
     mock_resp_503.headers = {"content-type": "text/html"}
     mock_page_503.goto.return_value = mock_resp_503
     mock_page_503.title.return_value = "503 - Service Unavailable"
+    mock_page_503.url = "https://www.amazon.in/s?k=test"
+    mock_page_503.content.return_value = "<html><title>503 - Service Unavailable</title><body>503 Service Unavailable</body></html>"
 
     scraper = AmazonSearchScraper(mock_page_503, max_retries=3)
     with patch("time.sleep") as mock_sleep:

@@ -58,38 +58,55 @@ def check_amazon_block(response, page: Optional[Page] = None, html_content: str 
 
     return False, "OK"
 
-def verify_amazon_search_page(page: Optional[Page], response: Any, selectors_found: bool, html_content: str = "") -> Tuple[bool, str]:
+def is_valid_amazon_html(page: Optional[Page], html: str, url: str) -> Tuple[bool, str]:
     """
-    Verifies that the loaded page is an actual Amazon HTML search page.
-    Returns (is_valid, reason).
+    Strictly checks whether the page or HTML is an authentic Amazon page.
+    Rejects chrome-error://, about:blank, empty pages, non-HTML, and robot check.
     """
-    try:
-        url = (getattr(page, "url", None) or "").lower() if page else ""
-        title = (getattr(page, "title", lambda: "")() or "").lower() if page else ""
+    if not url or url.startswith("chrome-error://") or url in ("about:blank", ""):
+        return False, "Page URL is chrome-error:// or blank"
 
-        if selectors_found:
-            return True, "Search selectors present"
+    if len(html) < 100:
+        return False, f"Page HTML length ({len(html)}) too short"
 
-        content = html_content.lower() if html_content else ((page.content() or "").lower() if page else "")
+    html_lower = html.lower()
+    url_lower = url.lower()
 
-        # Check for empty search result page markers
-        if any(phrase in content for phrase in [
-            "no results for", "0 results for", "did not match any products",
-            "try checking your spelling", "no products found"
-        ]):
-            if "amazon" in title or "amazon" in url or "amazon" in content[:2000]:
-                return True, "Valid zero-results search page"
+    if "amazon" not in url_lower and "amazon" not in html_lower[:3000]:
+        return False, "Amazon markers missing from URL and HTML header"
 
-        # Check if page is recognizable Amazon HTML
-        if "amazon" in title or "amazon" in url or "amazon" in content[:2000]:
-            return True, "Amazon page loaded"
+    if "api-services-support@amazon.com" in html_lower or "type the characters you see in this image" in html_lower:
+        return False, "Robot Check / CAPTCHA detected"
 
-        if url in ("about:blank", "") and not title and len(content) < 100:
-            return False, "Empty or unrendered page"
+    if "503 - service unavailable" in html_lower[:2000] or "503 service unavailable" in html_lower[:2000]:
+        return False, "503 Service Unavailable"
 
-        return False, "Not an Amazon search page"
-    except Exception as e:
-        return False, f"Verification error: {e}"
+    return True, "Valid Amazon HTML"
+
+def is_legitimate_zero_results(page: Optional[Page], html: str) -> bool:
+    """
+    Strictly verifies if a loaded Amazon page is a genuine 0-results search.
+    Requires explicit Amazon zero-results text or Amazon search layout.
+    """
+    html_lower = html.lower()
+    if any(phrase in html_lower for phrase in [
+        "no results for",
+        "0 results for",
+        "did not match any products",
+        "try checking your spelling",
+        "no products found for"
+    ]):
+        return True
+
+    if page:
+        try:
+            has_search_slot = bool(page.query_selector("div.s-main-slot, span[data-component-type='s-search-results'], div.s-desktop-toolbar, div#nav-search-bar-form"))
+            if has_search_slot and "results" in html_lower:
+                return True
+        except Exception:
+            pass
+
+    return False
 
 def extract_products_from_page(page: Page, limit: int, category_hint: str, search_url: str, visited_urls: set) -> List[Dict[str, Any]]:
     """
@@ -164,7 +181,7 @@ class AmazonSearchScraper:
     """
     Scrapes Amazon search / category listing pages to discover product URLs.
     Handles bounded timeouts, download aborts, 503/CAPTCHA detection,
-    multi-stage navigation recovery, and structured diagnostics.
+    multi-stage navigation recovery, strict 3-state validation, and structured diagnostics.
     """
     def __init__(self, page: Page, max_retries: int = 3, browser_mgr: Optional[Any] = None):
         self.page = page
@@ -204,7 +221,19 @@ class AmazonSearchScraper:
                     new_ctx = context.browser.new_context(
                         viewport={"width": 1366, "height": 768},
                         user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-                        locale="en-IN"
+                        locale="en-IN",
+                        extra_http_headers={
+                            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+                            "Accept-Language": "en-IN,en-GB;q=0.9,en;q=0.8",
+                            "Sec-Ch-Ua": '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
+                            "Sec-Ch-Ua-Mobile": "?0",
+                            "Sec-Ch-Ua-Platform": '"Windows"',
+                            "Sec-Fetch-Dest": "document",
+                            "Sec-Fetch-Mode": "navigate",
+                            "Sec-Fetch-Site": "none",
+                            "Sec-Fetch-User": "?1",
+                            "Upgrade-Insecure-Requests": "1"
+                        }
                     )
                     self.page = new_ctx.new_page()
                     return self.page
@@ -301,16 +330,18 @@ class AmazonSearchScraper:
                     pass
 
                 html_len = len(html_content)
-                has_amazon_markers = ("amazon" in cur_url.lower() or "amazon" in page_title.lower() or "amazon" in html_content[:3000].lower())
+                is_valid, valid_reason = is_valid_amazon_html(self.page, html_content, cur_url)
+                has_amazon_markers = is_valid
 
                 selectors_found = False
-                for sel in SEARCH_SELECTORS:
-                    try:
-                        if self.page.query_selector(sel):
-                            selectors_found = True
-                            break
-                    except Exception:
-                        pass
+                if is_valid:
+                    for sel in SEARCH_SELECTORS:
+                        try:
+                            if self.page.query_selector(sel):
+                                selectors_found = True
+                                break
+                        except Exception:
+                            pass
 
                 print(f"\nCurrent URL: {cur_url}")
                 print(f"Title: {page_title}")
@@ -322,9 +353,18 @@ class AmazonSearchScraper:
                 if is_blocked:
                     last_failure_reason = block_reason
 
-                if selectors_found and not is_blocked:
-                    page_loaded = True
-                    extracted_this_attempt = extract_products_from_page(self.page, limit - len(products), category_hint, search_url, visited_urls)
+                if is_valid and not is_blocked:
+                    candidate_prods = extract_products_from_page(self.page, limit - len(products), category_hint, search_url, visited_urls)
+                    if len(candidate_prods) > 0:
+                        # STATE 1: SUCCESS_WITH_PRODUCTS
+                        page_loaded = True
+                        extracted_this_attempt = candidate_prods
+                    elif is_legitimate_zero_results(self.page, html_content):
+                        # STATE 2: SUCCESS_WITH_ZERO_PRODUCTS
+                        page_loaded = True
+                        extracted_this_attempt = []
+                    else:
+                        last_failure_reason = "No product selectors and no zero-result markers on page"
 
                 # -------------------------------------------------------------
                 # 3. Playwright Context Request Recovery (APIRequestContext)
@@ -344,18 +384,28 @@ class AmazonSearchScraper:
                             ctx_status = ctx_resp.status
                             ctx_ct = ctx_resp.headers.get("content-type", "")
                             ctx_html = ctx_resp.text()
-                            ctx_markers = "amazon" in ctx_html[:3000].lower() or "amazon" in current_url.lower()
-
+                            
+                            ctx_is_valid, ctx_reason = is_valid_amazon_html(None, ctx_html, current_url)
                             is_blocked, block_reason = check_amazon_block(ctx_resp, None, ctx_html)
-                            if not is_blocked and len(ctx_html) > 1000 and ctx_markers:
+                            
+                            if ctx_is_valid and not is_blocked:
                                 try:
                                     self.page.set_content(ctx_html, wait_until="domcontentloaded")
                                 except Exception:
                                     pass
-                                page_loaded = True
-                                extracted_this_attempt = extract_products_from_page(self.page, limit - len(products), category_hint, search_url, visited_urls)
+                                candidate_prods = extract_products_from_page(self.page, limit - len(products), category_hint, search_url, visited_urls)
+                                if len(candidate_prods) > 0:
+                                    page_loaded = True
+                                    extracted_this_attempt = candidate_prods
+                                elif is_legitimate_zero_results(self.page, ctx_html):
+                                    page_loaded = True
+                                    extracted_this_attempt = []
+                                else:
+                                    last_failure_reason = "Context Request returned HTML with no products and no zero-results markers"
                             elif is_blocked:
                                 last_failure_reason = block_reason
+                            else:
+                                last_failure_reason = f"Context Request invalid: {ctx_reason}"
                     except Exception as ctx_err:
                         logger.debug(f"Context request fallback error: {ctx_err}")
 
@@ -383,23 +433,32 @@ class AmazonSearchScraper:
                             else:
                                 http_html = raw_bytes.decode("utf-8", errors="replace")
 
-                            http_markers = "amazon" in http_html[:3000].lower() or "amazon" in current_url.lower()
+                            http_is_valid, http_reason = is_valid_amazon_html(None, http_html, current_url)
+                            is_blocked, block_reason = check_amazon_block(http_resp, None, http_html)
 
                             print(f"Status: {http_status}")
                             print(f"Content-Type: {http_ct}")
                             print(f"HTML length: {len(http_html)}")
-                            print(f"Amazon markers: {'YES' if http_markers else 'NO'}")
+                            print(f"Amazon markers: {'YES' if http_is_valid else 'NO'}")
 
-                            is_blocked, block_reason = check_amazon_block(http_resp, None, http_html)
-                            if not is_blocked and len(http_html) > 1000 and http_markers:
+                            if http_is_valid and not is_blocked:
                                 try:
                                     self.page.set_content(http_html, wait_until="domcontentloaded")
                                 except Exception:
                                     pass
-                                page_loaded = True
-                                extracted_this_attempt = extract_products_from_page(self.page, limit - len(products), category_hint, search_url, visited_urls)
+                                candidate_prods = extract_products_from_page(self.page, limit - len(products), category_hint, search_url, visited_urls)
+                                if len(candidate_prods) > 0:
+                                    page_loaded = True
+                                    extracted_this_attempt = candidate_prods
+                                elif is_legitimate_zero_results(self.page, http_html):
+                                    page_loaded = True
+                                    extracted_this_attempt = []
+                                else:
+                                    last_failure_reason = "HTTP Fallback returned HTML with no products and no zero-results markers"
                             elif is_blocked:
                                 last_failure_reason = block_reason
+                            else:
+                                last_failure_reason = f"HTTP Fallback invalid: {http_reason}"
                     except urllib.error.HTTPError as he:
                         print(f"Status: {he.code}")
                         print(f"Content-Type: {he.headers.get('Content-Type')}")
@@ -412,19 +471,24 @@ class AmazonSearchScraper:
                         print(f"HTTP Fallback exception: {he_err}")
 
                 # -------------------------------------------------------------
-                # 5. Product Discovery Result Evaluation
+                # 5. Product Discovery Result Evaluation (Strict 3 States)
                 # -------------------------------------------------------------
                 if page_loaded and len(extracted_this_attempt) > 0:
+                    # STATE 1: SUCCESS_WITH_PRODUCTS
                     products.extend(extracted_this_attempt)
                     print(f"\nPRODUCT DISCOVERY")
                     print(f"Products extracted: {len(products)}")
                     logger.info(f"Discovered {len(products)} total unique product URLs so far for '{category_hint}'")
                     break
                 elif page_loaded and len(extracted_this_attempt) == 0:
+                    # STATE 2: SUCCESS_WITH_ZERO_PRODUCTS
                     print(f"\nPRODUCT DISCOVERY")
-                    print(f"Products extracted: 0 (NO_PRODUCTS: Amazon search page verified with 0 results)")
+                    print(f"Products extracted: 0")
+                    print(f"Status: NO_PRODUCTS")
+                    logger.info(f"Verified 0 products found for '{category_hint}'")
                     break
                 else:
+                    # STATE 3: NAVIGATION_FAILURE for this attempt
                     if attempt < self.max_retries:
                         delay = backoff_delays[attempt - 1]
                         print(f"\nNavigation attempt {attempt} failed ({last_failure_reason}). Recreating fresh page/context and retrying in {delay}s...")
@@ -433,11 +497,14 @@ class AmazonSearchScraper:
                         time.sleep(delay)
                         continue
                     else:
+                        # All attempts failed -> FAIL category
                         print(f"""
 ========================================
-NAVIGATION FAILURE
+AMAZON NAVIGATION FAILURE
+Category: {category_hint}
+URL: {current_url}
 Reason: {last_failure_reason}
-Category status: FAILED
+Status: FAILED
 Do NOT mark category as completed/skipped.
 ========================================
 """)
