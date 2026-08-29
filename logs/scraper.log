@@ -1,0 +1,9 @@
+2026-08-29 15:51:20,694 - INFO - Starting Amazon Multi-Category Batch Processing Mode
+2026-08-29 15:51:20,700 - INFO - Initialized SQLite database schema at amazon_sellers.db
+2026-08-29 15:51:20,766 - INFO - Target Category: 'Men'S Casual Shoes'
+2026-08-29 15:51:20,767 - INFO - Target URL: 'https://www.amazon.in/s?k=Men%27s+Casual+Shoes'
+2026-08-29 15:51:23,167 - INFO - Started standard Playwright Chromium session (headless=False, timeout=30000ms)
+2026-08-29 15:51:23,210 - INFO - Discovering products for category 'Men'S Casual Shoes' from https://www.amazon.in/s?k=Men%27s+Casual+Shoes...
+2026-08-29 15:51:27,096 - INFO - Navigating to Amazon search page 1: https://www.amazon.in/s?k=Men%27s+Casual+Shoes
+2026-08-29 15:51:35,976 - WARNING - Category run 'Men'S Casual Shoes' interrupted by user.
+2026-08-29 15:51:36,154 - WARNING - Batch run interrupted by user (Ctrl+C).

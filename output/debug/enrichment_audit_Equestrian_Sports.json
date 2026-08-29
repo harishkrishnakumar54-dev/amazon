@@ -1,0 +1,832 @@
+[
+  {
+    "business": "Sunrise Book store",
+    "field": "Business Name",
+    "value": "Sunrise Book store",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=AAEHXJUTUR97E&asin=8181894774&ref_=dp_merchant_link",
+    "timestamp": "2026-08-25T17:07:31.201660"
+  },
+  {
+    "seller": "Sunrise Book store",
+    "field": "Website",
+    "query": "Sunrise Book store official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.timeanddate.com/sun/",
+      "https://www.timeanddate.com/astronomy/@12684588"
+    ],
+    "timestamp": "2026-08-25T17:07:37.304211",
+    "status": "results_found"
+  },
+  {
+    "business": "Sunrise Book store",
+    "field": "Website URL",
+    "value": "https://www.sunrisebookstore.com/",
+    "status": "VERIFIED",
+    "source": "Official Website Discovery",
+    "source_url": "https://www.sunrisebookstore.com/",
+    "timestamp": "2026-08-25T17:07:40.093093"
+  },
+  {
+    "business": "Sunrise Book store",
+    "field": "Email Address",
+    "value": "sunrisebooks.shine@gmail.com",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.sunrisebookstore.com/",
+    "timestamp": "2026-08-25T17:07:41.141400"
+  },
+  {
+    "seller": "Sunrise Book store",
+    "field": "Legal Entity Name",
+    "query": "Sunrise Book store company registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.timeanddate.com/sun/",
+      "https://www.timeanddate.com/astronomy/@12684588",
+      "https://sunrise-sunset.org/in/himayatnagar",
+      "https://sunrise.am/"
+    ],
+    "timestamp": "2026-08-25T17:08:00.629138",
+    "status": "results_found"
+  },
+  {
+    "seller": "Sunrise Book store",
+    "field": "Legal Entity Name",
+    "query": "Sunrise Book store Private Limited registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.timeanddate.com/sun/",
+      "https://www.timeanddate.com/astronomy/@12684588",
+      "https://sunrise-sunset.org/in/himayatnagar",
+      "https://sunrise.am/"
+    ],
+    "timestamp": "2026-08-25T17:08:11.316018",
+    "status": "results_found"
+  },
+  {
+    "seller": "Sunrise Book store",
+    "field": "PAN",
+    "query": "Sunrise Book store PAN card number",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.timeanddate.com/sun/",
+      "https://www.timeanddate.com/astronomy/@12684588",
+      "https://sunrise-sunset.org/in/himayatnagar",
+      "https://sunrise.am/"
+    ],
+    "timestamp": "2026-08-25T17:08:14.979794",
+    "status": "results_found"
+  },
+  {
+    "seller": "Sunrise Book store",
+    "field": "PAN",
+    "query": "Sunrise Book store PAN number",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.timeanddate.com/sun/",
+      "https://www.timeanddate.com/astronomy/@12684588",
+      "https://sunrise-sunset.org/in/himayatnagar",
+      "https://sunrise.am/"
+    ],
+    "timestamp": "2026-08-25T17:08:19.478598",
+    "status": "results_found"
+  },
+  {
+    "seller": "Sunrise Book store",
+    "field": "GST",
+    "query": "Sunrise Book store GSTIN registration",
+    "provider": "Yahoo",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.knowyourgst.com/gst-number-search/sunrise-book-house-33ARYPB4586B1ZP/",
+      "https://piceapp.com/gst-number-search/sunrise-book-house-33arypb4586b1zp/",
+      "https://gstverify.co.in/search/"
+    ],
+    "timestamp": "2026-08-25T17:08:25.347700",
+    "status": "results_found"
+  },
+  {
+    "business": "Sunrise Book store",
+    "field": "GST Number",
+    "value": "33ARYPB4586B1ZP",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.knowyourgst.com/gst-number-search/sunrise-book-house-33ARYPB4586B1ZP/",
+    "timestamp": "2026-08-25T17:08:26.335114"
+  },
+  {
+    "business": "Sunrise Book store",
+    "field": "PAN Number",
+    "value": "ARYPB4586B",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.knowyourgst.com/gst-number-search/sunrise-book-house-33ARYPB4586B1ZP/",
+    "timestamp": "2026-08-25T17:08:26.335130"
+  },
+  {
+    "seller": "Sunrise Book store",
+    "field": "Owner",
+    "query": "Sunrise Book store director owner founder",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://sunrisebookstore.com/pages/about",
+      "https://apps.oregon.gov/oregon-newsroom/OR/GOV/Posts/Post/governor-kotek-celebrates-independent-bookstore-day",
+      "https://www.merchantmaverick.com/sunrise-books-opens-a-new-chapter/",
+      "https://www.merchantmaverick.com/main-street-mavericks-business-spotlight-sunrise-books/"
+    ],
+    "timestamp": "2026-08-25T17:08:29.700543",
+    "status": "results_found"
+  },
+  {
+    "seller": "Sunrise Book store",
+    "field": "Address",
+    "query": "Sunrise Book store registered office address corporate office",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.timeanddate.com/sun/",
+      "https://www.timeanddate.com/astronomy/@12684588",
+      "https://sunrise-sunset.org/in/himayatnagar",
+      "https://sunrise.am/"
+    ],
+    "timestamp": "2026-08-25T17:08:44.427862",
+    "status": "results_found"
+  },
+  {
+    "seller": "Sunrise Book store",
+    "field": "Address",
+    "query": "Sunrise Book store registered address",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.timeanddate.com/sun/",
+      "https://www.timeanddate.com/astronomy/@12684588",
+      "https://sunrise-sunset.org/in/himayatnagar",
+      "https://sunrise.am/"
+    ],
+    "timestamp": "2026-08-25T17:08:48.896371",
+    "status": "results_found"
+  },
+  {
+    "seller": "Sunrise Book store",
+    "field": "Phone",
+    "query": "Sunrise Book store phone contact number customer support",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.timeanddate.com/sun/",
+      "https://www.timeanddate.com/astronomy/@12684588",
+      "https://sunrise-sunset.org/in/himayatnagar",
+      "https://sunrise.am/"
+    ],
+    "timestamp": "2026-08-25T17:08:56.129170",
+    "status": "results_found"
+  },
+  {
+    "seller": "Sunrise Book store",
+    "field": "Phone",
+    "query": "Sunrise Book store contact phone",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.timeanddate.com/sun/",
+      "https://www.timeanddate.com/astronomy/@12684588",
+      "https://sunrise-sunset.org/in/himayatnagar",
+      "https://sunrise.am/"
+    ],
+    "timestamp": "2026-08-25T17:09:04.843516",
+    "status": "results_found"
+  },
+  {
+    "business": "Anybooks India \ud83c\uddee\ud83c\uddf3",
+    "field": "Business Name",
+    "value": "Anybooks India \ud83c\uddee\ud83c\uddf3",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A3B44EU3FB09IR&asin=8181894766&ref_=dp_merchant_link",
+    "timestamp": "2026-08-25T17:09:08.902009"
+  },
+  {
+    "seller": "Anybooks India \ud83c\uddee\ud83c\uddf3",
+    "field": "Website",
+    "query": "Anybooks India \ud83c\uddee\ud83c\uddf3 official website",
+    "provider": "Yahoo",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.anybook.com/",
+      "https://www.anybook.com/?trk=organization_guest_main-feed-card-text"
+    ],
+    "timestamp": "2026-08-25T17:09:14.366534",
+    "status": "results_found"
+  },
+  {
+    "seller": "Anybooks India \ud83c\uddee\ud83c\uddf3",
+    "field": "Legal Entity Name",
+    "query": "Anybooks India \ud83c\uddee\ud83c\uddf3 company registration",
+    "provider": "Yahoo",
+    "result_count": 0,
+    "result_urls": [],
+    "timestamp": "2026-08-25T17:09:51.519604",
+    "status": "no_results"
+  },
+  {
+    "seller": "Anybooks India \ud83c\uddee\ud83c\uddf3",
+    "field": "PAN",
+    "query": "Anybooks India \ud83c\uddee\ud83c\uddf3 PAN card number",
+    "provider": "Yahoo",
+    "result_count": 1,
+    "result_urls": [
+      "https://www.indiafilings.com/learn/find-pan-card-number"
+    ],
+    "timestamp": "2026-08-25T17:10:00.841599",
+    "status": "results_found"
+  },
+  {
+    "seller": "Anybooks India \ud83c\uddee\ud83c\uddf3",
+    "field": "PAN",
+    "query": "Anybooks India \ud83c\uddee\ud83c\uddf3 PAN number",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://word.cloud.microsoft/en-us/",
+      "https://word.cloud.microsoft/create/en/document-editor/",
+      "https://microsoft-word.en.softonic.com/"
+    ],
+    "timestamp": "2026-08-25T17:10:05.636670",
+    "status": "results_found"
+  },
+  {
+    "seller": "Anybooks India \ud83c\uddee\ud83c\uddf3",
+    "field": "GST",
+    "query": "Anybooks India \ud83c\uddee\ud83c\uddf3 GSTIN registration",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://search.google/",
+      "https://about.google/products/",
+      "https://about.google/"
+    ],
+    "timestamp": "2026-08-25T17:10:08.555359",
+    "status": "results_found"
+  },
+  {
+    "seller": "Anybooks India \ud83c\uddee\ud83c\uddf3",
+    "field": "GST",
+    "query": "Anybooks India \ud83c\uddee\ud83c\uddf3 GST number",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.yy.com/yy8/",
+      "https://www.yy.com/",
+      "https://web.yy.com/yy8/index.html",
+      "https://yybs.yy.com/"
+    ],
+    "timestamp": "2026-08-25T17:10:20.764102",
+    "status": "results_found"
+  },
+  {
+    "seller": "Anybooks India \ud83c\uddee\ud83c\uddf3",
+    "field": "Owner",
+    "query": "Anybooks India \ud83c\uddee\ud83c\uddf3 director owner founder",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://teddyydiaper.in/blog/normal-delivery-me-tanke-ka-dard/",
+      "https://www.myupchar.com/first-aid/stitches",
+      "https://medicosutra.com/galne-wale-tanke-kitne-din-me-theek-hote-hain-upay/",
+      "https://hindimepost.com/galne-wale-tanke-kitne-din-me-theek-hote-hain/"
+    ],
+    "timestamp": "2026-08-25T17:10:28.764131",
+    "status": "results_found"
+  },
+  {
+    "business": "Anybooks India \ud83c\uddee\ud83c\uddf3",
+    "field": "Email Address",
+    "value": "help@nobelhygiene.com",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://teddyydiaper.in/blog/normal-delivery-me-tanke-ka-dard/",
+    "timestamp": "2026-08-25T17:10:33.220335"
+  },
+  {
+    "business": "Anybooks India \ud83c\uddee\ud83c\uddf3",
+    "field": "Phone Number",
+    "value": "+917310447720",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://medicosutra.com/galne-wale-tanke-kitne-din-me-theek-hote-hain-upay/",
+    "timestamp": "2026-08-25T17:10:43.879156"
+  },
+  {
+    "seller": "Anybooks India \ud83c\uddee\ud83c\uddf3",
+    "field": "Address",
+    "query": "Anybooks India \ud83c\uddee\ud83c\uddf3 registered office address corporate office",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.elevenforum.com/t/open-file-explorer-in-windows-11.20591/",
+      "https://www.elevenforum.com/t/add-or-remove-gallery-in-file-explorer-navigation-pane-in-windows-11.14178/"
+    ],
+    "timestamp": "2026-08-25T17:10:46.365608",
+    "status": "results_found"
+  },
+  {
+    "seller": "Anybooks India \ud83c\uddee\ud83c\uddf3",
+    "field": "Address",
+    "query": "Anybooks India \ud83c\uddee\ud83c\uddf3 registered address",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "http://www.stgjjt.com/product/fmxl/",
+      "http://sheng-tian.com/",
+      "http://anpipe.com/",
+      "http://www.sheng-tian.com/2.htm"
+    ],
+    "timestamp": "2026-08-25T17:10:59.917177",
+    "status": "results_found"
+  },
+  {
+    "business": "DAANYA ENTERPRISES",
+    "field": "Business Name",
+    "value": "DAANYA ENTERPRISES",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A395RXRK8AVQ43&asin=B0FMF92KQ5&ref_=dp_merchant_link",
+    "timestamp": "2026-08-25T17:11:00.349349"
+  },
+  {
+    "seller": "DAANYA ENTERPRISES",
+    "field": "Website",
+    "query": "DAANYA ENTERPRISES official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://theskylive.com/planetarium",
+      "https://www.skymaponline.net/"
+    ],
+    "timestamp": "2026-08-25T17:11:01.773853",
+    "status": "results_found"
+  },
+  {
+    "seller": "DAANYA ENTERPRISES",
+    "field": "Legal Entity Name",
+    "query": "DAANYA ENTERPRISES company registration",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://clickexpose.com/monitoring/click-tracker?adposition=&loc_physical_ms=148988&loc_interest_ms=&adgroupid=1343605787129260&keywords=register%20an%20ltd&network=o&lpurl=https%3A%2F%2Fwww.companyregistration.direct&campaignid=606415592&device=c&domain=companyregistration.direct&placement=&msclkid=c88f61c3e025183d5d0d0b4e9f7227c5",
+      "https://clickexpose.com/monitoring/click-tracker?adposition=&loc_physical_ms=148988&loc_interest_ms=&adgroupid=1343605787129260&keywords=register%20an%20ltd&network=o&lpurl=https%3A%2F%2Fwww.companyregistration.direct%2F&campaignid=606415592&device=c&domain=companyregistration.direct&placement=&msclkid=a629c546a9e01b8208ebafcbd6b71cc6",
+      "https://www.onlinelegalindia.com/services/company-registration/private-company-registration/?utm_source=bing&utm_campaign=CompanyReg&Campaignid=422312961&Adgroupid=1344703933789901&utm_term=online%20business%20registration&device=c&Adposition=&physical=148988&match_type=p&gclid=&network=online%20business%20registration&target_name=kwd-84045335771848:loc-90&placement=&keyword_id=online%20business%20registration&msclkid=e21cb01a4a8516d36b0fda9735d292be",
+      "https://www.mastersindia.co/gst-search/?name=daanya-enterprises&gstin=07AATFD9493P1Z6"
+    ],
+    "timestamp": "2026-08-25T17:11:13.129948",
+    "status": "results_found"
+  },
+  {
+    "business": "DAANYA ENTERPRISES",
+    "field": "Email Address",
+    "value": "info@companyregistration.direct",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://clickexpose.com/monitoring/click-tracker?adposition=&loc_physical_ms=148988&loc_interest_ms=&adgroupid=1343605787129260&keywords=register%20an%20ltd&network=o&lpurl=https%3A%2F%2Fwww.companyregistration.direct%2F&campaignid=606415592&device=c&domain=companyregistration.direct&placement=&msclkid=a629c546a9e01b8208ebafcbd6b71cc6",
+    "timestamp": "2026-08-25T17:11:22.380409"
+  },
+  {
+    "business": "DAANYA ENTERPRISES",
+    "field": "Billing Address",
+    "value": "we offer a choice of three registered office address facilities - all are real street addresses.",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://clickexpose.com/monitoring/click-tracker?adposition=&loc_physical_ms=148988&loc_interest_ms=&adgroupid=1343605787129260&keywords=register%20an%20ltd&network=o&lpurl=https%3A%2F%2Fwww.companyregistration.direct%2F&campaignid=606415592&device=c&domain=companyregistration.direct&placement=&msclkid=a629c546a9e01b8208ebafcbd6b71cc6",
+    "timestamp": "2026-08-25T17:11:22.383903"
+  },
+  {
+    "business": "DAANYA ENTERPRISES",
+    "field": "Phone Number",
+    "value": "+918069029400",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.onlinelegalindia.com/services/company-registration/private-company-registration/?utm_source=bing&utm_campaign=CompanyReg&Campaignid=422312961&Adgroupid=1344703933789901&utm_term=online%20business%20registration&device=c&Adposition=&physical=148988&match_type=p&gclid=&network=online%20business%20registration&target_name=kwd-84045335771848:loc-90&placement=&keyword_id=online%20business%20registration&msclkid=e21cb01a4a8516d36b0fda9735d292be",
+    "timestamp": "2026-08-25T17:11:24.627874"
+  },
+  {
+    "seller": "DAANYA ENTERPRISES",
+    "field": "PAN",
+    "query": "DAANYA ENTERPRISES PAN card number",
+    "provider": "Yahoo",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.registerkaro.in/post/how-to-check-company-pan-number",
+      "https://gstverify.co.in/search/"
+    ],
+    "timestamp": "2026-08-25T17:11:27.938219",
+    "status": "results_found"
+  },
+  {
+    "seller": "DAANYA ENTERPRISES",
+    "field": "PAN",
+    "query": "DAANYA ENTERPRISES PAN number",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.booking.com/city/au/perth.html?msockid=3e49d782a5f46f782ca5c042a4e86e2b",
+      "https://www.airbnb.com.au/perth-western-australia/stays",
+      "https://www.trivago.com.au/en-AU/odr/hotels-perth-australia?search=200-25062&msockid=3e49d782a5f46f782ca5c042a4e86e2b",
+      "https://www.booking.com/district/au/perth/perthcbd.en-gb.html?msockid=3e49d782a5f46f782ca5c042a4e86e2b"
+    ],
+    "timestamp": "2026-08-25T17:11:36.323273",
+    "status": "results_found"
+  },
+  {
+    "seller": "DAANYA ENTERPRISES",
+    "field": "GST",
+    "query": "DAANYA ENTERPRISES GSTIN registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://locators.bankofamerica.com/",
+      "https://locators.bankofamerica.com/il/skokie/",
+      "https://locators.bankofamerica.com/il/chicago/financial-centers-chicago-15805.html",
+      "https://locators.bankofamerica.com/il/chicago/"
+    ],
+    "timestamp": "2026-08-25T17:11:48.629619",
+    "status": "results_found"
+  },
+  {
+    "seller": "DAANYA ENTERPRISES",
+    "field": "Owner",
+    "query": "DAANYA ENTERPRISES director owner founder",
+    "provider": "Bing",
+    "result_count": 1,
+    "result_urls": [
+      "https://forums.citicsinfo.com/login.do"
+    ],
+    "timestamp": "2026-08-25T17:12:02.769939",
+    "status": "results_found"
+  },
+  {
+    "seller": "DAANYA ENTERPRISES",
+    "field": "Owner",
+    "query": "DAANYA ENTERPRISES founder",
+    "provider": "Yahoo",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.dnb.com/business-directory/company-profiles.daanya_enterprises.5b50c0c1e3271f738bd792d191630246.html",
+      "https://www.dnb.com/business-directory/company-profiles.daanya_enterprises.315c4086eb04112691a719bba4e4cbad.html"
+    ],
+    "timestamp": "2026-08-25T17:12:13.447251",
+    "status": "results_found"
+  },
+  {
+    "business": "VIKA TEXTILES",
+    "field": "Business Name",
+    "value": "VIKA TEXTILES",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A3TJZBFV1ABVTC&asin=B0FVSB7XXW&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-25T17:12:16.817427"
+  },
+  {
+    "seller": "VIKA TEXTILES",
+    "field": "Website",
+    "query": "VIKA TEXTILES official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.vikaboutique.com/",
+      "https://www.vikaboutique.com/collections"
+    ],
+    "timestamp": "2026-08-25T17:12:18.807852",
+    "status": "results_found"
+  },
+  {
+    "seller": "VIKA TEXTILES",
+    "field": "Legal Entity Name",
+    "query": "VIKA TEXTILES company registration",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.vikaboutique.com/",
+      "https://www.vikaboutique.com/collections",
+      "https://www.vika.com/"
+    ],
+    "timestamp": "2026-08-25T17:12:27.750907",
+    "status": "results_found"
+  },
+  {
+    "seller": "VIKA TEXTILES",
+    "field": "Legal Entity Name",
+    "query": "VIKA TEXTILES Private Limited registration",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.vikaboutique.com/",
+      "https://www.vikaboutique.com/collections",
+      "https://www.vika.com/"
+    ],
+    "timestamp": "2026-08-25T17:12:40.306957",
+    "status": "results_found"
+  },
+  {
+    "seller": "VIKA TEXTILES",
+    "field": "PAN",
+    "query": "VIKA TEXTILES PAN card number",
+    "provider": "Yahoo",
+    "result_count": 3,
+    "result_urls": [
+      "https://gstverify.co.in/search/",
+      "https://www.dnb.com/business-directory/company-profiles.vika_textiles.78c6f562e2c9e8ae354f550174cbc170.html",
+      "https://www.registerkaro.in/post/how-to-check-company-pan-number"
+    ],
+    "timestamp": "2026-08-25T17:13:00.408334",
+    "status": "results_found"
+  },
+  {
+    "seller": "VIKA TEXTILES",
+    "field": "GST",
+    "query": "VIKA TEXTILES GSTIN registration",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.vikaboutique.com/",
+      "https://www.vikaboutique.com/collections",
+      "https://www.vika.com/"
+    ],
+    "timestamp": "2026-08-25T17:13:03.622701",
+    "status": "results_found"
+  },
+  {
+    "seller": "VIKA TEXTILES",
+    "field": "GST",
+    "query": "VIKA TEXTILES GST number",
+    "provider": "Yahoo",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.knowyourgst.com/gst-number-search/vika-textiles-33BMGPM0081E1ZH/",
+      "https://www.mastersindia.co/gst-search/?name=k-mohan-kumar&gstin=33BMGPM0081E1ZH",
+      "https://piceapp.com/gst-number-search/vika-trading-corporation-33aamfv1378c1z7/"
+    ],
+    "timestamp": "2026-08-25T17:13:09.174149",
+    "status": "results_found"
+  },
+  {
+    "business": "VIKA TEXTILES",
+    "field": "GST Number",
+    "value": "33BMGPM0081E1ZH",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.knowyourgst.com/gst-number-search/vika-textiles-33BMGPM0081E1ZH/",
+    "timestamp": "2026-08-25T17:13:10.372021"
+  },
+  {
+    "business": "VIKA TEXTILES",
+    "field": "PAN Number",
+    "value": "BMGPM0081E",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.knowyourgst.com/gst-number-search/vika-textiles-33BMGPM0081E1ZH/",
+    "timestamp": "2026-08-25T17:13:10.372038"
+  },
+  {
+    "seller": "VIKA TEXTILES",
+    "field": "Owner",
+    "query": "VIKA TEXTILES director owner founder",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.vikaboutique.com/",
+      "https://www.vikaboutique.com/collections",
+      "https://www.vika.com/"
+    ],
+    "timestamp": "2026-08-25T17:13:11.728024",
+    "status": "results_found"
+  },
+  {
+    "seller": "VIKA TEXTILES",
+    "field": "Owner",
+    "query": "VIKA TEXTILES founder",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.vikaboutique.com/",
+      "https://www.vikaboutique.com/collections",
+      "https://www.vika.com/"
+    ],
+    "timestamp": "2026-08-25T17:13:18.216778",
+    "status": "results_found"
+  },
+  {
+    "seller": "VIKA TEXTILES",
+    "field": "Address",
+    "query": "VIKA TEXTILES registered office address corporate office",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.vikaboutique.com/",
+      "https://www.vikaboutique.com/collections",
+      "https://www.vika.com/"
+    ],
+    "timestamp": "2026-08-25T17:13:29.393209",
+    "status": "results_found"
+  },
+  {
+    "seller": "VIKA TEXTILES",
+    "field": "Phone",
+    "query": "VIKA TEXTILES phone contact number customer support",
+    "provider": "Yahoo",
+    "result_count": 0,
+    "result_urls": [],
+    "timestamp": "2026-08-25T17:13:50.863130",
+    "status": "no_results"
+  },
+  {
+    "seller": "VIKA TEXTILES",
+    "field": "Phone",
+    "query": "VIKA TEXTILES contact phone",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.dnb.com/business-directory/company-profiles.vika_textiles.78c6f562e2c9e8ae354f550174cbc170.html",
+      "https://www.scribd.com/document/468165332/Tiruppur-Textile-Companies-in-Tirupur",
+      "https://www.knowyourgst.com/gst-number-search/vika-textiles-33BMGPM0081E1ZH/",
+      "https://www.vikaboutique.com/en-us"
+    ],
+    "timestamp": "2026-08-25T17:14:03.841371",
+    "status": "results_found"
+  },
+  {
+    "seller": "VIKA TEXTILES",
+    "field": "Email",
+    "query": "VIKA TEXTILES email contact address customer care",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.vikaboutique.com/",
+      "https://www.vikaboutique.com/collections",
+      "https://www.vika.com/"
+    ],
+    "timestamp": "2026-08-25T17:14:06.463622",
+    "status": "results_found"
+  },
+  {
+    "business": "CHKOKKO",
+    "field": "Business Name",
+    "value": "CHKOKKO",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A2N8QJKMP57BXU&asin=B0H16H6R6V&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-25T17:14:18.593666"
+  },
+  {
+    "seller": "CHKOKKO",
+    "field": "Website",
+    "query": "CHKOKKO official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://stackoverflow.com/questions/1817766/how-to-revert-to-origins-master-branchs-version-of-file",
+      "https://stackoverflow.com/questions/24853/what-is-the-difference-between-i-and-i"
+    ],
+    "timestamp": "2026-08-25T17:14:21.309005",
+    "status": "results_found"
+  },
+  {
+    "seller": "CHKOKKO",
+    "field": "Legal Entity Name",
+    "query": "CHKOKKO company registration",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.geeksforgeeks.org/c-sharp/net-tutorial/",
+      "https://www.geeksforgeeks.org/c-sharp/introduction-to-net-framework/",
+      "https://github.com/microsoft/dotnet"
+    ],
+    "timestamp": "2026-08-25T17:14:33.658275",
+    "status": "results_found"
+  },
+  {
+    "business": "CHKOKKO",
+    "field": "Billing Address",
+    "value": "a-143, 6th floor, sovereign corporate tower, sector- 136, noida, uttar pradesh (201305)",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.geeksforgeeks.org/c-sharp/net-tutorial/",
+    "timestamp": "2026-08-25T17:14:40.486856"
+  },
+  {
+    "business": "CHKOKKO",
+    "field": "City",
+    "value": "uttar pradesh ()",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.geeksforgeeks.org/c-sharp/net-tutorial/",
+    "timestamp": "2026-08-25T17:14:40.486882"
+  },
+  {
+    "business": "CHKOKKO",
+    "field": "State",
+    "value": "Uttar Pradesh",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.geeksforgeeks.org/c-sharp/net-tutorial/",
+    "timestamp": "2026-08-25T17:14:40.486888"
+  },
+  {
+    "business": "CHKOKKO",
+    "field": "Pincode",
+    "value": "201305",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.geeksforgeeks.org/c-sharp/net-tutorial/",
+    "timestamp": "2026-08-25T17:14:40.486893"
+  },
+  {
+    "seller": "CHKOKKO",
+    "field": "PAN",
+    "query": "CHKOKKO PAN card number",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.taxnotes.com/research/federal/court-documents/court-opinions-and-orders/united-states-v-sullivan/1ktjd",
+      "https://unicourt.com/courthouse/south-carolina-district-24",
+      "https://www.state.gov/press-releases/",
+      "https://la4th.org/Schedule.aspx"
+    ],
+    "timestamp": "2026-08-25T17:14:53.185940",
+    "status": "results_found"
+  },
+  {
+    "seller": "CHKOKKO",
+    "field": "GST",
+    "query": "CHKOKKO GSTIN registration",
+    "provider": "Yahoo",
+    "result_count": 1,
+    "result_urls": [
+      "https://www.easytax.live/s/gst-number-search"
+    ],
+    "timestamp": "2026-08-25T17:15:10.715271",
+    "status": "results_found"
+  },
+  {
+    "seller": "CHKOKKO",
+    "field": "GST",
+    "query": "CHKOKKO GST number",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://chkokko.com/",
+      "https://www.expressgst.com/gst-number-search/",
+      "https://gstextract.com/gstin-details",
+      "https://www.knowyourgst.com/gst-number-search/"
+    ],
+    "timestamp": "2026-08-25T17:15:17.655889",
+    "status": "results_found"
+  },
+  {
+    "seller": "CHKOKKO",
+    "field": "Owner",
+    "query": "CHKOKKO director owner founder",
+    "provider": "Yahoo",
+    "result_count": 3,
+    "result_urls": [
+      "https://tracxn.com/d/companies/chkokko/__lNlH1gvNymhWPTR-B-GRNLTZytdPXysd5QhA_aJ9YSw",
+      "https://yourstory.com/companies/chkokko",
+      "https://chkokko.com/pages/about-us"
+    ],
+    "timestamp": "2026-08-25T17:15:31.338142",
+    "status": "results_found"
+  },
+  {
+    "seller": "CHKOKKO",
+    "field": "Phone",
+    "query": "CHKOKKO phone contact number customer support",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://chkokko.com/pages/contact",
+      "https://chkokko.com/pages/faqs",
+      "https://servicecentre.co/chkokko-service-centre-india/",
+      "https://www.crunchbase.com/organization/chkokko"
+    ],
+    "timestamp": "2026-08-25T17:15:47.195968",
+    "status": "results_found"
+  },
+  {
+    "business": "CHKOKKO",
+    "field": "Email Address",
+    "value": "support@chkokko.com",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://chkokko.com/pages/contact",
+    "timestamp": "2026-08-25T17:15:49.936273"
+  }
+]

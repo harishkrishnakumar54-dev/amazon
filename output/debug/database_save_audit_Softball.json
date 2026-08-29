@@ -1,0 +1,74 @@
+{
+  "category": "Softball",
+  "records_before_save": 6,
+  "records_saved": 5,
+  "records_verified_after_save": 5,
+  "records_failed": 0,
+  "sellers": [
+    {
+      "business_name": "GDON EXPORTS",
+      "database_id": 657,
+      "operation": "UPDATE",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+917174142663",
+      "email": "thondiexports@gmail.com",
+      "gst": "03EDSPK2368L1Z1",
+      "pan": "EDSPK2368L",
+      "website": "Not Found",
+      "status": "Partially Verified"
+    },
+    {
+      "business_name": "RetailEZ Pvt Ltd",
+      "database_id": 658,
+      "operation": "UPDATE",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "Not Found",
+      "email": "contact@worldtimebuddy.com",
+      "gst": "27AALCR3173P1ZN",
+      "pan": "AALCR3173P",
+      "website": "Not Found",
+      "status": "Verified"
+    },
+    {
+      "business_name": "Piramal Pharma Limited",
+      "database_id": 661,
+      "operation": "UPDATE",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+917292428401",
+      "email": "corporate.communication@piramal.com",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "https://www.piramalpharmalimited.com/",
+      "status": "Verified"
+    },
+    {
+      "business_name": "AseraOnline",
+      "database_id": 660,
+      "operation": "UPDATE",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+919217326570",
+      "email": "editorial@tasteatlas.com",
+      "gst": "07AYTPJ6836A1Z8",
+      "pan": "AYTPJ6836A",
+      "website": "Not Found",
+      "status": "Verified"
+    },
+    {
+      "business_name": "RK World Infocom Pvt Ltd",
+      "database_id": 662,
+      "operation": "UPDATE",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "Not Found",
+      "email": "support@rkgaming.com",
+      "gst": "37AAECR0564M1Z2",
+      "pan": "AAECR0564M",
+      "website": "https://rk.world/",
+      "status": "Verified"
+    }
+  ]
+}

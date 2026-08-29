@@ -1,0 +1,487 @@
+[
+  {
+    "business": "Rioff Sports",
+    "field": "Business Name",
+    "value": "Rioff Sports",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A1S8Y29FZZ89AI&asin=B09CY8XX8Z&ref_=dp_merchant_link",
+    "timestamp": "2026-08-24T14:57:04.123474"
+  },
+  {
+    "seller": "Rioff Sports",
+    "field": "Website",
+    "query": "Rioff Sports official website",
+    "provider": "Yahoo",
+    "result_count": 2,
+    "result_urls": [
+      "https://rioff.com/",
+      "https://www.rio2.com/"
+    ],
+    "timestamp": "2026-08-24T14:57:09.517646",
+    "status": "results_found"
+  },
+  {
+    "business": "Rioff Sports",
+    "field": "Website URL",
+    "value": "https://rioff.com/",
+    "status": "VERIFIED",
+    "source": "Official Website Discovery",
+    "source_url": "https://rioff.com/",
+    "timestamp": "2026-08-24T14:57:14.200358"
+  },
+  {
+    "business": "Rioff Sports",
+    "field": "Phone Number",
+    "value": "+915563978247",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://rioff.com/",
+    "timestamp": "2026-08-24T14:57:15.423372"
+  },
+  {
+    "business": "Rioff Sports",
+    "field": "Email Address",
+    "value": "ajtraders1927@gmail.com",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://rioff.com/",
+    "timestamp": "2026-08-24T14:57:15.442156"
+  },
+  {
+    "seller": "Rioff Sports",
+    "field": "Legal Entity Name",
+    "query": "Rioff Sports company registration",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.salzburg.info/en/hotels-offers/salzburg-card",
+      "https://www.leo-travel.idv.tw/24577/austria-salzburg-card-introduction",
+      "https://www.salzburg-card.com/zh/",
+      "https://monkeywalker.com/salzburg-card/",
+      "https://www.salzburg.info/zh/hotels-offers/salzburg-card"
+    ],
+    "timestamp": "2026-08-24T14:57:21.637925",
+    "status": "results_found"
+  },
+  {
+    "seller": "Rioff Sports",
+    "field": "PAN",
+    "query": "Rioff Sports PAN card number",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.apple.com/mx/",
+      "https://www.apple.com/de/store",
+      "https://tv.apple.com/ca",
+      "https://tv.apple.com/de",
+      "https://account.apple.com/"
+    ],
+    "timestamp": "2026-08-24T14:57:42.583730",
+    "status": "results_found"
+  },
+  {
+    "seller": "Rioff Sports",
+    "field": "GST",
+    "query": "Rioff Sports GSTIN registration",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://reg.gst.gov.in/registration/",
+      "https://reg.gst.gov.in/registration/generateuid",
+      "https://services.gst.gov.in/services/trackstatus",
+      "https://services.gst.gov.in/services/login",
+      "https://www.gst.gov.in/download/gststatistics"
+    ],
+    "timestamp": "2026-08-24T14:58:24.871619",
+    "status": "results_found"
+  },
+  {
+    "seller": "Rioff Sports",
+    "field": "Owner",
+    "query": "Rioff Sports director owner founder",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.nasdaq.com/",
+      "https://www.nasdaq.com/market-activity/stocks",
+      "https://markets.businessinsider.com/index/nasdaq_100",
+      "https://www.marketwatch.com/investing/index/comp",
+      "https://www.britannica.com/money/nasdaq"
+    ],
+    "timestamp": "2026-08-24T14:58:35.722073",
+    "status": "results_found"
+  },
+  {
+    "seller": "Rioff Sports",
+    "field": "Address",
+    "query": "Rioff Sports registered office address corporate office",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.timeanddate.com/time/zone/usa/california",
+      "https://whichtimezone.com/usa/california/",
+      "https://time.is/California",
+      "https://24timezones.com/California/time",
+      "https://www.timeanddate.com/worldclock/usa/california"
+    ],
+    "timestamp": "2026-08-24T14:58:55.529564",
+    "status": "results_found"
+  },
+  {
+    "business": "The Play, Your Way !",
+    "field": "Business Name",
+    "value": "The Play, Your Way !",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A4LBE2THLWLXV&asin=B0DHXYVT4L&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-24T14:59:06.655652"
+  },
+  {
+    "seller": "The Play, Your Way !",
+    "field": "Website",
+    "query": "The Play, Your Way ! official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://poki.com/?msockid=2a1d68b4258067ad11727f0b24f166a2",
+      "https://www.crazygames.com/"
+    ],
+    "timestamp": "2026-08-24T14:59:09.950136",
+    "status": "results_found"
+  },
+  {
+    "business": "The Play, Your Way !",
+    "field": "Website URL",
+    "value": "https://www.theplayyourway.com/",
+    "status": "VERIFIED",
+    "source": "Official Website Discovery",
+    "source_url": "https://www.theplayyourway.com/",
+    "timestamp": "2026-08-24T14:59:14.523255"
+  },
+  {
+    "business": "The Play, Your Way !",
+    "field": "Phone Number",
+    "value": "+917087515546",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.theplayyourway.com/",
+    "timestamp": "2026-08-24T14:59:18.051842"
+  },
+  {
+    "business": "The Play, Your Way !",
+    "field": "Email Address",
+    "value": "sales@theplayyourway.com",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.theplayyourway.com/contact",
+    "timestamp": "2026-08-24T14:59:21.338984"
+  },
+  {
+    "business": "The Play, Your Way !",
+    "field": "GST Number",
+    "value": "03ARMPN4900B1ZA",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.theplayyourway.com/terms",
+    "timestamp": "2026-08-24T14:59:23.650143"
+  },
+  {
+    "seller": "The Play, Your Way !",
+    "field": "Legal Entity Name",
+    "query": "The Play, Your Way ! company registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://poki.com/?msockid=2a1d68b4258067ad11727f0b24f166a2",
+      "https://www.crazygames.com/",
+      "https://www.y8.com/",
+      "https://playgama.com/"
+    ],
+    "timestamp": "2026-08-24T14:59:27.306367",
+    "status": "results_found"
+  },
+  {
+    "seller": "The Play, Your Way !",
+    "field": "PAN",
+    "query": "The Play, Your Way ! PAN card number",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://poki.com/?msockid=2a1d68b4258067ad11727f0b24f166a2",
+      "https://www.crazygames.com/",
+      "https://www.y8.com/",
+      "https://playgama.com/",
+      "https://www.techspot.com/downloads/6105-google-play-store.html"
+    ],
+    "timestamp": "2026-08-24T14:59:57.837534",
+    "status": "results_found"
+  },
+  {
+    "seller": "The Play, Your Way !",
+    "field": "Owner",
+    "query": "The Play, Your Way ! director owner founder",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://poki.com/?msockid=2a1d68b4258067ad11727f0b24f166a2",
+      "https://www.crazygames.com/",
+      "https://www.y8.com/",
+      "https://playgama.com/",
+      "https://www.techspot.com/downloads/6105-google-play-store.html"
+    ],
+    "timestamp": "2026-08-24T15:00:09.583311",
+    "status": "results_found"
+  },
+  {
+    "seller": "The Play, Your Way !",
+    "field": "Owner",
+    "query": "The Play, Your Way ! managing director",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://poki.com/?msockid=2a1d68b4258067ad11727f0b24f166a2",
+      "https://www.crazygames.com/",
+      "https://www.y8.com/",
+      "https://playgama.com/",
+      "https://www.techspot.com/downloads/6105-google-play-store.html"
+    ],
+    "timestamp": "2026-08-24T15:00:37.052152",
+    "status": "results_found"
+  },
+  {
+    "seller": "The Play, Your Way !",
+    "field": "Address",
+    "query": "The Play, Your Way ! registered office address corporate office",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://poki.com/?msockid=2a1d68b4258067ad11727f0b24f166a2",
+      "https://www.crazygames.com/",
+      "https://www.y8.com/",
+      "https://playgama.com/",
+      "https://www.techspot.com/downloads/6105-google-play-store.html"
+    ],
+    "timestamp": "2026-08-24T15:00:42.318217",
+    "status": "results_found"
+  },
+  {
+    "business": "Liffo Store",
+    "field": "Business Name",
+    "value": "Liffo Store",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A6SHO73A446OA&asin=B09CTBK3PL&ref_=dp_merchant_link",
+    "timestamp": "2026-08-24T15:01:02.778052"
+  },
+  {
+    "seller": "Liffo Store",
+    "field": "Website",
+    "query": "Liffo Store official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://classicfinefoods.co.uk/contact-us",
+      "https://www.homipi.co.uk/property/london/nw10-7sa/291-abbey-road/"
+    ],
+    "timestamp": "2026-08-24T15:01:07.878808",
+    "status": "results_found"
+  },
+  {
+    "business": "Liffo Store",
+    "field": "Website URL",
+    "value": "https://www.liffostore.com/",
+    "status": "VERIFIED",
+    "source": "Official Website Discovery",
+    "source_url": "https://www.liffostore.com/",
+    "timestamp": "2026-08-24T15:01:19.678320"
+  },
+  {
+    "business": "Liffo Store",
+    "field": "Phone Number",
+    "value": "+914004144004",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.liffostore.com/about-us",
+    "timestamp": "2026-08-24T15:01:30.618664"
+  },
+  {
+    "business": "Liffo Store",
+    "field": "Email Address",
+    "value": "helpliffo@gmail.com",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.liffostore.com/about-us",
+    "timestamp": "2026-08-24T15:01:30.618839"
+  },
+  {
+    "business": "Liffo Store",
+    "field": "Billing Address",
+    "value": "B-74 Raja Garden Gadaipur-Near Canal Road Jalandhar Pin-144004, Punjab, Jalandhar, 144004",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.liffostore.com/about-us",
+    "timestamp": "2026-08-24T15:01:30.717553"
+  },
+  {
+    "business": "Liffo Store",
+    "field": "City",
+    "value": "Jalandhar",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.liffostore.com/about-us",
+    "timestamp": "2026-08-24T15:01:30.717614"
+  },
+  {
+    "business": "Liffo Store",
+    "field": "State",
+    "value": "Punjab",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.liffostore.com/about-us",
+    "timestamp": "2026-08-24T15:01:30.717623"
+  },
+  {
+    "business": "Liffo Store",
+    "field": "Pincode",
+    "value": "144004",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.liffostore.com/about-us",
+    "timestamp": "2026-08-24T15:01:30.717628"
+  },
+  {
+    "seller": "Liffo Store",
+    "field": "Legal Entity Name",
+    "query": "Liffo Store company registration",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://vietjack.com/toan-lop-12/gia-tri-ngoai-le-cua-mau-so-lieu-ghep-nhom-la-gi.jsp",
+      "https://vietjack.com/cong-thuc/cong-thuc-tinh-khoang-bien-thien-khoang-tu-phan-vi-sm.jsp",
+      "https://www.vjol.info/gia-tri-ngoai-le",
+      "https://hocthenao.vn/gia-tri-ngoai-le/",
+      "https://merakicenter.edu.vn/kham-pha-gia-tri-ngoai-le-trong-mau-so-lieu-ghep-nhom/"
+    ],
+    "timestamp": "2026-08-24T15:01:35.612041",
+    "status": "results_found"
+  },
+  {
+    "seller": "Liffo Store",
+    "field": "PAN",
+    "query": "Liffo Store PAN card number",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.incometaxindia.gov.in/pan",
+      "https://www.paisabazaar.com/pan-card/pan-card-details/",
+      "https://www.bankbazaar.com/pan-card/pan-card-details.html",
+      "https://www.incometaxindia.gov.in/pan-verification",
+      "https://www.pan.utiitsl.com/PAN/"
+    ],
+    "timestamp": "2026-08-24T15:02:16.417717",
+    "status": "results_found"
+  },
+  {
+    "seller": "Liffo Store",
+    "field": "GST",
+    "query": "Liffo Store GSTIN registration",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.dickssportinggoods.com/f/mens-athletic-shoes?msockid=2a1d68b4258067ad11727f0b24f166a2",
+      "https://www.dickssportinggoods.com/f/athletic-footwear-0617?msockid=2a1d68b4258067ad11727f0b24f166a2",
+      "https://stores.dickssportinggoods.com/tx/el-paso/1062/",
+      "https://stores.dickssportinggoods.com/fl/melbourne/264/",
+      "https://www.dickssportinggoods.com/p/sof-sole-45-flat-athletic-shoe-laces-16sfsu45nfltlcxxxgsa/16sfsu45nfltlcxxxgsa?msockid=2a1d68b4258067ad11727f0b24f166a2"
+    ],
+    "timestamp": "2026-08-24T15:02:39.933196",
+    "status": "results_found"
+  },
+  {
+    "seller": "Liffo Store",
+    "field": "Owner",
+    "query": "Liffo Store director owner founder",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://pulse2.com/liffo-profile-massimiliano-delsante-interview/",
+      "https://www.liffo.com/en/about-us/",
+      "https://oldwp.liffo.com/en/about-us/",
+      "https://www.liffo.com/en/press-area/",
+      "https://pitchbook.com/profiles/company/636996-16"
+    ],
+    "timestamp": "2026-08-24T15:03:06.987194",
+    "status": "results_found"
+  },
+  {
+    "business": "CF SPORTS",
+    "field": "Business Name",
+    "value": "CF SPORTS",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A3F18P01HV0C7U&asin=B09QMC9QZK&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-24T15:03:07.888971"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "Website",
+    "query": "CF SPORTS official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "http://crossfire.z8games.com/"
+    ],
+    "timestamp": "2026-08-24T15:03:09.558389",
+    "status": "results_found"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "Legal Entity Name",
+    "query": "CF SPORTS company registration",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "http://crossfire.z8games.com/",
+      "https://www.bikedekho.com/cfmoto-bikes",
+      "https://dash.cloudflare.com/login",
+      "https://cf.qq.com/main.shtml"
+    ],
+    "timestamp": "2026-08-24T15:04:11.515378",
+    "status": "results_found"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "PAN",
+    "query": "CF SPORTS PAN card number",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "http://crossfire.z8games.com/",
+      "https://www.bikedekho.com/cfmoto-bikes",
+      "https://dash.cloudflare.com/login",
+      "https://cf.qq.com/main.shtml"
+    ],
+    "timestamp": "2026-08-24T15:04:42.862160",
+    "status": "results_found"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "GST",
+    "query": "CF SPORTS GSTIN registration",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "http://crossfire.z8games.com/",
+      "https://www.bikedekho.com/cfmoto-bikes",
+      "https://dash.cloudflare.com/login",
+      "https://cf.qq.com/main.shtml"
+    ],
+    "timestamp": "2026-08-24T15:04:55.892461",
+    "status": "results_found"
+  }
+]

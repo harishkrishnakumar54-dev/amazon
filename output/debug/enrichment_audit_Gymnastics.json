@@ -1,0 +1,753 @@
+[
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "Business Name",
+    "value": "RetailEZ Pvt Ltd",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=AXOGFIT0PZZ7G&asin=B0GWN14N9F&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-25T17:29:19.819596"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Website",
+    "query": "RetailEZ Pvt Ltd official website",
+    "provider": "Yahoo",
+    "result_count": 0,
+    "result_urls": [],
+    "timestamp": "2026-08-25T17:29:33.392813",
+    "status": "no_results"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Legal Entity Name",
+    "query": "RetailEZ Pvt Ltd company registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://law.justia.com/cases/louisiana/fourth-circuit-court-of-appeal/2025/2024-ka-0420-0.html",
+      "https://law.justia.com/cases/louisiana/fourth-circuit-court-of-appeal/2025/2024-ka-0420-1.html",
+      "https://caselaw.findlaw.com/court/la-court-of-appeal/117213731.html",
+      "https://caselaw.findlaw.com/court/la-court-of-appeal/117656408.html"
+    ],
+    "timestamp": "2026-08-25T17:29:39.652768",
+    "status": "results_found"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Legal Entity Name",
+    "query": "RetailEZ Pvt Ltd Private Limited registration",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://about.google/",
+      "https://search.google/"
+    ],
+    "timestamp": "2026-08-25T17:29:44.636738",
+    "status": "results_found"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "PAN",
+    "query": "RetailEZ Pvt Ltd PAN card number",
+    "provider": "Yahoo",
+    "result_count": 0,
+    "result_urls": [],
+    "timestamp": "2026-08-25T17:29:54.553563",
+    "status": "no_results"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "PAN",
+    "query": "RetailEZ Pvt Ltd PAN number",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://gst.unifers.ai/gst/27AALCR3173P1ZN/retailez-private-limited",
+      "https://gstverify.co.in/gst/retailez-private-limited-27aalcr3173p1zn/",
+      "https://www.knowyourgst.com/gst-number-search/retailez-private-limited-27AALCR3173P1ZN/",
+      "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM"
+    ],
+    "timestamp": "2026-08-25T17:30:02.992660",
+    "status": "results_found"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "GST",
+    "query": "RetailEZ Pvt Ltd GSTIN registration",
+    "provider": "Yahoo",
+    "result_count": 0,
+    "result_urls": [],
+    "timestamp": "2026-08-25T17:30:24.878535",
+    "status": "no_results"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Owner",
+    "query": "RetailEZ Pvt Ltd director owner founder",
+    "provider": "Yahoo",
+    "result_count": 0,
+    "result_urls": [],
+    "timestamp": "2026-08-25T17:30:26.048720",
+    "status": "no_results"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Owner",
+    "query": "RetailEZ Pvt Ltd founder",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.merriam-webster.com/dictionary/vindicate",
+      "https://dictionary.cambridge.org/us/dictionary/english/vindicate",
+      "https://www.dictionary.com/browse/vindicate?misspelling=vendicaste&noredirect=true",
+      "https://englishwordchamps.com/vindicate-meaning-and-examples/"
+    ],
+    "timestamp": "2026-08-25T17:30:27.515145",
+    "status": "results_found"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Address",
+    "query": "RetailEZ Pvt Ltd registered office address corporate office",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+      "https://www.falconebiz.com/company/RETAILEZ-PRIVATE-LIMITED-U52602WB2021PTC248134",
+      "https://retailez.co.in/partner/",
+      "https://piceapp.com/gst-number-search/retailez-private-limited-07aalcr3173p1zp/"
+    ],
+    "timestamp": "2026-08-25T17:30:36.154260",
+    "status": "results_found"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "Billing Address",
+    "value": "l-248, 2nd floor, 17th cross, sector 6, hsr layout, bengaluru, karnataka 560102. cin: l72200ka2012plc065294.",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+    "timestamp": "2026-08-25T17:30:37.399192"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "City",
+    "value": "bengaluru",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+    "timestamp": "2026-08-25T17:30:37.399208"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "State",
+    "value": "Karnataka",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+    "timestamp": "2026-08-25T17:30:37.399213"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "Pincode",
+    "value": "560102",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+    "timestamp": "2026-08-25T17:30:37.399218"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Phone",
+    "query": "RetailEZ Pvt Ltd phone contact number customer support",
+    "provider": "Bing",
+    "result_count": 1,
+    "result_urls": [
+      "https://www.google.vg/webhp?hl=vi&tab=ii"
+    ],
+    "timestamp": "2026-08-25T17:30:38.934785",
+    "status": "results_found"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Phone",
+    "query": "RetailEZ Pvt Ltd contact phone",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://petbirds.gr/article/lovebirds-guide/",
+      "https://portal.petbirds.gr/space/parrots/post/times-gia-lovebirds-papagalous-xf-9253",
+      "https://portal.petbirds.gr/space/parrots/post/lovebirds-nees-phatses-xf-5275",
+      "https://community.petbirds.gr/threads/%CE%9A%CE%BB%CE%BF%CF%85%CE%B2%CE%B9-%CE%B3%CE%B9%CE%B1-lovebirds.7747/"
+    ],
+    "timestamp": "2026-08-25T17:30:43.927126",
+    "status": "results_found"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Email",
+    "query": "RetailEZ Pvt Ltd email contact address customer care",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.fox8live.com/",
+      "https://www.prisonlegalnews.org/news/2025/jan/15/fifth-circuit-leaves-louisiana-prisoner-waiting-reinstated-parole/",
+      "https://nysba.org/"
+    ],
+    "timestamp": "2026-08-25T17:30:55.743323",
+    "status": "results_found"
+  },
+  {
+    "business": "SIGNAMIO",
+    "field": "Business Name",
+    "value": "SIGNAMIO",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A2EQGCS80BN5JJ&asin=B0HBQ2PKRG&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-25T17:31:08.990111"
+  },
+  {
+    "seller": "SIGNAMIO",
+    "field": "Website",
+    "query": "SIGNAMIO official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.visittheusa.com/ko/destinations/alaska/anchorage/",
+      "https://ko.skyticket.com/guide/25508"
+    ],
+    "timestamp": "2026-08-25T17:31:10.991738",
+    "status": "results_found"
+  },
+  {
+    "seller": "SIGNAMIO",
+    "field": "Legal Entity Name",
+    "query": "SIGNAMIO company registration",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.registerkaro.in/ads/private-limited-company-registration?utm_source=bing&campaignId=530909812&utm_medium=ad&utm_content=&utm_term=pvt%20company%20registration&utm_adgroup=1352401813567748&network=o&device=c&msclkid=dac69fb446d61d9d7d97f539c2ef0209&utm_source=bing&utm_medium=cpc&utm_campaign=Private%20-%20High%20CPC%20-%202023-G20658903333%20bing&utm_term=pvt%20company%20registration&utm_content=Ad%20group%201",
+      "https://tracking.deepsearch.adlucent.com/adlucent/Redirector?kwid=kwd-79577766686890x1273236128138508x506213434&adid=&device=c&location=148988&retailer=bizee&url=https://bizee.com/form/global-entrepreneurs&hsa_acc=7525761879&hsa_cam=21169793217&hsa_grp=1273236128138508&hsa_ad=&hsa_src=o&hsa_tgt=kwd-79577766686890&hsa_kw=company%20registration%20usa&hsa_mt=p&hsa_net=adwords&hsa_ver=3&msclkid=fdcef76fa1ff121a46e99de225c6833e&utm_source=bing&utm_medium=cpc&utm_campaign=2%20International&utm_term=company%20registration%20usa&utm_content=International%20-%20International%20-%20General",
+      "https://entitysearch.us/",
+      "https://www.quickcompany.in/trademarks/4034983-signamio"
+    ],
+    "timestamp": "2026-08-25T17:32:03.320913",
+    "status": "results_found"
+  },
+  {
+    "seller": "SIGNAMIO",
+    "field": "PAN",
+    "query": "SIGNAMIO PAN card number",
+    "provider": "Yahoo",
+    "result_count": 0,
+    "result_urls": [],
+    "timestamp": "2026-08-25T17:32:28.670290",
+    "status": "no_results"
+  },
+  {
+    "seller": "SIGNAMIO",
+    "field": "PAN",
+    "query": "SIGNAMIO PAN number",
+    "provider": "Yahoo",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.knowyourgst.com/gst-number-search/signamio-07BJXPP9415R1ZV/",
+      "https://www.knowyourgst.com/gst-number-search/signamio-36BJXPP9415R1ZU/",
+      "https://www.tradeindia.com/signamio-40538643/"
+    ],
+    "timestamp": "2026-08-25T17:32:32.681162",
+    "status": "results_found"
+  },
+  {
+    "seller": "SIGNAMIO",
+    "field": "GST",
+    "query": "SIGNAMIO GSTIN registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://forum.lowyat.net/topic/5538738",
+      "https://forum.lowyat.net/topic/5556445",
+      "https://forum.lowyat.net/topic/5519991",
+      "https://forum.lowyat.net/topic/5568207"
+    ],
+    "timestamp": "2026-08-25T17:32:35.162465",
+    "status": "results_found"
+  },
+  {
+    "seller": "SIGNAMIO",
+    "field": "Owner",
+    "query": "SIGNAMIO director owner founder",
+    "provider": "Bing",
+    "result_count": 1,
+    "result_urls": [
+      "https://apps.apple.com/us/app/youtube/id544007664"
+    ],
+    "timestamp": "2026-08-25T17:32:57.785584",
+    "status": "results_found"
+  },
+  {
+    "seller": "SIGNAMIO",
+    "field": "Owner",
+    "query": "SIGNAMIO founder",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.nba.com/playoffs/2024",
+      "https://www.nba.com/playoffs/2024/series",
+      "https://www.espn.com/nba/playoff-bracket/_/season/2024",
+      "https://www.basketball-reference.com/playoffs/NBA_2024_games.html"
+    ],
+    "timestamp": "2026-08-25T17:33:04.047012",
+    "status": "results_found"
+  },
+  {
+    "business": "PHBrands",
+    "field": "Business Name",
+    "value": "PHBrands",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A2PN1O7TPISQR7&asin=B0B6NSDR2H&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-25T17:33:12.489470"
+  },
+  {
+    "seller": "PHBrands",
+    "field": "Website",
+    "query": "PHBrands official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://tokyo-doctors.com/webdoctor/24166",
+      "https://www.ayumieye.com/"
+    ],
+    "timestamp": "2026-08-25T17:33:16.431983",
+    "status": "results_found"
+  },
+  {
+    "seller": "PHBrands",
+    "field": "Legal Entity Name",
+    "query": "PHBrands company registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://hk.trip.com/moments/poi-atacama-desert-58307787/?msockid=115ff6c5ab9d6e4733e3e105aa4b6ff2",
+      "https://www.getyourguide.com/zh-hk/atacama-desert-l2782/?msockid=115ff6c5ab9d6e4733e3e105aa4b6ff2",
+      "https://ciaotw.com/2025/08/03/%E6%99%BA%E5%88%A9-%E9%98%BF%E5%A1%94%E5%8D%A1%E9%A6%AC%E6%B2%99%E6%BC%A0-chile-atacama-desert-travel/",
+      "https://www.letsgotoantarctica.com/route/atacama4d3n/"
+    ],
+    "timestamp": "2026-08-25T17:33:31.890190",
+    "status": "results_found"
+  },
+  {
+    "seller": "PHBrands",
+    "field": "PAN",
+    "query": "PHBrands PAN card number",
+    "provider": "Yahoo",
+    "result_count": 0,
+    "result_urls": [],
+    "timestamp": "2026-08-25T17:34:01.973706",
+    "status": "no_results"
+  },
+  {
+    "seller": "PHBrands",
+    "field": "PAN",
+    "query": "PHBrands PAN number",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://us.ruffoni.net/collections/chef-pans?tw_source=google&tw_adid=&tw_campaign=523530024&tw_kwdid=kwd-82946338770403:loc-90&msclkid=23c7575b961313dd842c3dd612a561b7&utm_source=bing&utm_medium=cpc&utm_campaign=US-%20NB-%20Copper&utm_term=chefs%20pan&utm_content=Copper%20Chef%20Pan",
+      "https://gstverify.co.in/search/",
+      "https://compuempresa.com/info/ph-brands-sac-2D715B6CD2DCBC95",
+      "https://www.datosperu.org/empresa-ph-brands-sac-20602408397.php"
+    ],
+    "timestamp": "2026-08-25T17:34:09.651739",
+    "status": "results_found"
+  },
+  {
+    "seller": "PHBrands",
+    "field": "GST",
+    "query": "PHBrands GSTIN registration",
+    "provider": "Yahoo",
+    "result_count": 1,
+    "result_urls": [
+      "https://gstverify.co.in/search/"
+    ],
+    "timestamp": "2026-08-25T17:34:17.068337",
+    "status": "results_found"
+  },
+  {
+    "seller": "PHBrands",
+    "field": "GST",
+    "query": "PHBrands GST number",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.lawsociety.org.uk/topics/criminal-justice/virtual-court-first-hearings",
+      "https://www.lawsociety.org.uk/topics/business-management/execution-of-documents-by-virtual-means",
+      "https://www.lawsociety.org.uk/topics/ai-and-lawtech/the-history-of-law-firm-automation",
+      "https://www.lawsociety.org.uk/topics/junior-lawyers/inside-the-linklaters-virtual-programme"
+    ],
+    "timestamp": "2026-08-25T17:34:20.651744",
+    "status": "results_found"
+  },
+  {
+    "seller": "PHBrands",
+    "field": "Owner",
+    "query": "PHBrands director owner founder",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://theorg.com/org/phm-brands/org-chart/john-mason",
+      "https://phbrands.net/",
+      "https://www.biospace.com/gina-steffens-takes-the-helm-as-new-ceo-of-phm-brands",
+      "https://www.sellerratings.com/amazon/india/phbrands"
+    ],
+    "timestamp": "2026-08-25T17:34:34.546202",
+    "status": "results_found"
+  },
+  {
+    "seller": "PHBrands",
+    "field": "Address",
+    "query": "PHBrands registered office address corporate office",
+    "provider": "Yahoo",
+    "result_count": 0,
+    "result_urls": [],
+    "timestamp": "2026-08-25T17:34:44.216333",
+    "status": "no_results"
+  },
+  {
+    "seller": "PHBrands",
+    "field": "Address",
+    "query": "PHBrands registered address",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.dnb.com/business-directory/company-profiles.ph_brands.7c8b42a44a16983743a9dd7cdb203217.html",
+      "https://www.sellerratings.com/amazon/india/phbrands",
+      "https://texas-biz.com/co/ph-brands-llc",
+      "https://compuempresa.com/info/ph-brands-sac-2D715B6CD2DCBC95"
+    ],
+    "timestamp": "2026-08-25T17:34:53.783343",
+    "status": "results_found"
+  },
+  {
+    "seller": "PHBrands",
+    "field": "Phone",
+    "query": "PHBrands phone contact number customer support",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://resumegenius.com/resume-templates?msockid=115ff6c5ab9d6e4733e3e105aa4b6ff2",
+      "https://www.canva.com/resumes/templates/?msockid=115ff6c5ab9d6e4733e3e105aa4b6ff2",
+      "https://www.indeed.com/career-advice/resumes-cover-letters/resume-format-guide-with-examples"
+    ],
+    "timestamp": "2026-08-25T17:35:01.073197",
+    "status": "results_found"
+  },
+  {
+    "business": "SOUMYA ENTERPRISE",
+    "field": "Business Name",
+    "value": "SOUMYA ENTERPRISE",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A239AC2AR9YD9A&asin=B0FL7ZKN8Y&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-25T17:35:17.771973"
+  },
+  {
+    "seller": "SOUMYA ENTERPRISE",
+    "field": "Website",
+    "query": "SOUMYA ENTERPRISE official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.momjunction.com/baby-names/soumya/",
+      "https://www.livemint.com/authors/soumya-gupta"
+    ],
+    "timestamp": "2026-08-25T17:35:21.000161",
+    "status": "results_found"
+  },
+  {
+    "business": "SOUMYA ENTERPRISE",
+    "field": "Website URL",
+    "value": "https://www.soumyaenterprise.com/",
+    "status": "VERIFIED",
+    "source": "Official Website Discovery",
+    "source_url": "https://www.soumyaenterprise.com/",
+    "timestamp": "2026-08-25T17:35:24.129176"
+  },
+  {
+    "business": "SOUMYA ENTERPRISE",
+    "field": "Phone Number",
+    "value": "+917949092641",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.soumyaenterprise.com/",
+    "timestamp": "2026-08-25T17:35:26.109543"
+  },
+  {
+    "business": "SOUMYA ENTERPRISE",
+    "field": "GST Number",
+    "value": "27ALRPC8474G1ZN",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.soumyaenterprise.com/",
+    "timestamp": "2026-08-25T17:35:26.112899"
+  },
+  {
+    "business": "SOUMYA ENTERPRISE",
+    "field": "PAN Number",
+    "value": "ALRPC8474G",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.soumyaenterprise.com/",
+    "timestamp": "2026-08-25T17:35:26.112926"
+  },
+  {
+    "seller": "SOUMYA ENTERPRISE",
+    "field": "Legal Entity Name",
+    "query": "SOUMYA ENTERPRISE company registration",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.momjunction.com/baby-names/soumya/",
+      "https://www.livemint.com/authors/soumya-gupta"
+    ],
+    "timestamp": "2026-08-25T17:35:31.212292",
+    "status": "results_found"
+  },
+  {
+    "seller": "SOUMYA ENTERPRISE",
+    "field": "Legal Entity Name",
+    "query": "SOUMYA ENTERPRISE Private Limited registration",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.momjunction.com/baby-names/soumya/",
+      "https://www.livemint.com/authors/soumya-gupta",
+      "https://www.news18.com/india/who-is-soumya-swaminathan-former-who-chief-scientist-elected-fellow-of-royal-society-ws-l-10102753.html"
+    ],
+    "timestamp": "2026-08-25T17:35:38.869924",
+    "status": "results_found"
+  },
+  {
+    "seller": "SOUMYA ENTERPRISE",
+    "field": "Owner",
+    "query": "SOUMYA ENTERPRISE director owner founder",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.momjunction.com/baby-names/soumya/",
+      "https://www.livemint.com/authors/soumya-gupta",
+      "https://www.news18.com/india/who-is-soumya-swaminathan-former-who-chief-scientist-elected-fellow-of-royal-society-ws-l-10102753.html",
+      "https://parenting.firstcry.com/baby-names/meaning-of-soumya/"
+    ],
+    "timestamp": "2026-08-25T17:35:46.483238",
+    "status": "results_found"
+  },
+  {
+    "seller": "SOUMYA ENTERPRISE",
+    "field": "Owner",
+    "query": "SOUMYA ENTERPRISE founder",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.momjunction.com/baby-names/soumya/",
+      "https://www.livemint.com/authors/soumya-gupta",
+      "https://www.news18.com/india/who-is-soumya-swaminathan-former-who-chief-scientist-elected-fellow-of-royal-society-ws-l-10102753.html",
+      "https://parenting.firstcry.com/baby-names/meaning-of-soumya/"
+    ],
+    "timestamp": "2026-08-25T17:35:52.749781",
+    "status": "results_found"
+  },
+  {
+    "seller": "SOUMYA ENTERPRISE",
+    "field": "Address",
+    "query": "SOUMYA ENTERPRISE registered office address corporate office",
+    "provider": "Bing",
+    "result_count": 1,
+    "result_urls": [
+      "https://www.momjunction.com/baby-names/soumya/"
+    ],
+    "timestamp": "2026-08-25T17:35:59.151127",
+    "status": "results_found"
+  },
+  {
+    "seller": "SOUMYA ENTERPRISE",
+    "field": "Address",
+    "query": "SOUMYA ENTERPRISE registered address",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.momjunction.com/baby-names/soumya/",
+      "https://www.livemint.com/authors/soumya-gupta",
+      "https://www.news18.com/india/who-is-soumya-swaminathan-former-who-chief-scientist-elected-fellow-of-royal-society-ws-l-10102753.html",
+      "https://parenting.firstcry.com/baby-names/meaning-of-soumya/"
+    ],
+    "timestamp": "2026-08-25T17:36:02.130558",
+    "status": "results_found"
+  },
+  {
+    "seller": "SOUMYA ENTERPRISE",
+    "field": "Email",
+    "query": "SOUMYA ENTERPRISE email contact address customer care",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.momjunction.com/baby-names/soumya/",
+      "https://www.livemint.com/authors/soumya-gupta",
+      "https://www.news18.com/india/who-is-soumya-swaminathan-former-who-chief-scientist-elected-fellow-of-royal-society-ws-l-10102753.html",
+      "https://parenting.firstcry.com/baby-names/meaning-of-soumya/"
+    ],
+    "timestamp": "2026-08-25T17:36:08.910103",
+    "status": "results_found"
+  },
+  {
+    "seller": "SOUMYA ENTERPRISE",
+    "field": "Email",
+    "query": "SOUMYA ENTERPRISE contact email",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.momjunction.com/baby-names/soumya/",
+      "https://www.livemint.com/authors/soumya-gupta",
+      "https://www.news18.com/india/who-is-soumya-swaminathan-former-who-chief-scientist-elected-fellow-of-royal-society-ws-l-10102753.html",
+      "https://parenting.firstcry.com/baby-names/meaning-of-soumya/"
+    ],
+    "timestamp": "2026-08-25T17:36:18.303294",
+    "status": "results_found"
+  },
+  {
+    "business": "PROBEROS MALL",
+    "field": "Business Name",
+    "value": "PROBEROS MALL",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A248E9VCTG5HC4&asin=B0DCZH9998&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-25T17:36:23.702103"
+  },
+  {
+    "seller": "PROBEROS MALL",
+    "field": "Website",
+    "query": "PROBEROS MALL official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.floatingsauna.com.au/",
+      "https://www.floatingsauna.com.au/lakederby"
+    ],
+    "timestamp": "2026-08-25T17:36:26.017643",
+    "status": "results_found"
+  },
+  {
+    "seller": "PROBEROS MALL",
+    "field": "Legal Entity Name",
+    "query": "PROBEROS MALL company registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://visitseattle.org/explore/getting-around/maps/",
+      "https://gisgeography.com/seattle-map-washington/",
+      "https://www.mapofseattle.com/",
+      "https://usmaps.com/seattle-map-washington/"
+    ],
+    "timestamp": "2026-08-25T17:36:36.531327",
+    "status": "results_found"
+  },
+  {
+    "seller": "PROBEROS MALL",
+    "field": "PAN",
+    "query": "PROBEROS MALL PAN card number",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.how2shout.com/how-to/how-to-get-help-in-windows-11.html",
+      "https://www.wikihow.com/Get-Help-in-Windows-11",
+      "https://thetechgorilla.com/how-to-get-help-in-windows-11/",
+      "https://mspoweruser.com/how-to-get-help-in-windows-11/"
+    ],
+    "timestamp": "2026-08-25T17:36:52.160034",
+    "status": "results_found"
+  },
+  {
+    "business": "PROBEROS MALL",
+    "field": "Email Address",
+    "value": "raj@how2shout.com",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.how2shout.com/how-to/how-to-get-help-in-windows-11.html",
+    "timestamp": "2026-08-25T17:36:56.872133"
+  },
+  {
+    "seller": "PROBEROS MALL",
+    "field": "PAN",
+    "query": "PROBEROS MALL PAN number",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://stackoverflow.com/questions/4854388/google-api-key-for-translation",
+      "https://stackoverflow.com/questions/8550147/how-to-use-google-translate-api-with-c"
+    ],
+    "timestamp": "2026-08-25T17:37:16.352320",
+    "status": "results_found"
+  },
+  {
+    "seller": "PROBEROS MALL",
+    "field": "GST",
+    "query": "PROBEROS MALL GSTIN registration",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://gst.unifers.ai/gst/24AAMCP0187G1ZD/proberos-trading-private-limited",
+      "https://www.knowyourgst.com/gst-number-search/proberos-trading-private-limited-29AAMCP0187G2Z2/",
+      "https://www.knowyourgst.com/gst-number-search/proberos-trading-private-limited-36AAMCP0187G1Z8/",
+      "https://piceapp.com/gst-number-search/proberos-trading-private-limited-19aamcp0187g1z4/"
+    ],
+    "timestamp": "2026-08-25T17:37:26.228750",
+    "status": "results_found"
+  },
+  {
+    "seller": "PROBEROS MALL",
+    "field": "Owner",
+    "query": "PROBEROS MALL director owner founder",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.thecompanycheck.com/company/proberos-trading-private-limited/U52520HR2021PTC095201",
+      "https://www.indiafilings.com/search/proberos-trading-private-limited-cin-U52520HR2021PTC095201",
+      "https://whatsupnewp.com/2026/08/providence-place-sold-to-ownership-group-led-by-former-mayor-joe-paolino-and-the-malls-original-developer/",
+      "https://www.falconebiz.com/company/PROBEROS-TRADING-PRIVATE-LIMITED-U52520HR2021PTC095201"
+    ],
+    "timestamp": "2026-08-25T17:37:50.962831",
+    "status": "results_found"
+  },
+  {
+    "seller": "PROBEROS MALL",
+    "field": "Address",
+    "query": "PROBEROS MALL registered office address corporate office",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.foodnetwork.com/recipes/photos/easy-chicken-dinner-recipes",
+      "https://www.foodnetwork.com/recipes/ina-garten/lemon-chicken-breasts-recipe-1923711",
+      "https://www.foodnetwork.com/recipes/giada-de-laurentiis/roman-style-chicken-recipe-1945439",
+      "https://www.foodnetwork.com/recipes/ree-drummond/spatchcock-chicken-sheet-pan-supper-5191080"
+    ],
+    "timestamp": "2026-08-25T17:37:54.221664",
+    "status": "results_found"
+  },
+  {
+    "seller": "PROBEROS MALL",
+    "field": "Phone",
+    "query": "PROBEROS MALL phone contact number customer support",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.apartments.com/?msockid=115ff6c5ab9d6e4733e3e105aa4b6ff2",
+      "https://www.lamudi.com.ph/rent/metro-manila/quezon-city/apartment/",
+      "https://www.lamudi.com.ph/rent/metro-manila/apartment/",
+      "https://www.fazwaz.ph/apartment-for-rent/philippines"
+    ],
+    "timestamp": "2026-08-25T17:38:12.910380",
+    "status": "results_found"
+  }
+]

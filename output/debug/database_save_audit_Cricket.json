@@ -1,0 +1,87 @@
+{
+  "category": "Cricket",
+  "records_before_save": 9,
+  "records_saved": 6,
+  "records_verified_after_save": 6,
+  "records_failed": 0,
+  "sellers": [
+    {
+      "business_name": "Raisco Nets Maker",
+      "database_id": 425,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+918888888888",
+      "email": "privacy@justdial.com",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "https://www.justdial.com/",
+      "status": "Verified"
+    },
+    {
+      "business_name": "Sunshine Gifting",
+      "database_id": 426,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+914147202026",
+      "email": "Not Found",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "https://www.sunshinegifting.com/",
+      "status": "Partially Verified"
+    },
+    {
+      "business_name": "Sport Goods Store",
+      "database_id": 427,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+912025882026",
+      "email": "support@dickstshq.com",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "Not Found",
+      "status": "Partially Verified"
+    },
+    {
+      "business_name": "Cocoblu Retail",
+      "database_id": 428,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+915600712026",
+      "email": "care@cocoblu.in",
+      "gst": "29AAJCC8517E1ZH",
+      "pan": "Not Found",
+      "website": "Not Found",
+      "status": "Verified"
+    },
+    {
+      "business_name": "Sports Udyog",
+      "database_id": 429,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+913920272026",
+      "email": "factcheck@intoday.com",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "https://www.indiatoday.in/",
+      "status": "Verified"
+    },
+    {
+      "business_name": "NETYLON",
+      "database_id": 430,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+919305522026",
+      "email": "Not Found",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "https://www.netylon.com/",
+      "status": "Partially Verified"
+    }
+  ]
+}

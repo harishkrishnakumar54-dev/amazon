@@ -1,0 +1,74 @@
+{
+  "category": "Equestrian Sports",
+  "records_before_save": 9,
+  "records_saved": 5,
+  "records_verified_after_save": 5,
+  "records_failed": 0,
+  "sellers": [
+    {
+      "business_name": "Sunrise Book store",
+      "database_id": 627,
+      "operation": "UPDATE",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+913102002026",
+      "email": "sunrisebooks.shine@gmail.com",
+      "gst": "33ARYPB4586B1ZP",
+      "pan": "ARYPB4586B",
+      "website": "https://www.sunrisebookstore.com/",
+      "status": "Verified"
+    },
+    {
+      "business_name": "Anybooks India \ud83c\uddee\ud83c\uddf3",
+      "database_id": 628,
+      "operation": "UPDATE",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+917310447720",
+      "email": "help@nobelhygiene.com",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "Not Found",
+      "status": "Partially Verified"
+    },
+    {
+      "business_name": "DAANYA ENTERPRISES",
+      "database_id": 629,
+      "operation": "UPDATE",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+918069029400",
+      "email": "info@companyregistration.direct",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "Not Found",
+      "status": "Partially Verified"
+    },
+    {
+      "business_name": "VIKA TEXTILES",
+      "database_id": 651,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "Not Found",
+      "email": "Not Found",
+      "gst": "33BMGPM0081E1ZH",
+      "pan": "BMGPM0081E",
+      "website": "Not Found",
+      "status": "Partially Verified"
+    },
+    {
+      "business_name": "CHKOKKO",
+      "database_id": 652,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "Not Found",
+      "email": "support@chkokko.com",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "Not Found",
+      "status": "Verified"
+    }
+  ]
+}

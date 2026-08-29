@@ -1,0 +1,61 @@
+{
+  "category": "Hockey",
+  "records_before_save": 6,
+  "records_saved": 4,
+  "records_verified_after_save": 4,
+  "records_failed": 0,
+  "sellers": [
+    {
+      "business_name": "Rioff Sports",
+      "database_id": 545,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+915563978247",
+      "email": "ajtraders1927@gmail.com",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "https://rioff.com/",
+      "status": "Partially Verified"
+    },
+    {
+      "business_name": "The Play, Your Way !",
+      "database_id": 546,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+917087515546",
+      "email": "sales@theplayyourway.com",
+      "gst": "03ARMPN4900B1ZA",
+      "pan": "Not Found",
+      "website": "https://www.theplayyourway.com/",
+      "status": "Verified"
+    },
+    {
+      "business_name": "Liffo Store",
+      "database_id": 547,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+914004144004",
+      "email": "helpliffo@gmail.com",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "https://www.liffostore.com/",
+      "status": "Partially Verified"
+    },
+    {
+      "business_name": "CF SPORTS",
+      "database_id": 548,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "Not Found",
+      "email": "Not Found",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "Not Found",
+      "status": "Partially Verified"
+    }
+  ]
+}

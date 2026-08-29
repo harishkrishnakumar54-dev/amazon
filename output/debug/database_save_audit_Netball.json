@@ -1,0 +1,61 @@
+{
+  "category": "Netball",
+  "records_before_save": 8,
+  "records_saved": 4,
+  "records_verified_after_save": 4,
+  "records_failed": 0,
+  "sellers": [
+    {
+      "business_name": "WASAN EXPORTS",
+      "database_id": 571,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+912202200334",
+      "email": "Not Found",
+      "gst": "03AAAFW2404L1ZH",
+      "pan": "Not Found",
+      "website": "Not Found",
+      "status": "Partially Verified"
+    },
+    {
+      "business_name": "Nirmala trading",
+      "database_id": 572,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+913100302026",
+      "email": "onlinesales@indianexpress.com",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "https://www.financialexpress.com/",
+      "status": "Partially Verified"
+    },
+    {
+      "business_name": "JJ-JONEX",
+      "database_id": 573,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "+911000170037",
+      "email": "contact@jjjonex.com",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "https://jjjonex.com/",
+      "status": "Partially Verified"
+    },
+    {
+      "business_name": "Rey's Sparkle Pvt. Ltd",
+      "database_id": 574,
+      "operation": "INSERT",
+      "saved": true,
+      "verified_after_save": true,
+      "phone": "Not Found",
+      "email": "Not Found",
+      "gst": "Not Found",
+      "pan": "Not Found",
+      "website": "Not Found",
+      "status": "Partially Verified"
+    }
+  ]
+}

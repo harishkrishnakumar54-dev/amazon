@@ -1,0 +1,749 @@
+[
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "Business Name",
+    "value": "RetailEZ Pvt Ltd",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=AXOGFIT0PZZ7G&asin=B0F5P34QNX&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-25T17:42:05.889388"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Website",
+    "query": "RetailEZ Pvt Ltd official website",
+    "provider": "Yahoo",
+    "result_count": 2,
+    "result_urls": [
+      "https://retailez.co.in/",
+      "https://retailez.co.in/about-us/"
+    ],
+    "timestamp": "2026-08-25T17:42:15.686619",
+    "status": "results_found"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Legal Entity Name",
+    "query": "RetailEZ Pvt Ltd company registration",
+    "provider": "Yahoo",
+    "result_count": 0,
+    "result_urls": [],
+    "timestamp": "2026-08-25T17:42:26.137217",
+    "status": "no_results"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Legal Entity Name",
+    "query": "RetailEZ Pvt Ltd Private Limited registration",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.registerkaro.in/ads/private-limited-company-registration?utm_source=bing&campaignId=530229397&utm_medium=ad&utm_content=&utm_term=pvt%20limited%20company%20registration&utm_adgroup=1357898695889625&network=o&device=c&msclkid=62a484a96bdb10c3dfa9ee24ed6bcade&utm_source=bing&utm_medium=cpc&utm_campaign=Pvt%20-%20%22Company%20Registration%22%20Keyword%20Bing&utm_term=pvt%20limited%20company%20registration&utm_content=Private%20Limited%20Co%20-%20Rajesh%20Landing",
+      "https://www.onlinelegalindia.com/services/company-registration/private-company-registration/?utm_source=bing&utm_campaign=CompanyReg&Campaignid=422312961&Adgroupid=1340305886431193&utm_term=open%20private%20limited%20company&device=c&Adposition=&physical=148988&match_type=p&gclid=&network=open%20private%20limited%20company&target_name=kwd-83769913535097:loc-90&placement=&keyword_id=open%20private%20limited%20company&msclkid=d91fafb77ecd160c773ec53af87d8f6c",
+      "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+      "https://www.indiafilings.com/search/retailez-private-limited-cin-U52602WB2021PTC248134"
+    ],
+    "timestamp": "2026-08-25T17:42:34.289029",
+    "status": "results_found"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "PAN",
+    "query": "RetailEZ Pvt Ltd PAN card number",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://fnshiftsolutions.com/gstin-search/retailez-private-limited-27AALCR3173P1ZN",
+      "https://gstverify.co.in/gst/retailez-private-limited-27aalcr3173p1zn/",
+      "https://gst.unifers.ai/gst/27AALCR3173P1ZN/retailez-private-limited",
+      "https://www.scribd.com/document/811814713/PAN-CARD-OF-RETAILEZ-PRIVATE-LIMITED"
+    ],
+    "timestamp": "2026-08-25T17:42:46.729429",
+    "status": "results_found"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "GST Number",
+    "value": "27AALCR3173P1ZN",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://fnshiftsolutions.com/gstin-search/retailez-private-limited-27AALCR3173P1ZN",
+    "timestamp": "2026-08-25T17:42:48.270653"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "PAN Number",
+    "value": "AALCR3173P",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://fnshiftsolutions.com/gstin-search/retailez-private-limited-27AALCR3173P1ZN",
+    "timestamp": "2026-08-25T17:42:48.270675"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Owner",
+    "query": "RetailEZ Pvt Ltd director owner founder",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.hotstar.com/in",
+      "https://www.hotstar.com/in/movies",
+      "https://www.hotstar.com/in/subscribe/get-started?lang=en",
+      "https://www.hotstar.com/in/shows"
+    ],
+    "timestamp": "2026-08-25T17:42:50.480152",
+    "status": "results_found"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Owner",
+    "query": "RetailEZ Pvt Ltd founder",
+    "provider": "Bing",
+    "result_count": 1,
+    "result_urls": [
+      "http://boiller.com/"
+    ],
+    "timestamp": "2026-08-25T17:42:55.851150",
+    "status": "results_found"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Address",
+    "query": "RetailEZ Pvt Ltd registered office address corporate office",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+      "https://www.falconebiz.com/company/RETAILEZ-PRIVATE-LIMITED-U52602WB2021PTC248134",
+      "https://retailez.co.in/partner/",
+      "https://piceapp.com/gst-number-search/retailez-private-limited-07aalcr3173p1zp/"
+    ],
+    "timestamp": "2026-08-25T17:43:04.802592",
+    "status": "results_found"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "Billing Address",
+    "value": "l-248, 2nd floor, 17th cross, sector 6, hsr layout, bengaluru, karnataka 560102. cin: l72200ka2012plc065294.",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+    "timestamp": "2026-08-25T17:43:06.104198"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "City",
+    "value": "bengaluru",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+    "timestamp": "2026-08-25T17:43:06.104209"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "State",
+    "value": "Karnataka",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+    "timestamp": "2026-08-25T17:43:06.104212"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "Pincode",
+    "value": "560102",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+    "timestamp": "2026-08-25T17:43:06.104214"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Phone",
+    "query": "RetailEZ Pvt Ltd phone contact number customer support",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://retailez.co.in/",
+      "https://retailez.co.in/about-us/",
+      "https://retailez.co.in/partner/",
+      "https://retailez.co.in/careers/"
+    ],
+    "timestamp": "2026-08-25T17:43:11.719064",
+    "status": "results_found"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "Email Address",
+    "value": "info@retailez.co.in",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://retailez.co.in/",
+    "timestamp": "2026-08-25T17:43:16.192756"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Phone",
+    "query": "RetailEZ Pvt Ltd contact phone",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.britannica.com/biography/Edgar-Allan-Poe",
+      "https://www.thivien.net/Edgar-Allan-Poe/author-mdTahf3I_-7A-Y9uJSvE9Q",
+      "https://www.poetryfoundation.org/poets/edgar-allan-poe",
+      "https://www.biography.com/authors-writers/edgar-allan-poe"
+    ],
+    "timestamp": "2026-08-25T17:43:24.556333",
+    "status": "results_found"
+  },
+  {
+    "business": "Repro Books-On-Demand",
+    "field": "Business Name",
+    "value": "Repro Books-On-Demand",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A15DBATYR506U3&asin=939574197X&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-25T17:43:26.262386"
+  },
+  {
+    "seller": "Repro Books-On-Demand",
+    "field": "Website",
+    "query": "Repro Books-On-Demand official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.reproindialtd.com/",
+      "https://www.reproindialtd.com/about-repro/overview"
+    ],
+    "timestamp": "2026-08-25T17:43:29.638683",
+    "status": "results_found"
+  },
+  {
+    "business": "Repro Books-On-Demand",
+    "field": "Website URL",
+    "value": "https://www.reproindialtd.com/",
+    "status": "VERIFIED",
+    "source": "Official Website Discovery",
+    "source_url": "https://www.reproindialtd.com/about-repro/overview",
+    "timestamp": "2026-08-25T17:44:14.900884"
+  },
+  {
+    "business": "Repro Books-On-Demand",
+    "field": "Email Address",
+    "value": "info@reproindialtd.com",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.reproindialtd.com/contact",
+    "timestamp": "2026-08-25T17:44:16.416164"
+  },
+  {
+    "seller": "Repro Books-On-Demand",
+    "field": "Legal Entity Name",
+    "query": "Repro Books-On-Demand company registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.reproindialtd.com/",
+      "https://www.reproindialtd.com/about-repro/overview",
+      "https://www.screener.in/company/REPRO/consolidated/",
+      "https://beta.bseindia.com/stock-share-price/repro-india-ltd/repro/532687/"
+    ],
+    "timestamp": "2026-08-25T17:44:18.945935",
+    "status": "results_found"
+  },
+  {
+    "seller": "Repro Books-On-Demand",
+    "field": "Legal Entity Name",
+    "query": "Repro Books-On-Demand Private Limited registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.reproindialtd.com/",
+      "https://www.reproindialtd.com/about-repro/overview",
+      "https://www.screener.in/company/REPRO/consolidated/",
+      "https://beta.bseindia.com/stock-share-price/repro-india-ltd/repro/532687/"
+    ],
+    "timestamp": "2026-08-25T17:44:26.232563",
+    "status": "results_found"
+  },
+  {
+    "seller": "Repro Books-On-Demand",
+    "field": "PAN",
+    "query": "Repro Books-On-Demand PAN card number",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.reproindialtd.com/",
+      "https://www.reproindialtd.com/about-repro/overview",
+      "https://www.screener.in/company/REPRO/consolidated/"
+    ],
+    "timestamp": "2026-08-25T17:44:34.625112",
+    "status": "results_found"
+  },
+  {
+    "seller": "Repro Books-On-Demand",
+    "field": "PAN",
+    "query": "Repro Books-On-Demand PAN number",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.reproindialtd.com/",
+      "https://www.reproindialtd.com/about-repro/overview",
+      "https://www.screener.in/company/REPRO/consolidated/",
+      "https://beta.bseindia.com/stock-share-price/repro-india-ltd/repro/532687/"
+    ],
+    "timestamp": "2026-08-25T17:44:38.388044",
+    "status": "results_found"
+  },
+  {
+    "seller": "Repro Books-On-Demand",
+    "field": "GST",
+    "query": "Repro Books-On-Demand GSTIN registration",
+    "provider": "Bing",
+    "result_count": 3,
+    "result_urls": [
+      "https://www.reproindialtd.com/",
+      "https://www.reproindialtd.com/about-repro/overview",
+      "https://www.screener.in/company/REPRO/consolidated/"
+    ],
+    "timestamp": "2026-08-25T17:44:45.945469",
+    "status": "results_found"
+  },
+  {
+    "seller": "Repro Books-On-Demand",
+    "field": "GST",
+    "query": "Repro Books-On-Demand GST number",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.reproindialtd.com/",
+      "https://www.reproindialtd.com/about-repro/overview",
+      "https://www.screener.in/company/REPRO/consolidated/",
+      "https://beta.bseindia.com/stock-share-price/repro-india-ltd/repro/532687/"
+    ],
+    "timestamp": "2026-08-25T17:44:50.854976",
+    "status": "results_found"
+  },
+  {
+    "seller": "Repro Books-On-Demand",
+    "field": "Owner",
+    "query": "Repro Books-On-Demand director owner founder",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.reproindialtd.com/",
+      "https://www.reproindialtd.com/about-repro/overview",
+      "https://www.screener.in/company/REPRO/consolidated/",
+      "https://beta.bseindia.com/stock-share-price/repro-india-ltd/repro/532687/"
+    ],
+    "timestamp": "2026-08-25T17:44:56.309100",
+    "status": "results_found"
+  },
+  {
+    "seller": "Repro Books-On-Demand",
+    "field": "Owner",
+    "query": "Repro Books-On-Demand founder",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.reproindialtd.com/",
+      "https://www.reproindialtd.com/about-repro/overview",
+      "https://www.screener.in/company/REPRO/consolidated/",
+      "https://beta.bseindia.com/stock-share-price/repro-india-ltd/repro/532687/"
+    ],
+    "timestamp": "2026-08-25T17:45:02.586558",
+    "status": "results_found"
+  },
+  {
+    "seller": "Repro Books-On-Demand",
+    "field": "Address",
+    "query": "Repro Books-On-Demand registered office address corporate office",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.reproindialtd.com/",
+      "https://www.reproindialtd.com/about-repro/overview",
+      "https://www.screener.in/company/REPRO/consolidated/",
+      "https://beta.bseindia.com/stock-share-price/repro-india-ltd/repro/532687/"
+    ],
+    "timestamp": "2026-08-25T17:45:06.739838",
+    "status": "results_found"
+  },
+  {
+    "seller": "Repro Books-On-Demand",
+    "field": "Address",
+    "query": "Repro Books-On-Demand registered address",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.reproindialtd.com/",
+      "https://www.reproindialtd.com/about-repro/overview",
+      "https://www.screener.in/company/REPRO/consolidated/",
+      "https://beta.bseindia.com/stock-share-price/repro-india-ltd/repro/532687/"
+    ],
+    "timestamp": "2026-08-25T17:45:11.254055",
+    "status": "results_found"
+  },
+  {
+    "seller": "Repro Books-On-Demand",
+    "field": "Phone",
+    "query": "Repro Books-On-Demand phone contact number customer support",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.reproindialtd.com/",
+      "https://www.reproindialtd.com/about-repro/overview",
+      "https://www.screener.in/company/REPRO/consolidated/",
+      "https://beta.bseindia.com/stock-share-price/repro-india-ltd/repro/532687/"
+    ],
+    "timestamp": "2026-08-25T17:45:15.273474",
+    "status": "results_found"
+  },
+  {
+    "seller": "Repro Books-On-Demand",
+    "field": "Phone",
+    "query": "Repro Books-On-Demand contact phone",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.reproindialtd.com/",
+      "https://www.reproindialtd.com/about-repro/overview",
+      "https://www.screener.in/company/REPRO/consolidated/",
+      "https://beta.bseindia.com/stock-share-price/repro-india-ltd/repro/532687/"
+    ],
+    "timestamp": "2026-08-25T17:45:20.789978",
+    "status": "results_found"
+  },
+  {
+    "business": "serveuttam india",
+    "field": "Business Name",
+    "value": "serveuttam india",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A3SZBDZ05A1P39&asin=B09YY2BRFD&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-25T17:45:24.091886"
+  },
+  {
+    "seller": "serveuttam india",
+    "field": "Website",
+    "query": "serveuttam india official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.freecodecamp.org/",
+      "https://www.codecademy.com/"
+    ],
+    "timestamp": "2026-08-25T17:45:25.627797",
+    "status": "results_found"
+  },
+  {
+    "seller": "serveuttam india",
+    "field": "Legal Entity Name",
+    "query": "serveuttam india company registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://web.whatsapp.com/",
+      "https://www.whatsapp.com/download",
+      "https://www.whatsapp.com/",
+      "https://wa.me/"
+    ],
+    "timestamp": "2026-08-25T17:45:39.924218",
+    "status": "results_found"
+  },
+  {
+    "seller": "serveuttam india",
+    "field": "PAN",
+    "query": "serveuttam india PAN card number",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://hi.xhamster.desi/tags/xxx-18",
+      "http://xxx18hot.com/en/",
+      "https://iwank.xxx/xxx-18-videos",
+      "https://tube18.xxx/"
+    ],
+    "timestamp": "2026-08-25T17:45:56.527361",
+    "status": "results_found"
+  },
+  {
+    "seller": "serveuttam india",
+    "field": "GST",
+    "query": "serveuttam india GSTIN registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://batteryskills.com/what-is-battery-capacity-for-iphone-11/",
+      "https://www.devicespecifications.com/en/model-battery/c3625217",
+      "https://support.apple.com/en-us/111865",
+      "https://www.gsmarena.com/apple_iphone_11-9848.php"
+    ],
+    "timestamp": "2026-08-25T17:46:20.787346",
+    "status": "results_found"
+  },
+  {
+    "seller": "serveuttam india",
+    "field": "Owner",
+    "query": "serveuttam india director owner founder",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://anichin.art/shrouding-the-heavens-episode-17-subtitle-indonesia/",
+      "https://anichin.art/wonderland-season-5-episode-235-subtitle-indonesia/",
+      "https://anichin.art/legend-of-lotus-sword-fairy-episode-28-subtitle-indonesia/",
+      "https://anichin.art/beyond-the-ocean-season-2-episode-23-subtitle-indonesia/"
+    ],
+    "timestamp": "2026-08-25T17:46:39.040740",
+    "status": "results_found"
+  },
+  {
+    "seller": "serveuttam india",
+    "field": "Address",
+    "query": "serveuttam india registered office address corporate office",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://serveuttam.com/about-us",
+      "https://serveuttam.com/return-policy",
+      "https://www.indiafilings.com/search/oneomics-private-limited-cin-U72502TN2020PTC135895",
+      "https://www.companydetails.in/company/sree-infratech-india-private-limited"
+    ],
+    "timestamp": "2026-08-25T17:47:02.465704",
+    "status": "results_found"
+  },
+  {
+    "business": "serveuttam india",
+    "field": "Phone Number",
+    "value": "+918595270728",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://serveuttam.com/about-us",
+    "timestamp": "2026-08-25T17:47:06.202346"
+  },
+  {
+    "business": "serveuttam india",
+    "field": "Email Address",
+    "value": "suppor@serveuttam.com",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://serveuttam.com/about-us",
+    "timestamp": "2026-08-25T17:47:06.202476"
+  },
+  {
+    "business": "serveuttam india",
+    "field": "Billing Address",
+    "value": "o-43, vani vihar, uttam nagar, new delhi 110059, delhi, west delhi, 110059",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://serveuttam.com/about-us",
+    "timestamp": "2026-08-25T17:47:06.208824"
+  },
+  {
+    "business": "serveuttam india",
+    "field": "City",
+    "value": "west delhi",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://serveuttam.com/about-us",
+    "timestamp": "2026-08-25T17:47:06.208841"
+  },
+  {
+    "business": "serveuttam india",
+    "field": "State",
+    "value": "Delhi",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://serveuttam.com/about-us",
+    "timestamp": "2026-08-25T17:47:06.208848"
+  },
+  {
+    "business": "serveuttam india",
+    "field": "Pincode",
+    "value": "110059",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://serveuttam.com/about-us",
+    "timestamp": "2026-08-25T17:47:06.208853"
+  },
+  {
+    "business": "CF SPORTS",
+    "field": "Business Name",
+    "value": "CF SPORTS",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A3F18P01HV0C7U&asin=B0FJM16CSP&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-25T17:47:08.050559"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "Website",
+    "query": "CF SPORTS official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "https://codeforces.com/"
+    ],
+    "timestamp": "2026-08-25T17:47:13.506812",
+    "status": "results_found"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "Legal Entity Name",
+    "query": "CF SPORTS company registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "https://codeforces.com/",
+      "http://crossfire.z8games.com/",
+      "https://dash.cloudflare.com/login"
+    ],
+    "timestamp": "2026-08-25T17:47:48.730344",
+    "status": "results_found"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "PAN",
+    "query": "CF SPORTS PAN card number",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "https://codeforces.com/",
+      "http://crossfire.z8games.com/",
+      "https://dash.cloudflare.com/login"
+    ],
+    "timestamp": "2026-08-25T17:48:02.906068",
+    "status": "results_found"
+  },
+  {
+    "business": "CF SPORTS",
+    "field": "Email Address",
+    "value": "manager@icpc.global",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://codeforces.com/",
+    "timestamp": "2026-08-25T17:48:05.240087"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "PAN",
+    "query": "CF SPORTS PAN number",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "https://codeforces.com/",
+      "http://crossfire.z8games.com/",
+      "https://dash.cloudflare.com/login"
+    ],
+    "timestamp": "2026-08-25T17:48:14.796730",
+    "status": "results_found"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "GST",
+    "query": "CF SPORTS GSTIN registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "https://codeforces.com/",
+      "http://crossfire.z8games.com/",
+      "https://dash.cloudflare.com/login"
+    ],
+    "timestamp": "2026-08-25T17:48:19.025867",
+    "status": "results_found"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "GST",
+    "query": "CF SPORTS GST number",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "https://codeforces.com/",
+      "http://crossfire.z8games.com/",
+      "https://dash.cloudflare.com/login"
+    ],
+    "timestamp": "2026-08-25T17:48:32.968456",
+    "status": "results_found"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "Owner",
+    "query": "CF SPORTS director owner founder",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "https://codeforces.com/",
+      "http://crossfire.z8games.com/",
+      "https://dash.cloudflare.com/login"
+    ],
+    "timestamp": "2026-08-25T17:48:34.789014",
+    "status": "results_found"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "Owner",
+    "query": "CF SPORTS founder",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "https://codeforces.com/",
+      "http://crossfire.z8games.com/",
+      "https://dash.cloudflare.com/login"
+    ],
+    "timestamp": "2026-08-25T17:48:48.527370",
+    "status": "results_found"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "Address",
+    "query": "CF SPORTS registered office address corporate office",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "https://codeforces.com/",
+      "http://crossfire.z8games.com/",
+      "https://dash.cloudflare.com/login"
+    ],
+    "timestamp": "2026-08-25T17:48:51.752701",
+    "status": "results_found"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "Address",
+    "query": "CF SPORTS registered address",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "https://codeforces.com/",
+      "http://crossfire.z8games.com/",
+      "https://dash.cloudflare.com/login"
+    ],
+    "timestamp": "2026-08-25T17:49:04.108541",
+    "status": "results_found"
+  },
+  {
+    "seller": "CF SPORTS",
+    "field": "Phone",
+    "query": "CF SPORTS phone contact number customer support",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.zigwheels.com/cfmoto-bikes/",
+      "https://codeforces.com/",
+      "http://crossfire.z8games.com/",
+      "https://dash.cloudflare.com/login"
+    ],
+    "timestamp": "2026-08-25T17:49:06.217086",
+    "status": "results_found"
+  }
+]

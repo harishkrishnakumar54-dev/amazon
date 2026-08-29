@@ -1,0 +1,959 @@
+[
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "Business Name",
+    "value": "RetailEZ Pvt Ltd",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=AXOGFIT0PZZ7G&asin=B0FR2BL2PN&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-22T19:25:26.083390"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Website",
+    "query": "RetailEZ Pvt Ltd official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+      "https://www.thecompanycheck.com/company/retailez-private-limited/U52602WB2021PTC248134"
+    ],
+    "timestamp": "2026-08-22T19:25:27.499445",
+    "status": "results_found"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "Website URL",
+    "value": "https://tracxn.com/",
+    "status": "VERIFIED",
+    "source": "Official Website Discovery",
+    "source_url": "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+    "timestamp": "2026-08-22T19:25:29.676544"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "Phone Number",
+    "value": "+912012065294",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://tracxn.com/",
+    "timestamp": "2026-08-22T19:25:30.019193"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "Billing Address",
+    "value": "L-248, 2nd Floor, 17th Cross, Sector 6, HSR Layout, Bengaluru, Karnataka 560102. CIN: L72200KA2012PLC065294.",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://tracxn.com/",
+    "timestamp": "2026-08-22T19:25:30.044030"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "City",
+    "value": "Bengaluru",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://tracxn.com/",
+    "timestamp": "2026-08-22T19:25:30.044043"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "State",
+    "value": "Karnataka",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://tracxn.com/",
+    "timestamp": "2026-08-22T19:25:30.044047"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "Pincode",
+    "value": "560102",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://tracxn.com/",
+    "timestamp": "2026-08-22T19:25:30.044050"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Legal Entity Name",
+    "query": "RetailEZ Pvt Ltd company registration",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.registerkaro.in/ads/private-limited-company-registration?utm_source=bing&campaignId=530909375&utm_medium=ad&utm_content=&utm_term=india%20private%20limited%20company%20registration&utm_adgroup=1353501333030805&network=o&device=c&msclkid=4005361bf42512a7d0b45c925e40227c&utm_source=bing&utm_medium=cpc&utm_campaign=Private%20-%20Low%20CPC%20-%202023%20BIng&utm_term=india%20private%20limited%20company%20registration&utm_content=SP%20-%20PVT%20-%20LCPC",
+      "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+      "https://www.indiafilings.com/search/retailez-private-limited-cin-U52602WB2021PTC248134",
+      "https://www.falconebiz.com/company/RETAILEZ-PRIVATE-LIMITED-U52602WB2021PTC248134",
+      "https://retailez.co.in/"
+    ],
+    "timestamp": "2026-08-22T19:25:36.535780",
+    "status": "results_found"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "PAN",
+    "query": "RetailEZ Pvt Ltd PAN card number",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://gst.unifers.ai/gst/27AALCR3173P1ZN/retailez-private-limited",
+      "https://gstverify.co.in/gst/retailez-private-limited-27aalcr3173p1zn/",
+      "https://gst.unifers.ai/gst/36AALCR3173P1ZO/retailez-private-limited",
+      "https://fnshiftsolutions.com/gstin-search/retailez-private-limited-27AALCR3173P1ZN",
+      "https://www.scribd.com/document/811814713/PAN-CARD-OF-RETAILEZ-PRIVATE-LIMITED"
+    ],
+    "timestamp": "2026-08-22T19:26:02.831392",
+    "status": "results_found"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "GST",
+    "query": "RetailEZ Pvt Ltd GSTIN registration",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.knowyourgst.com/gst-number-search/retailez-private-limited-27AALCR3173P1ZN/",
+      "https://piceapp.com/gst-number-search/retailez-private-limited-09aalcr3173p1zl/",
+      "https://gstverify.co.in/gst/retailez-private-limited-27aalcr3173p1zn/",
+      "https://www.knowyourgst.com/gst-number-search/retailez-private-limited-06AALCR3173P1ZR/",
+      "https://gst.jamku.app/gstin/06AALCR3173P1ZR"
+    ],
+    "timestamp": "2026-08-22T19:26:26.233021",
+    "status": "results_found"
+  },
+  {
+    "business": "RetailEZ Pvt Ltd",
+    "field": "GST Number",
+    "value": "27AALCR3173P1ZN",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.knowyourgst.com/gst-number-search/retailez-private-limited-27AALCR3173P1ZN/",
+    "timestamp": "2026-08-22T19:26:26.653678"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Owner",
+    "query": "RetailEZ Pvt Ltd director owner founder",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://tracxn.com/d/legal-entities/india/retailez-private-limited/__FVVqI52Y4ulvwoh4wmkoz3L88HIiiSyXazBWuPsgtiM",
+      "https://tracxn.com/d/companies/retailez/__4ffcYJrMqE3nIVz9ERkdnvFh5sMNw1Bs2KyrbLP8fvI",
+      "https://mycorporateinfo.com/business/retailez-private-limited",
+      "https://www.masterdata.in/company/retailez_private_limited/U52602WB2021PTC248134"
+    ],
+    "timestamp": "2026-08-22T19:26:29.816064",
+    "status": "results_found"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Owner",
+    "query": "RetailEZ Pvt Ltd managing director",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.mpfa.org.hk/",
+      "https://www.empf.org.hk/?language_id=5377681",
+      "https://www.gov.hk/tc/residents/employment/mpf/index.htm",
+      "https://www.mpfa.org.hk/mpf-system/mandatory-contributions/employees",
+      "https://www.offsettingsubsidy.gov.hk/tc/"
+    ],
+    "timestamp": "2026-08-22T19:26:35.544566",
+    "status": "results_found"
+  },
+  {
+    "seller": "RetailEZ Pvt Ltd",
+    "field": "Email",
+    "query": "RetailEZ Pvt Ltd email contact address customer care",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://maps.google.es/?q=Madrid",
+      "https://www.madrid.es/portales/munimadrid/es/Mapas-de-Madrid/?vgnextoid=625b57ff5b213510VgnVCM2000000c205a0aRCRD&vgnextchannel=2f03f073808fe410VgnVCM2000000c205a0aRCRD",
+      "https://www.comunidad.madrid/geoportal",
+      "https://geoportal.madrid.es/",
+      "https://callejerode.com/madrid/"
+    ],
+    "timestamp": "2026-08-22T19:26:50.915212",
+    "status": "results_found"
+  },
+  {
+    "business": "PROKICK SPORTS",
+    "field": "Business Name",
+    "value": "PROKICK SPORTS",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A29JUX6T4RY4YN&asin=B0BFKZZRXN&ref_=dp_merchant_link&isAmazonFulfilled=1",
+    "timestamp": "2026-08-22T19:27:12.030886"
+  },
+  {
+    "seller": "PROKICK SPORTS",
+    "field": "Website",
+    "query": "PROKICK SPORTS official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://zhidao.baidu.com/question/580670653.html",
+      "https://zhidao.baidu.com/question/136956635.html"
+    ],
+    "timestamp": "2026-08-22T19:27:16.003548",
+    "status": "results_found"
+  },
+  {
+    "business": "PROKICK SPORTS",
+    "field": "Website URL",
+    "value": "https://www.prokicksports.com/",
+    "status": "VERIFIED",
+    "source": "Official Website Discovery",
+    "source_url": "https://www.prokicksports.com/",
+    "timestamp": "2026-08-22T19:27:22.798791"
+  },
+  {
+    "business": "PROKICK SPORTS",
+    "field": "Phone Number",
+    "value": "+917220092026",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.prokicksports.com/",
+    "timestamp": "2026-08-22T19:27:24.499922"
+  },
+  {
+    "business": "PROKICK SPORTS",
+    "field": "Email Address",
+    "value": "support@prokicksports.com",
+    "status": "VERIFIED",
+    "source": "Official Website",
+    "source_url": "https://www.prokicksports.com/",
+    "timestamp": "2026-08-22T19:27:24.499974"
+  },
+  {
+    "seller": "PROKICK SPORTS",
+    "field": "Legal Entity Name",
+    "query": "PROKICK SPORTS company registration",
+    "provider": "Bing",
+    "result_count": 1,
+    "result_urls": [
+      "https://www.zhihu.com/explore"
+    ],
+    "timestamp": "2026-08-22T19:27:41.490807",
+    "status": "results_found"
+  },
+  {
+    "seller": "PROKICK SPORTS",
+    "field": "Legal Entity Name",
+    "query": "PROKICK SPORTS Private Limited registration",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.penana.com/story/147711/mama-pengalaman-pertamaku/issue/1",
+      "https://www.wattpad.com/699494437-balada-anak-kampung-upload-lagi-keluargaku-part-1",
+      "https://www.penana.com/story/147611/nayla-istri-pak-miftah/issue/1",
+      "https://berceritadewasa.wordpress.com/category/cerita-bersambung/",
+      "https://sedarahahuh.blogspot.com/2023/04/ngentot-mamaku-part-1-binal.html"
+    ],
+    "timestamp": "2026-08-22T19:27:48.651676",
+    "status": "results_found"
+  },
+  {
+    "seller": "PROKICK SPORTS",
+    "field": "Legal Entity Name",
+    "query": "PROKICK SPORTS legal entity",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://prokicksports.com/pages/about-us",
+      "https://www.dnb.com/business-directory/company-profiles.prokick_sports_enterprises_inc.6fd20fac8b9917f970bfc8db835e1ff2.html",
+      "https://prokicksports.com/",
+      "https://entitysearch.us/",
+      "https://www.zoominfo.com/c/prokicksports/1294121415"
+    ],
+    "timestamp": "2026-08-22T19:28:01.072024",
+    "status": "results_found"
+  },
+  {
+    "seller": "PROKICK SPORTS",
+    "field": "PAN",
+    "query": "PROKICK SPORTS PAN card number",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://prokicksports.com/",
+      "https://prokicksports.com/collections/english-willow-bats-1",
+      "https://prokicksports.com/collections/cricket-kit-1",
+      "https://prokicksports.com/collections/stumps-1",
+      "https://www.paisabazaar.com/pan-card/pan-card-details/"
+    ],
+    "timestamp": "2026-08-22T19:28:09.174282",
+    "status": "results_found"
+  },
+  {
+    "seller": "PROKICK SPORTS",
+    "field": "GST",
+    "query": "PROKICK SPORTS GSTIN registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q1314785123",
+      "https://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q13256072993",
+      "https://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q12105499112",
+      "https://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q13263538303"
+    ],
+    "timestamp": "2026-08-22T19:28:25.311161",
+    "status": "results_found"
+  },
+  {
+    "seller": "PROKICK SPORTS",
+    "field": "GST",
+    "query": "PROKICK SPORTS GSTIN",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://prokicksports.com/",
+      "https://prokicksports.com/collections/english-willow-bats-1",
+      "https://prokicksports.com/collections/cricket-kit-1",
+      "https://prokicksports.com/collections/stumps-1",
+      "https://cleartax.in/gst-number-search/"
+    ],
+    "timestamp": "2026-08-22T19:28:49.126917",
+    "status": "results_found"
+  },
+  {
+    "seller": "PROKICK SPORTS",
+    "field": "Owner",
+    "query": "PROKICK SPORTS director owner founder",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.fhg-inc.com/",
+      "https://tracxn.com/d/legal-entities/india/fhg-automotives-forgings-private-limited/__RbahymDDfG_Cbk9FebtypYoI9UtWlrze515iuSqQR8M",
+      "https://www.fhglimited.com/",
+      "https://fhg.global/",
+      "https://www.falconebiz.com/company/FHG-AUTOMOTIVES-FORGINGS-PRIVATE-LIMITED-U25910DL2023FTC422280"
+    ],
+    "timestamp": "2026-08-22T19:28:52.359156",
+    "status": "results_found"
+  },
+  {
+    "seller": "PROKICK SPORTS",
+    "field": "Owner",
+    "query": "PROKICK SPORTS managing director",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://prokicksports.com/pages/about-us",
+      "https://www.dnb.com/business-directory/company-profiles.prokick_sports_enterprises_inc.6fd20fac8b9917f970bfc8db835e1ff2.html",
+      "https://www.zoominfo.com/c/prokicksports/1294121415",
+      "https://prokicksports.com/"
+    ],
+    "timestamp": "2026-08-22T19:29:06.741219",
+    "status": "results_found"
+  },
+  {
+    "seller": "PROKICK SPORTS",
+    "field": "Address",
+    "query": "PROKICK SPORTS registered office address corporate office",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.nissanpartsdeal.com/parts-list/2017-nissan-rogue-t32u/fuel_engine_control/fuel_tank.html",
+      "https://www.autozone.com/fuel-delivery/fuel-tank/nissan/rogue/2017?msockid=36d226d177296de8038e316c765d6c27",
+      "https://fueltankcap.com/nissan/rogue/2017",
+      "https://www.ebay.com/itm/406988562220?msockid=36d226d177296de8038e316c765d6c27",
+      "https://www.nissanpartsdeal.com/oem-2017-nissan-rogue-fuel_tank.html"
+    ],
+    "timestamp": "2026-08-22T19:29:10.660168",
+    "status": "results_found"
+  },
+  {
+    "business": "NEED MATTERS",
+    "field": "Business Name",
+    "value": "NEED MATTERS",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A38Q894LJ5PMM5&asin=B0G47ZGQNZ&ref_=dp_merchant_link",
+    "timestamp": "2026-08-22T19:29:12.415593"
+  },
+  {
+    "seller": "NEED MATTERS",
+    "field": "Website",
+    "query": "NEED MATTERS official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.merriam-webster.com/dictionary/need",
+      "https://dictionary.cambridge.org/dictionary/english/need"
+    ],
+    "timestamp": "2026-08-22T19:29:13.875309",
+    "status": "results_found"
+  },
+  {
+    "seller": "NEED MATTERS",
+    "field": "Legal Entity Name",
+    "query": "NEED MATTERS company registration",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://corridalegal.com/company-registration-process-in-india/",
+      "https://businesssetup.in/step-by-step-guide-to-company-registration-in-india-2025/",
+      "https://www.indiafilings.com/company-registration",
+      "https://cleartax.in/s/steps-to-register-private-limited-company",
+      "https://companyregistrationconsultant.com/how-to-register-a-company-in-india/"
+    ],
+    "timestamp": "2026-08-22T19:30:43.087571",
+    "status": "results_found"
+  },
+  {
+    "seller": "NEED MATTERS",
+    "field": "Legal Entity Name",
+    "query": "NEED MATTERS Private Limited registration",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.merriam-webster.com/dictionary/need",
+      "https://dictionary.cambridge.org/dictionary/english/need",
+      "https://www.thesaurus.com/browse/need",
+      "https://www.vocabulary.com/dictionary/need",
+      "https://englishan.com/synonyms-for-need/"
+    ],
+    "timestamp": "2026-08-22T19:30:50.021760",
+    "status": "results_found"
+  },
+  {
+    "seller": "NEED MATTERS",
+    "field": "Legal Entity Name",
+    "query": "NEED MATTERS legal entity",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.costco.com.tw/",
+      "https://www.costco.com.tw/homepage",
+      "https://www.daybuy.tw/costco/promotions-news/",
+      "https://kikinote.net/162000",
+      "https://www.daybuy.tw/costco/"
+    ],
+    "timestamp": "2026-08-22T19:30:58.875180",
+    "status": "results_found"
+  },
+  {
+    "seller": "NEED MATTERS",
+    "field": "PAN",
+    "query": "NEED MATTERS PAN card number",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.incometaxindia.gov.in/pan",
+      "https://www.idfcfirst.bank.in/finfirst-blogs/savings-account/how-to-find-pan-card-number",
+      "https://www.pan.utiitsl.com/",
+      "https://cleartax.in/s/how-to-know-pan-card-number",
+      "https://savetaxs.com/blog/how-to-know-pan-card-number"
+    ],
+    "timestamp": "2026-08-22T19:31:04.162456",
+    "status": "results_found"
+  },
+  {
+    "seller": "NEED MATTERS",
+    "field": "PAN",
+    "query": "NEED MATTERS PAN",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.walmart.com/ip/Extreme-Matters-Heavy-Duty-Pots-Pans-Organizer-5-Tier-Cookware-Lid-Storage-Rack-Free-Standing-Wall-Mount-Kitchen-Organizer-Cast-Iron-Skillets-Pots-Fr/726331361",
+      "https://www.kmart.com/extreme-matters-heavy-duty-pot-and-pan-organizer/p-A117332119",
+      "https://tin.tin.proteantech.in/pan/CSCGuidelines49A.html",
+      "https://incometaxindia.gov.in/",
+      "https://cookscrafter.com/loaf-pan-substitutes/"
+    ],
+    "timestamp": "2026-08-22T19:31:15.316647",
+    "status": "results_found"
+  },
+  {
+    "business": "Futabatech",
+    "field": "Business Name",
+    "value": "Futabatech",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=A3JF4IV2S2QIFE&asin=B0G34FDMLQ&ref_=dp_merchant_link",
+    "timestamp": "2026-08-22T19:31:15.679906"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "Website",
+    "query": "Futabatech official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.futaba.com/",
+      "https://futabatech.com/"
+    ],
+    "timestamp": "2026-08-22T19:31:16.841342",
+    "status": "results_found"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "Legal Entity Name",
+    "query": "Futabatech company registration",
+    "provider": "Bing",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.merriam-webster.com/dictionary/vindicate",
+      "https://dictionary.cambridge.org/us/dictionary/english/vindicate",
+      "https://englishwordchamps.com/vindicate-meaning-and-examples/",
+      "https://www.dictionary.com/browse/vindicate?misspelling=vendicaste&noredirect=true"
+    ],
+    "timestamp": "2026-08-22T19:31:23.097281",
+    "status": "results_found"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "Legal Entity Name",
+    "query": "Futabatech Private Limited registration",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.indiafilings.com/search/futaba-tech-private-limited-cin-U74930TG2015PTC098302",
+      "https://www.instafinancials.com/company/futaba-tech-private-limited/U74930TG2015PTC098302",
+      "https://www.falconebiz.com/company/FUTABA-TECH-PRIVATE-LIMITED-U74930TG2015PTC098302",
+      "https://www.companydetails.in/company/futaba-tech-private-limited",
+      "https://tracxn.com/d/legal-entities/india/futaba-tech-private-limited/__1LNXSD_xqJf9o7hGsJAGfXTwbRwJOHBmaEcSDEjNGz4"
+    ],
+    "timestamp": "2026-08-22T19:31:31.778518",
+    "status": "results_found"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "PAN",
+    "query": "Futabatech PAN card number",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.incometaxindia.gov.in/pan-verification",
+      "https://www.bankbazaar.com/pan-card/pan-card-details.html",
+      "https://www.incometaxindia.gov.in/tax-services/online-pan-verification",
+      "https://www.paisabazaar.com/pan-card/pan-card-details/",
+      "https://www.incometax.gov.in/iec/foportal/help/all-topics/e-filing-services/verify-your-pan"
+    ],
+    "timestamp": "2026-08-22T19:31:44.659253",
+    "status": "results_found"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "PAN",
+    "query": "Futabatech PAN",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://futabatech.com/",
+      "https://www.ebay.com/itm/206464515519",
+      "https://www.walmart.com/ip/Futaba-Mini-Metal-Frying-pan-Star/16733703314",
+      "https://www.manualslib.com/brand/futaba/",
+      "https://www.futaba-tech.co.jp/"
+    ],
+    "timestamp": "2026-08-22T19:31:54.869667",
+    "status": "results_found"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "GST",
+    "query": "Futabatech GSTIN registration",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.elevenforum.com/t/turn-on-or-off-device-encryption-in-windows-11.1424/",
+      "https://www.elevenforum.com/t/download-official-windows-11-iso-file-from-microsoft.1009/"
+    ],
+    "timestamp": "2026-08-22T19:32:04.981705",
+    "status": "results_found"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "GST",
+    "query": "Futabatech GSTIN",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://www.google.co.jp/",
+      "https://translate.google.co.jp/"
+    ],
+    "timestamp": "2026-08-22T19:32:11.668245",
+    "status": "results_found"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "GST",
+    "query": "Futabatech GST number",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://thetv.jp/person/0000000659/drama/",
+      "https://filmarks.com/people/175316/dramas",
+      "https://www.crank-in.net/person/4235/tvdrama",
+      "https://hot-road.jp/actors/muroi/",
+      "https://drama.joho-box.net/ma/muroi-sigeru"
+    ],
+    "timestamp": "2026-08-22T19:32:15.112839",
+    "status": "results_found"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "Owner",
+    "query": "Futabatech director owner founder",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.rossmann.de/de/",
+      "https://www.rossmann.de/de/angebote/m/angebote",
+      "https://unternehmen.rossmann.de/",
+      "https://www.rossmann.com/de-de/",
+      "https://www.kaufda.de/Geschaefte/Rossmann"
+    ],
+    "timestamp": "2026-08-22T19:32:25.420449",
+    "status": "results_found"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "Owner",
+    "query": "Futabatech managing director",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.youjizz.com/newest-clips/1.html",
+      "https://www.youjizz.com/",
+      "http://uploads.youjizz.com/tags/",
+      "http://uploads.youjizz.com/pornstars/",
+      "https://www.youjizz.com/search/japanese-1.html"
+    ],
+    "timestamp": "2026-08-22T19:32:35.697125",
+    "status": "results_found"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "Owner",
+    "query": "Futabatech founder",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.zoominfo.com/c/futaba/15401447",
+      "https://www.futaba.com/corporate/company_profile/",
+      "https://www.futaba.com/corporate/company_i/history/",
+      "https://www.futaba.co.jp/en/corporate/outline",
+      "http://www.futaba-corp.com/en/company.html"
+    ],
+    "timestamp": "2026-08-22T19:32:42.742584",
+    "status": "results_found"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "Address",
+    "query": "Futabatech registered office address corporate office",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.falconebiz.com/company/FUTABA-TECH-PRIVATE-LIMITED-U74930TG2015PTC098302",
+      "https://www.companydetails.in/company/futaba-tech-private-limited",
+      "https://futaba.in/about/",
+      "https://www.futaba.com/corporate/",
+      "https://www.futaba.com/corporate/company_i/"
+    ],
+    "timestamp": "2026-08-22T19:32:51.924834",
+    "status": "results_found"
+  },
+  {
+    "business": "Futabatech",
+    "field": "Billing Address",
+    "value": "629 oshiba, mobara, chiba prefecture 297-8588, japan",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.futaba.com/corporate/company_i/",
+    "timestamp": "2026-08-22T19:33:02.249146"
+  },
+  {
+    "business": "Futabatech",
+    "field": "City",
+    "value": "japan",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.futaba.com/corporate/company_i/",
+    "timestamp": "2026-08-22T19:33:02.249157"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "Phone",
+    "query": "Futabatech phone contact number customer support",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://github.com/0xk1h0/ChatGPT_DAN",
+      "https://github.com/RVC-Boss/GPT-SoVITS",
+      "https://docs.github.com/en/copilot/reference/ai-models/supported-models",
+      "https://cellphones.com.vn/sforum/top-phan-mem-chat-ai-tot-nhat",
+      "https://cellphones.com.vn/sforum/huong-dan-phan-tich-kieu-toc-tren-chatgpt"
+    ],
+    "timestamp": "2026-08-22T19:33:03.696413",
+    "status": "results_found"
+  },
+  {
+    "business": "Futabatech",
+    "field": "Phone Number",
+    "value": "+913295122026",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://github.com/0xk1h0/ChatGPT_DAN",
+    "timestamp": "2026-08-22T19:33:05.293869"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "Email",
+    "query": "Futabatech email contact address customer care",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.temu.com/pt",
+      "https://tr.seller.temu.com/",
+      "https://www.temu.com/fr/c.html",
+      "https://www.temu.com/de/o1-0.html",
+      "https://www.temu.com/o1-0.html"
+    ],
+    "timestamp": "2026-08-22T19:33:07.021575",
+    "status": "results_found"
+  },
+  {
+    "seller": "Futabatech",
+    "field": "Email",
+    "query": "Futabatech official email id",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.futaba.com/cust_serv/contact/",
+      "https://futabatech.com/",
+      "https://futabausa.com/contactus/",
+      "http://www.futaba-tech.com/htdocs/contact.html",
+      "https://www.futaba.com/cust_serv/"
+    ],
+    "timestamp": "2026-08-22T19:33:16.182084",
+    "status": "results_found"
+  },
+  {
+    "business": "PETCATALOGUE E-SHOP",
+    "field": "Business Name",
+    "value": "PETCATALOGUE E-SHOP",
+    "status": "VERIFIED",
+    "source": "Amazon",
+    "source_url": "https://www.amazon.in/gp/help/seller/at-a-glance.html/ref=dp_merchant_link?ie=UTF8&seller=AMRSQ28X924YX&asin=B0DL5BTP4N&ref_=dp_merchant_link",
+    "timestamp": "2026-08-22T19:33:16.498732"
+  },
+  {
+    "seller": "PETCATALOGUE E-SHOP",
+    "field": "Website",
+    "query": "PETCATALOGUE E-SHOP official website",
+    "provider": "Bing",
+    "result_count": 2,
+    "result_urls": [
+      "https://translate.google.co.in/",
+      "https://www.google.co.in/intl/en_uk/chrome/"
+    ],
+    "timestamp": "2026-08-22T19:33:18.262155",
+    "status": "results_found"
+  },
+  {
+    "seller": "PETCATALOGUE E-SHOP",
+    "field": "Legal Entity Name",
+    "query": "PETCATALOGUE E-SHOP company registration",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://ecpa.dgpa.gov.tw/Home",
+      "https://law.dgpa.gov.tw/LawContent.aspx?id=GL000014",
+      "https://law.dgpa.gov.tw/SiteMapPage.aspx",
+      "https://webhr.dgpa.gov.tw/web/MainPage.aspx",
+      "https://webhredu.dgpa.gov.tw/"
+    ],
+    "timestamp": "2026-08-22T19:33:22.317525",
+    "status": "results_found"
+  },
+  {
+    "seller": "PETCATALOGUE E-SHOP",
+    "field": "PAN",
+    "query": "PETCATALOGUE E-SHOP PAN card number",
+    "provider": "Yahoo",
+    "result_count": 0,
+    "result_urls": [],
+    "timestamp": "2026-08-22T19:34:05.857798",
+    "status": "no_results"
+  },
+  {
+    "seller": "PETCATALOGUE E-SHOP",
+    "field": "PAN",
+    "query": "PETCATALOGUE E-SHOP PAN",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.petitpan.com/",
+      "https://www.petitpan.com/collections/nos-nouveautes",
+      "https://www.petitpan.com/collections/bebe",
+      "https://www.petitpan.com/collections/ecole-enfant-creatif-nav",
+      "https://www.petitpan.com/collections/maison-nav"
+    ],
+    "timestamp": "2026-08-22T19:34:08.658183",
+    "status": "results_found"
+  },
+  {
+    "seller": "PETCATALOGUE E-SHOP",
+    "field": "GST",
+    "query": "PETCATALOGUE E-SHOP GSTIN registration",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://translate.google.co.in/",
+      "https://www.google.co.in/intl/en_uk/chrome/",
+      "https://www.google.co.in/index.html",
+      "https://translate.google.co.in/details",
+      "https://books.google.co.in/"
+    ],
+    "timestamp": "2026-08-22T19:34:23.880982",
+    "status": "results_found"
+  },
+  {
+    "seller": "PETCATALOGUE E-SHOP",
+    "field": "GST",
+    "query": "PETCATALOGUE E-SHOP GSTIN",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://piceapp.com/gst-number-search/petcatalogue-llp-06abcfp4468j1zy/",
+      "https://www.knowyourgst.com/gst-number-search/petcatalogue-llp-06ABCFP4468J1ZY/",
+      "https://cleartax.in/gst-number-search/",
+      "https://gstverify.co.in/search/",
+      "https://cleartax.in/s/gst-number-search-by-name/"
+    ],
+    "timestamp": "2026-08-22T19:34:30.443537",
+    "status": "results_found"
+  },
+  {
+    "business": "PETCATALOGUE E-SHOP",
+    "field": "GST Number",
+    "value": "06ABCFP4468J1ZY",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.knowyourgst.com/gst-number-search/petcatalogue-llp-06ABCFP4468J1ZY/",
+    "timestamp": "2026-08-22T19:34:31.146640"
+  },
+  {
+    "seller": "PETCATALOGUE E-SHOP",
+    "field": "Owner",
+    "query": "PETCATALOGUE E-SHOP director owner founder",
+    "provider": "Bing",
+    "result_count": 5,
+    "result_urls": [
+      "https://keirin.kdreams.jp/",
+      "https://in.keirin.kdreams.jp/login/",
+      "https://keirin.kdreams.jp/kaisai/",
+      "https://keirin.kdreams.jp/live/",
+      "https://keirin.kdreams.jp/racecard/"
+    ],
+    "timestamp": "2026-08-22T19:34:32.548176",
+    "status": "results_found"
+  },
+  {
+    "seller": "PETCATALOGUE E-SHOP",
+    "field": "Address",
+    "query": "PETCATALOGUE E-SHOP registered office address corporate office",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.falconebiz.com/LLP/PETCATALOGUE-LLP-ABC-2557",
+      "https://www.dnb.com/business-directory/company-profiles.petcatalogue_llp.50c9dd531ec2fa6e7b288ecb961eaaab.html",
+      "https://www.thecompanycheck.com/company/petcatalogue-llp/ABC-2557",
+      "https://tracxn.com/d/legal-entities/india/petcatalogue-llp/__Hy50LlXNgbINCKe62Azuf5lNHHTg7P8ctld7lKc1KT8",
+      "https://piceapp.com/gst-number-search/petcatalogue-llp-06abcfp4468j1zy/"
+    ],
+    "timestamp": "2026-08-22T19:34:58.517354",
+    "status": "results_found"
+  },
+  {
+    "business": "PETCATALOGUE E-SHOP",
+    "field": "Billing Address",
+    "value": "l-248, 2nd floor, 17th cross, sector 6, hsr layout, bengaluru, karnataka 560102. cin: l72200ka2012plc065294.",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://tracxn.com/d/legal-entities/india/petcatalogue-llp/__Hy50LlXNgbINCKe62Azuf5lNHHTg7P8ctld7lKc1KT8",
+    "timestamp": "2026-08-22T19:35:01.794664"
+  },
+  {
+    "business": "PETCATALOGUE E-SHOP",
+    "field": "City",
+    "value": "bengaluru",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://tracxn.com/d/legal-entities/india/petcatalogue-llp/__Hy50LlXNgbINCKe62Azuf5lNHHTg7P8ctld7lKc1KT8",
+    "timestamp": "2026-08-22T19:35:01.794677"
+  },
+  {
+    "business": "PETCATALOGUE E-SHOP",
+    "field": "State",
+    "value": "Karnataka",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://tracxn.com/d/legal-entities/india/petcatalogue-llp/__Hy50LlXNgbINCKe62Azuf5lNHHTg7P8ctld7lKc1KT8",
+    "timestamp": "2026-08-22T19:35:01.794680"
+  },
+  {
+    "business": "PETCATALOGUE E-SHOP",
+    "field": "Pincode",
+    "value": "560102",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://tracxn.com/d/legal-entities/india/petcatalogue-llp/__Hy50LlXNgbINCKe62Azuf5lNHHTg7P8ctld7lKc1KT8",
+    "timestamp": "2026-08-22T19:35:01.794683"
+  },
+  {
+    "seller": "PETCATALOGUE E-SHOP",
+    "field": "Phone",
+    "query": "PETCATALOGUE E-SHOP phone contact number customer support",
+    "provider": "Yahoo",
+    "result_count": 4,
+    "result_urls": [
+      "https://www.sellerratings.com/amazon/india/petcatalogue-e-shop",
+      "https://www.dnb.com/business-directory/company-profiles.petcatalogue_llp.50c9dd531ec2fa6e7b288ecb961eaaab.html",
+      "https://www.falconebiz.com/LLP/PETCATALOGUE-LLP-ABC-2557",
+      "https://www.petkit.com/pages/contact-us"
+    ],
+    "timestamp": "2026-08-22T19:35:04.944759",
+    "status": "results_found"
+  },
+  {
+    "business": "PETCATALOGUE E-SHOP",
+    "field": "Phone Number",
+    "value": "+911082302026",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.sellerratings.com/amazon/india/petcatalogue-e-shop",
+    "timestamp": "2026-08-22T19:35:07.070477"
+  },
+  {
+    "seller": "PETCATALOGUE E-SHOP",
+    "field": "Email",
+    "query": "PETCATALOGUE E-SHOP email contact address customer care",
+    "provider": "Yahoo",
+    "result_count": 5,
+    "result_urls": [
+      "https://www.sellerratings.com/amazon/india/petcatalogue-e-shop",
+      "https://www.falconebiz.com/LLP/PETCATALOGUE-LLP-ABC-2557",
+      "https://www.dnb.com/business-directory/company-profiles.petcatalogue_llp.50c9dd531ec2fa6e7b288ecb961eaaab.html",
+      "https://www.thecompanycheck.com/people/petcatalogue-llp/ABC-2557",
+      "https://www.thecompanycheck.com/company/petcatalogue-llp/ABC-2557"
+    ],
+    "timestamp": "2026-08-22T19:35:09.887103",
+    "status": "results_found"
+  },
+  {
+    "business": "PETCATALOGUE E-SHOP",
+    "field": "Email Address",
+    "value": "ffice07@gmail.com",
+    "status": "VERIFIED",
+    "source": "Targeted Search",
+    "source_url": "https://www.falconebiz.com/LLP/PETCATALOGUE-LLP-ABC-2557",
+    "timestamp": "2026-08-22T19:35:11.710666"
+  }
+]
