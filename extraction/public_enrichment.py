@@ -1,4 +1,6 @@
 import os
+import logging
+from playwright.sync_api import Error
 import re
 import time
 import base64
@@ -19,6 +21,34 @@ from scraper.browser import BrowserManager, safe_close_page
 from playwright.sync_api import Page, TimeoutError as PlaywrightTimeoutError
 
 logger = logging.getLogger("amazon_scraper")
+
+def _attach_safe_dialog_handler(page):
+    """Attach a dialog handler that safely dismisses dialogs without raising."""
+    def safe_handle_dialog(dialog):
+        try:
+            dialog.dismiss()
+        except Exception as e:
+            logger.debug(f"Dialog dismiss failed (already closed?): {e}")
+    # Ensure we attach only once per page
+    page.remove_all_listeners('dialog')
+    page.on('dialog', safe_handle_dialog)
+
+def _safe_goto(page, url, wait_until='domcontentloaded', timeout=None):
+    """Navigate safely, catching Playwright protocol and target closed errors.
+    Returns the response object or None on failure.
+    """
+    try:
+        return page.goto(url, wait_until=wait_until, timeout=timeout)
+    except (PlaywrightTimeoutError, Error) as e:
+        # Log concise warning based on exception type
+        if isinstance(e, PlaywrightTimeoutError):
+            logger.warning(f"WEBSITE TIMEOUT: {url}")
+        else:
+            logger.warning(f"PLAYWRIGHT PROTOCOL ERROR on {url}: {e}")
+        return None
+    except Exception as e:
+        logger.debug(f"Unexpected error during navigation to {url}: {e}")
+        return None
 
 # -------------------------------------------------------------
 # Configuration Constants
@@ -149,7 +179,7 @@ class BingSearchProvider(SearchProvider):
             except Exception:
                 pass
 
-            resp = page.goto(search_url, wait_until="domcontentloaded", timeout=timeout_sec * 1000)
+            resp = _safe_goto(page, search_url, wait_until="domcontentloaded", timeout=timeout_sec * 1000)
             page.wait_for_timeout(500)
             diag["status"] = str(resp.status) if resp else "200"
             try:
@@ -215,7 +245,7 @@ class YahooSearchProvider(SearchProvider):
             except Exception:
                 pass
 
-            resp = page.goto(search_url, wait_until="domcontentloaded", timeout=timeout_sec * 1000)
+            resp = _safe_goto(page, search_url, wait_until="domcontentloaded", timeout=timeout_sec * 1000)
             page.wait_for_timeout(500)
             diag["status"] = str(resp.status) if resp else "200"
             
@@ -421,6 +451,7 @@ class PublicEnrichmentEngine:
 
         logger.info(f"Starting Public Enrichment Waterfall for business '{business_name}'...")
         page = self.browser_mgr.new_page()
+        _attach_safe_dialog_handler(page)
         page.set_default_timeout(8000)
 
         field_sources: Dict[str, Tuple[str, str, str]] = {}
@@ -495,7 +526,7 @@ class PublicEnrichmentEngine:
                     check_heartbeat("Website Inspection")
                     target_u = f"{official_website.rstrip('/')}/{sub}" if sub else official_website
                     try:
-                        resp = page.goto(target_u, wait_until="domcontentloaded", timeout=WEBSITE_TIMEOUT_SECONDS * 1000)
+                        resp = _safe_goto(page, target_u, wait_until="domcontentloaded", timeout=WEBSITE_TIMEOUT_SECONDS * 1000)
                         if resp and resp.status == 200:
                             text = page.inner_text("body")
                             self._extract_all_fields_from_text(text, record, business_name, "Official Website", target_u, record_field)
@@ -759,7 +790,7 @@ class PublicEnrichmentEngine:
             except Exception:
                 pass
             logger.info(f"Fetching text from target page: {url}")
-            resp = page.goto(url, wait_until="domcontentloaded", timeout=WEBSITE_TIMEOUT_SECONDS * 1000)
+            resp = _safe_goto(page, url, wait_until="domcontentloaded", timeout=WEBSITE_TIMEOUT_SECONDS * 1000)
             if resp and resp.status == 200:
                 return page.inner_text("body").lower()
         except PlaywrightTimeoutError:
@@ -776,7 +807,7 @@ class PublicEnrichmentEngine:
             except Exception:
                 pass
             logger.info(f"Verifying website ownership candidate: {candidate_url}")
-            resp = page.goto(candidate_url, wait_until="domcontentloaded", timeout=CANDIDATE_WEBSITE_TIMEOUT_SECONDS * 1000)
+            resp = _safe_goto(page, candidate_url, wait_until="domcontentloaded", timeout=CANDIDATE_WEBSITE_TIMEOUT_SECONDS * 1000)
             if not resp or resp.status != 200:
                 return False
 
