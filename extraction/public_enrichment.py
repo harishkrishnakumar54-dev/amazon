@@ -24,14 +24,17 @@ logger = logging.getLogger("amazon_scraper")
 
 def _attach_safe_dialog_handler(page):
     """Attach a dialog handler that safely dismisses dialogs without raising."""
+    if not page:
+        return
     def safe_handle_dialog(dialog):
         try:
             dialog.dismiss()
         except Exception as e:
             logger.debug(f"Dialog dismiss failed (already closed?): {e}")
-    # Ensure we attach only once per page
-    page.remove_all_listeners('dialog')
-    page.on('dialog', safe_handle_dialog)
+    try:
+        page.on('dialog', safe_handle_dialog)
+    except Exception as exc:
+        logger.debug(f"Failed to attach dialog listener: {exc}")
 
 def _safe_goto(page, url, wait_until='domcontentloaded', timeout=None):
     """Navigate safely, catching Playwright protocol and target closed errors.
@@ -453,6 +456,8 @@ class PublicEnrichmentEngine:
         page = self.browser_mgr.new_page()
         _attach_safe_dialog_handler(page)
         page.set_default_timeout(8000)
+        print("\nPUBLIC ENRICHMENT STARTED")
+        print("Dialog handler: ATTACHED")
 
         field_sources: Dict[str, Tuple[str, str, str]] = {}
         timed_out_early = False
@@ -564,6 +569,14 @@ class PublicEnrichmentEngine:
                     break
 
                 if is_seller_timed_out():
+                    elapsed = time.monotonic() - seller_start_monotonic
+                    print("\n========================================")
+                    print("SELLER TIME LIMIT REACHED")
+                    print("========================================")
+                    print(f"Seller: {business_name}")
+                    print(f"Elapsed: {elapsed:.0f}s")
+                    print(f"Current field: {field_name}")
+                    print("Action: STOP SELLER, SAVE PARTIAL DATA, CONTINUE NEXT SELLER\n")
                     logger.warning(f"SELLER ENRICHMENT TIME LIMIT REACHED ({self.max_seller_enrichment_seconds}s). Aborting remaining fields for '{business_name}'.")
                     timed_out_early = True
                     break
@@ -616,11 +629,25 @@ class PublicEnrichmentEngine:
                 field_found = False
                 for attempt_idx, query in enumerate(queries_for_field[:MAX_SEARCH_ATTEMPTS_PER_FIELD], 1):
                     if is_seller_timed_out():
+                        elapsed = time.monotonic() - seller_start_monotonic
+                        print("\n========================================")
+                        print("SELLER TIME LIMIT REACHED")
+                        print("========================================")
+                        print(f"Seller: {business_name}")
+                        print(f"Elapsed: {elapsed:.0f}s")
+                        print(f"Current field: {field_name}")
+                        print("Action: STOP SELLER, SAVE PARTIAL DATA, CONTINUE NEXT SELLER\n")
                         logger.warning(f"SELLER ENRICHMENT TIME LIMIT REACHED during {field_name}.")
                         timed_out_early = True
                         break
 
                     if (time.monotonic() - field_start_time) >= MAX_FIELD_ENRICHMENT_SECONDS:
+                        elapsed = time.monotonic() - field_start_time
+                        print(f"\nFIELD TIME LIMIT REACHED")
+                        print(f"Seller: {business_name}")
+                        print(f"Field: {field_name}")
+                        print(f"Elapsed: {elapsed:.0f}s")
+                        print(f"Action: NEXT FIELD\n")
                         logger.warning(f"FIELD TIME LIMIT REACHED ({MAX_FIELD_ENRICHMENT_SECONDS}s) for {field_name}. Moving to next field.")
                         break
 
@@ -792,11 +819,20 @@ class PublicEnrichmentEngine:
             logger.info(f"Fetching text from target page: {url}")
             resp = _safe_goto(page, url, wait_until="domcontentloaded", timeout=WEBSITE_TIMEOUT_SECONDS * 1000)
             if resp and resp.status == 200:
-                return page.inner_text("body").lower()
+                text = page.inner_text("body").lower()
+                print(f"\nURL: {url}\nFetch: SUCCESS\nText length: {len(text)}")
+                logger.info(f"URL: {url} | Fetch: SUCCESS | Text length: {len(text)}")
+                return text
+            else:
+                status_code = getattr(resp, "status", "No Response")
+                print(f"\nURL: {url}\nFetch: FAILED\nReason: HTTP {status_code}\nAction: CONTINUE")
+                logger.info(f"URL: {url} | Fetch: FAILED | Reason: HTTP {status_code} | Action: CONTINUE")
         except PlaywrightTimeoutError:
             self.performance_stats["websites_timed_out"] += 1
+            print(f"\nURL: {url}\nFetch: FAILED\nReason: Navigation Timeout ({WEBSITE_TIMEOUT_SECONDS}s)\nAction: CONTINUE")
             logger.warning(f"WEBSITE TIMEOUT: {url}")
         except Exception as e:
+            print(f"\nURL: {url}\nFetch: FAILED\nReason: {e}\nAction: CONTINUE")
             logger.debug(f"Failed to fetch page text for {url}: {e}")
         return ""
 

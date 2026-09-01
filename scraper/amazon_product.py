@@ -532,24 +532,13 @@ class AmazonProductScraper:
             after_count = len(collected_sellers)
 
             if after_count > before_count:
-                no_new_attempts = 0
-                logger.info(f"AOD: Scroll {scroll_attempt} -> total unique sellers: {after_count}")
-                print(f"AOD: Scroll {scroll_attempt} -> total unique sellers: {after_count}")
+                new_discovered = after_count - before_count
+                logger.info(f"AOD: Scroll {scroll_attempt} -> new sellers: {new_discovered}, total unique sellers: {after_count}")
+                print(f"AOD: Scroll {scroll_attempt} -> new sellers: {new_discovered}, total unique sellers: {after_count}")
             else:
-                no_new_attempts += 1
-                logger.info(f"AOD: No new sellers found (attempt {no_new_attempts}/{self.max_no_new_seller_attempts})")
-                print(f"AOD: No new sellers found (attempt {no_new_attempts}/{self.max_no_new_seller_attempts})")
-                
-                if no_new_attempts >= self.max_no_new_seller_attempts:
-                    # Final check for load-more button before stopping
-                    has_more = self._click_offer_load_more()
-                    if has_more:
-                        self.page.wait_for_timeout(self.offer_load_wait_ms)
-                        no_new_attempts = 0
-                    else:
-                        logger.info("AMAZON OFFER LIST EXHAUSTED")
-                        print("AMAZON OFFER LIST EXHAUSTED")
-                        break
+                logger.info(f"AOD expansion attempt {scroll_attempt} | New sellers: 0 | Action: STOP")
+                print(f"\nAOD expansion attempt {scroll_attempt}\nNew sellers: 0\nAction: STOP\n")
+                break
 
     def _collect_inline_other_sellers(
         self,

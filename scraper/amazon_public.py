@@ -92,7 +92,11 @@ class AmazonPublicSource(SellerDiscoverySource):
                 # Extract seller business details from seller profile URL if present
                 if seller_profile_url:
                     try:
-                        details = profile_scraper.extract_seller_details(seller_profile_url)
+                        details = profile_scraper.extract_seller_details(
+                            seller_profile_url=seller_profile_url,
+                            seller_name=seller_name,
+                            asin=offer_details.get("asin", "")
+                        )
                         if details:
                             if details.get("display_name"):
                                 offer_details["display_name"] = details["display_name"]

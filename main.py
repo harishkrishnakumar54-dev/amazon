@@ -22,6 +22,74 @@ from extraction.normalizer import normalize_seller_key
 from extraction.public_enrichment import PublicEnrichmentEngine, MAX_ENRICHMENT_TIME_PER_SELLER
 from export.excel_exporter import export_sellers_to_master_excel
 
+class ScraperProgressTracker:
+    def __init__(self, category: str = "", heartbeat_interval: float = 30.0, stuck_threshold: float = 60.0):
+        self.category = category
+        self.heartbeat_interval = heartbeat_interval
+        self.stuck_threshold = stuck_threshold
+        self.start_time = time.time()
+        self.last_heartbeat_time = time.time()
+        self.last_progress_timestamp = time.time()
+        self.current_stage = "Initialization"
+        self.current_seller = ""
+        self.current_asin = ""
+        self.current_field = ""
+        self.last_successful_op = "Started"
+        self.last_url = ""
+
+    def update_stage(self, stage: str, seller: str = "", asin: str = "", field: str = "", url: str = ""):
+        self.current_stage = stage
+        if seller: self.current_seller = seller
+        if asin: self.current_asin = asin
+        if field: self.current_field = field
+        if url: self.last_url = url
+        self.check_heartbeat()
+
+    def record_progress(self, operation: str, url: str = ""):
+        self.last_progress_timestamp = time.time()
+        self.last_successful_op = operation
+        if url: self.last_url = url
+        self.check_heartbeat()
+
+    def check_heartbeat(self, force: bool = False):
+        now = time.time()
+        # Stuck detection
+        since_progress = now - self.last_progress_timestamp
+        if since_progress >= self.stuck_threshold:
+            print(
+                f"\nWARNING: NO PROGRESS DETECTED\n"
+                f"Stage: {self.current_stage}\n"
+                f"Seller: {self.current_seller or 'N/A'}\n"
+                f"URL: {self.last_url or 'N/A'}\n"
+                f"Elapsed since last progress: {since_progress:.0f}s\n"
+            )
+            logger.warning(
+                f"WARNING: NO PROGRESS DETECTED | Stage: {self.current_stage} | "
+                f"Seller: {self.current_seller or 'N/A'} | Elapsed: {since_progress:.0f}s"
+            )
+            # Reset stuck timer to avoid repeated flooding
+            self.last_progress_timestamp = now
+
+        if force or (now - self.last_heartbeat_time >= self.heartbeat_interval):
+            elapsed = now - self.start_time
+            heartbeat_msg = (
+                f"\n========================================\n"
+                f"AMAZON SCRAPER HEARTBEAT\n"
+                f"========================================\n"
+                f"Category: {self.category}\n"
+                f"Seller: {self.current_seller or 'N/A'}\n"
+                f"ASIN: {self.current_asin or 'N/A'}\n"
+                f"Current stage: {self.current_stage}\n"
+                f"Current field: {self.current_field or 'N/A'}\n"
+                f"Elapsed: {elapsed:.0f}s\n"
+                f"Last successful operation: {self.last_successful_op}\n"
+                f"Last URL: {self.last_url or 'N/A'}\n"
+                f"========================================\n"
+            )
+            print(heartbeat_msg)
+            logger.info(f"HEARTBEAT | Cat: '{self.category}' | Stage: '{self.current_stage}' | Seller: '{self.current_seller}' | Elapsed: {elapsed:.0f}s")
+            self.last_heartbeat_time = now
+
 def setup_logging():
     os.makedirs("logs", exist_ok=True)
     log_file = "logs/scraper.log"
@@ -263,6 +331,7 @@ def process_category_run(
     # Record Category Run in Database with status 'RUNNING'
     category_run_id = repo.record_category_run_start(category_name)
     category_start_time = time.time()
+    tracker = ScraperProgressTracker(category=category_name)
 
     browser_mgr = BrowserManager(headless=headless, timeout_ms=30000)
     discovery_source = AmazonPublicSource(
@@ -300,6 +369,7 @@ def process_category_run(
         # -------------------------------------------------------------
         # PHASE 1: Amazon Product & Candidate Discovery for Category
         # -------------------------------------------------------------
+        tracker.update_stage("Category Product Discovery", url=target_url)
         logger.info(f"Discovering products for category '{category_name}' from {target_url}...")
         
         try:
@@ -329,6 +399,7 @@ def process_category_run(
                 "master_file": master_file
             }
 
+        tracker.record_progress(f"Discovered {len(products)} products")
         logger.info(f"Discovered {len(products)} products for category '{category_name}'")
 
         for idx, prod in enumerate(products, 1):
@@ -338,11 +409,13 @@ def process_category_run(
                 break
 
             asin = prod.get("asin")
+            tracker.update_stage("Product Offer Extraction", asin=asin, url=prod.get("product_url", ""))
             logger.info(f"[{idx}/{len(products)}] Processing product ASIN: {asin}")
 
             seller_offers_data = []
             try:
                 seller_offers_data = discovery_source.extract_seller_offers(prod)
+                tracker.record_progress(f"Extracted {len(seller_offers_data)} offers for {asin}")
             except Exception as se_err:
                 print(f"""
 PRODUCT SELLER EXTRACTION FAILED
@@ -420,6 +493,8 @@ Reason: {se_err}
                 "status": record.status
             }
 
+            tracker.update_stage("Seller Enrichment", seller=record.business_name, asin=prod.get("asin", ""))
+
             # Progress Banner
             print("\n========================================")
             print("ENRICHING SELLER")
@@ -431,31 +506,55 @@ Reason: {se_err}
             print("========================================\n")
 
             # Run Deep Enrichment with Exception Isolation
+            enrich_status = "COMPLETE"
             try:
                 enriched_record, extra_sources = enrichment_engine.enrich_seller(record)
+                if enriched_record.status == "Partially Verified" and (time.time() - category_start_time) > 0:
+                    pass
             except TimeoutError:
-                logger.warning(f"Timeout enriching seller '{record.business_name}'. Retaining Amazon record.")
+                enrich_status = "TIMEOUT"
+                logger.warning(f"Timeout enriching seller '{record.business_name}'. Retaining partial Amazon record.")
                 enriched_record = record
                 extra_sources = []
             except Exception as ex_enrich:
-                logger.error(f"Error enriching seller '{record.business_name}': {ex_enrich}", exc_info=True)
+                enrich_status = "ERROR"
+                logger.error(f"SELLER ENRICHMENT ERROR on '{record.business_name}': {ex_enrich}", exc_info=True)
                 enriched_record = record
                 extra_sources = []
 
             enriched_record.s_no = s_no
             enriched_record.sub_sub_category = category_name
 
-            # Completion Banner
-            print("\nSELLER ENRICHMENT COMPLETE")
-            print(f"\nSeller:\n{enriched_record.business_name}\n")
-            print(f"Fields found:")
-            print(f"Phone: {'YES' if enriched_record.phone_number != 'Not Found' else 'NO'}")
-            print(f"Email: {'YES' if enriched_record.email_address != 'Not Found' else 'NO'}")
-            print(f"GST: {'YES' if enriched_record.gst_number not in ('Not Found', 'Unverified') else 'NO'}")
-            print(f"PAN: {'YES' if enriched_record.pan_number != 'Not Found' else 'NO'}")
-            print(f"Address: {'YES' if enriched_record.billing_address != 'Not Found' else 'NO'}")
-            print(f"Website: {'YES' if enriched_record.website_url != 'Not Found' else 'NO'}")
-            print("\nContinuing to next seller...\n")
+            if enrich_status == "ERROR":
+                print("\n========================================")
+                print("SELLER ENRICHMENT ERROR")
+                print("========================================")
+                print(f"Seller:\n{enriched_record.business_name}\n")
+                print(f"Status: ERROR (Internal exception caught, saving partial data)")
+                print("Action: SAVE PARTIAL DATA & CONTINUE")
+                print("========================================\n")
+            elif enrich_status == "TIMEOUT":
+                print("\n========================================")
+                print("SELLER ENRICHMENT TIMEOUT (PARTIAL)")
+                print("========================================")
+                print(f"Seller:\n{enriched_record.business_name}\n")
+                print(f"Status: TIMEOUT (Saving partial data)")
+                print("Action: SAVE PARTIAL DATA & CONTINUE")
+                print("========================================\n")
+            else:
+                # Completion Banner
+                print("\n========================================")
+                print("SELLER ENRICHMENT COMPLETE")
+                print("========================================")
+                print(f"Seller:\n{enriched_record.business_name}\n")
+                print(f"Fields found:")
+                print(f"Phone: {'YES' if enriched_record.phone_number != 'Not Found' else 'NO'}")
+                print(f"Email: {'YES' if enriched_record.email_address != 'Not Found' else 'NO'}")
+                print(f"GST: {'YES' if enriched_record.gst_number not in ('Not Found', 'Unverified') else 'NO'}")
+                print(f"PAN: {'YES' if enriched_record.pan_number != 'Not Found' else 'NO'}")
+                print(f"Address: {'YES' if enriched_record.billing_address != 'Not Found' else 'NO'}")
+                print(f"Website: {'YES' if enriched_record.website_url != 'Not Found' else 'NO'}")
+                print("\nContinuing to next seller...\n")
 
             # Save Partial Data Immediately in SQLite Database
             insert_attempts += 1

@@ -336,9 +336,14 @@ class AmazonSellerProfileScraper:
             logger.debug(f"Full-page fallback extraction error: {e}")
         return None
 
-    def extract_seller_details(self, seller_profile_url: str) -> Dict[str, Any]:
+    def extract_seller_details(
+        self,
+        seller_profile_url: str,
+        seller_name: str = "",
+        asin: str = ""
+    ) -> Dict[str, Any]:
         result = {
-            "display_name": None,
+            "display_name": seller_name or None,
             "legal_entity": None,
             "business_address_raw": None,
             "gst_number_raw": None,
@@ -350,15 +355,82 @@ class AmazonSellerProfileScraper:
         if not seller_profile_url:
             return result
 
-        logger.info(f"Opening Amazon seller profile page: {seller_profile_url}")
-        try:
-            response = self.page.goto(seller_profile_url, wait_until="domcontentloaded", timeout=self.timeout_ms)
-            
-            is_blocked, block_reason = check_amazon_block(response, self.page)
-            if is_blocked:
-                logger.warning(f"Amazon seller profile page blocked ({block_reason}): {seller_profile_url}")
-                return result
+        seller_id_match = re.search(r"[?&]seller=([A-Z0-9]+)", seller_profile_url)
+        seller_id = seller_id_match.group(1) if seller_id_match else "Unknown"
 
+        max_attempts = 2
+        per_attempt_timeout_ms = min(self.timeout_ms, 20000)
+        per_attempt_timeout_sec = per_attempt_timeout_ms // 1000
+
+        nav_success = False
+        last_error = "Unknown"
+
+        for attempt in range(1, max_attempts + 1):
+            print("\n========================================")
+            print("AMAZON SELLER PROFILE")
+            print("========================================")
+            print(f"Seller: {seller_name or 'Unknown'}")
+            print(f"Seller ID: {seller_id}")
+            print(f"ASIN: {asin or 'Unknown'}")
+            print(f"URL: {seller_profile_url}")
+            print(f"\nNavigation attempt: {attempt}/{max_attempts}")
+            print(f"Timeout: {per_attempt_timeout_sec}s")
+            logger.info(f"Opening Amazon seller profile page (Attempt {attempt}/{max_attempts}): {seller_profile_url}")
+
+            try:
+                try:
+                    self.page.evaluate("() => window.stop()")
+                except Exception:
+                    pass
+
+                response = self.page.goto(seller_profile_url, wait_until="commit", timeout=per_attempt_timeout_ms)
+
+                is_blocked, block_reason = check_amazon_block(response, self.page)
+                if is_blocked:
+                    logger.warning(f"Amazon seller profile page blocked ({block_reason}): {seller_profile_url}")
+                    print(f"Result: BLOCKED ({block_reason})")
+                    last_error = f"Blocked: {block_reason}"
+                    if attempt < max_attempts:
+                        continue
+                    break
+
+                # Settle DOM
+                try:
+                    self.page.wait_for_selector("#seller-name, #seller-info, div.a-box-group, h1, body", timeout=3000)
+                except Exception:
+                    pass
+
+                print("Result: SUCCESS")
+                nav_success = True
+                break
+
+            except PlaywrightTimeoutError:
+                last_error = f"Navigation Timeout ({per_attempt_timeout_sec}s)"
+                action_str = "RETRY" if attempt < max_attempts else "CONTINUE"
+                print(f"\nSELLER PROFILE TIMEOUT")
+                print(f"Seller: {seller_name or 'Unknown'}")
+                print(f"URL: {seller_profile_url}")
+                print(f"Timeout: {per_attempt_timeout_sec}s")
+                print(f"Action: {action_str}\n")
+                logger.warning(f"SELLER PROFILE TIMEOUT (Attempt {attempt}/{max_attempts}) on {seller_profile_url}")
+
+            except Exception as e:
+                last_error = str(e)
+                action_str = "RETRY" if attempt < max_attempts else "CONTINUE"
+                print(f"\nSELLER PROFILE ERROR")
+                print(f"Seller: {seller_name or 'Unknown'}")
+                print(f"URL: {seller_profile_url}")
+                print(f"Error: {e}")
+                print(f"Action: {action_str}\n")
+                logger.debug(f"Error opening seller profile page (Attempt {attempt}/{max_attempts}): {e}")
+
+        if not nav_success:
+            print("Result: TIMEOUT" if "Timeout" in last_error else "Result: FAILED")
+            print("SELLER PROFILE UNAVAILABLE\n")
+            logger.info(f"SELLER PROFILE UNAVAILABLE: {seller_profile_url} - Proceeding to fallback enrichment.")
+            return result
+
+        try:
             # 1. Seller Header / Display Name
             header_elem = self.page.query_selector("#seller-name, h1#sellerName, h1")
             if header_elem:
@@ -425,9 +497,6 @@ class AmazonSellerProfileScraper:
             result["phone_raw"] = phone_extracted
             return result
 
-        except PlaywrightTimeoutError:
-            logger.warning(f"Timeout opening seller profile page ({self.timeout_ms}ms): {seller_profile_url}")
-            return result
         except Exception as e:
             logger.error(f"Error scraping seller profile page {seller_profile_url}: {e}")
             return result

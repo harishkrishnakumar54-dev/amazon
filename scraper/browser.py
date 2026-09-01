@@ -13,6 +13,20 @@ def safe_close_page(page: Optional[Page]):
         except Exception as e:
             logger.debug(f"Non-critical error closing page: {e}")
 
+def attach_safe_dialog_handler(page: Optional[Page]):
+    """Attach a single safe dialog handler to automatically dismiss alert/confirm/beforeunload dialogs."""
+    if not page:
+        return
+    def safe_handle_dialog(dialog):
+        try:
+            dialog.dismiss()
+        except Exception as exc:
+            logger.debug(f"Dialog dismiss failed (already closed?): {exc}")
+    try:
+        page.on("dialog", safe_handle_dialog)
+    except Exception as exc:
+        logger.debug(f"Failed to attach dialog listener: {exc}")
+
 class BrowserManager:
     """
     Manages Playwright browser lifecycle using standard Playwright automation.
@@ -90,12 +104,14 @@ class BrowserManager:
         try:
             page = self.context.new_page()
             page.set_default_timeout(self.timeout_ms)
+            attach_safe_dialog_handler(page)
             return page
         except Exception as e:
             logger.warning(f"Failed to create new page from existing context ({e}). Attempting clean restart...")
             self.start()
             page = self.context.new_page()
             page.set_default_timeout(self.timeout_ms)
+            attach_safe_dialog_handler(page)
             return page
 
     def close(self):
