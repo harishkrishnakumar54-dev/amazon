@@ -43,7 +43,18 @@ jobs:
           PYTHONUNBUFFERED: "1"
           CI: "true"
         run: |
+          echo "Amazon scraper started: $(date -u)"
+
+          START=$(date +%s)
+
           python "main.py" --batch --headless
+
+          END=$(date +%s)
+          ELAPSED=$((END - START))
+
+          echo "Amazon scraper finished: $(date -u)"
+          echo "Runtime: ${ELAPSED} seconds"
+          echo "Runtime: $((ELAPSED / 60)) minutes"
 
       - name: Upload logs and debug files
         if: always()
@@ -61,6 +72,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          echo "Checking generated files..."
+
+          ls -lh output/Amazon_Seller_Master_Data.xlsx 2>/dev/null || true
+          ls -lh amazon_sellers.db 2>/dev/null || true
+
+          git status --short
 
           git add -- output/Amazon_Seller_Master_Data.xlsx amazon_sellers.db
 
