@@ -2,6 +2,11 @@ name: Amazon Playwright Scraper
 
 on:
   workflow_dispatch:
+    inputs:
+      rescrape:
+        description: "Enable Rescrape Mode (reprocess existing categories without skipping)"
+        type: boolean
+        default: true
   schedule:
     - cron: "30 3 * * *"  # 09:00 IST daily
 
@@ -48,12 +53,20 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
           CI: "true"
+          RESCRAPE: "${{ github.event.inputs.rescrape || 'true' }}"
         run: |
           echo "Amazon scraper started: $(date -u)"
           START=$(date +%s)
 
+          # Preflight check to verify Amazon connectivity before running batch
+          python "main.py" --preflight --headless
+
           # Run scraper with checkpoint commits directly to git after every category
-          python "main.py" --batch --headless
+          if [ "$RESCRAPE" = "true" ]; then
+            python "main.py" --batch --headless --rescrape
+          else
+            python "main.py" --batch --headless
+          fi
 
           END=$(date +%s)
           ELAPSED=$((END - START))

@@ -9,6 +9,7 @@ import json
 import time
 import logging
 import argparse
+import re
 from typing import List, Tuple, Dict, Any, Optional
 from urllib.parse import urlparse, parse_qs, quote_plus
 from database.database import init_db
@@ -16,7 +17,7 @@ from database.repository import SellerRepository
 from database.models import SellerRecord, SellerOffer, CategoryRun
 from scraper.browser import BrowserManager, safe_close_page
 from scraper.amazon_public import AmazonPublicSource
-from scraper.amazon_search import AmazonBlockedException, AmazonNavigationException
+from scraper.amazon_search import AmazonBlockedException, AmazonNavigationException, run_amazon_preflight
 from extraction.seller_extractor import SellerExtractor
 from extraction.normalizer import normalize_seller_key
 from extraction.public_enrichment import PublicEnrichmentEngine, MAX_ENRICHMENT_TIME_PER_SELLER
@@ -176,7 +177,26 @@ def load_batch_categories(file_path: str = "input/amazon_urls.txt") -> List[Tupl
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"Batch URL file not found: {file_path}")
 
+    def normalize_category_url(url: str) -> str:
+        u = url.strip()
+        m = re.search(r'https?://[^\s\)\]]+', u)
+        if m:
+            u = m.group(0)
+        parsed = urlparse(u)
+        scheme = parsed.scheme.lower() or "https"
+        netloc = parsed.netloc.lower()
+        path = parsed.path.rstrip("/")
+        qs = parse_qs(parsed.query)
+        if "k" in qs and qs["k"]:
+            norm_k = qs["k"][0].strip().replace("+", " ")
+            clean_query = "k=" + quote_plus(norm_k)
+        else:
+            clean_query = parsed.query
+        return f"{scheme}://{netloc}{path}{'?' + clean_query if clean_query else ''}"
+
     categories = []
+    seen_urls = set()
+
     with open(file_path, "r", encoding="utf-8") as f:
         for line_idx, line in enumerate(f, 1):
             line = line.strip()
@@ -191,7 +211,6 @@ def load_batch_categories(file_path: str = "input/amazon_urls.txt") -> List[Tupl
                     raise ValueError(f"Invalid category name '{cat_name}' on line {line_idx} of {file_path}.")
                 if not url_val:
                     url_val = "https://www.amazon.in/s?k=" + quote_plus(cat_name)
-                categories.append((cat_name, url_val))
             elif line.startswith("http"):
                 parsed = urlparse(line)
                 qs = parse_qs(parsed.query)
@@ -205,13 +224,20 @@ def load_batch_categories(file_path: str = "input/amazon_urls.txt") -> List[Tupl
                         raise ValueError(f"Could not infer category name from URL '{line}' on line {line_idx} of {file_path}. Please format as 'Category Name|URL'.")
                 if not cat_name or cat_name.lower() == "current category":
                     raise ValueError(f"Invalid category inferred on line {line_idx} of {file_path}.")
-                categories.append((cat_name, line))
+                url_val = line
             else:
                 cat_name = line.strip()
                 if not cat_name or cat_name.lower() == "current category":
                     raise ValueError(f"Invalid category name on line {line_idx} of {file_path}.")
                 url_val = "https://www.amazon.in/s?k=" + quote_plus(cat_name)
-                categories.append((cat_name, url_val))
+
+            norm_u = normalize_category_url(url_val)
+            if norm_u in seen_urls:
+                logging.getLogger("amazon_scraper").info(f"Skipping duplicate target URL in input: {norm_u} (Category: '{cat_name}')")
+                continue
+
+            seen_urls.add(norm_u)
+            categories.append((cat_name, url_val))
 
     return categories
 
@@ -278,6 +304,7 @@ def process_category_run(
     repo: SellerRepository,
     headless: bool = False,
     allow_reprocess: bool = False,
+    rescrape: bool = False,
     is_batch: bool = False,
     progress_tracker: Optional[ProgressTracker] = None
 ) -> Dict[str, Any]:
@@ -301,7 +328,7 @@ def process_category_run(
 
     # Category Duplicate Protection Check
     is_processed, existing_cnt = repo.is_category_processed(category_name)
-    if is_processed and not allow_reprocess:
+    if is_processed and not (allow_reprocess or rescrape):
         if not is_batch:
             print("\n========================================")
             print("AMAZON CATEGORY SELLER RESULTS")
@@ -927,9 +954,23 @@ Status:
         "master_file": master_file
     }
 
-def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = False, urls_file: Optional[str] = None):
+def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = False, rescrape: bool = False, urls_file: Optional[str] = None):
     logger = setup_logging()
     logger.info("Starting Amazon Multi-Category Batch Processing Mode")
+
+    # Run Preflight Test first to avoid wasting runtime on broken navigation
+    print("\n========================================")
+    print("RUNNING BATCH PREFLIGHT CHECK")
+    print("========================================")
+    preflight_bm = BrowserManager(headless=headless, timeout_ms=30000)
+    preflight_bm.start()
+    try:
+        pf_res = run_amazon_preflight(preflight_bm)
+        if not pf_res.get("success"):
+            print("\n[ABORT] Amazon Preflight Check FAILED! Halting batch execution early to prevent wasting scraper runtime.")
+            sys.exit(1)
+    finally:
+        preflight_bm.close()
 
     file_to_load = urls_file or config.get("urls_file", "input/amazon_urls.txt")
     categories = load_batch_categories(file_to_load)
@@ -958,6 +999,7 @@ def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = Fals
     print("\n========================================")
     print("STARTING AMAZON BATCH CATEGORY RUN")
     print(f"Total categories to process: {categories_requested}")
+    print(f"Rescrape mode enabled: {'YES' if rescrape else 'NO'}")
     print(f"Input file: {file_to_load}")
     print(f"Master Excel target: {master_file}")
     print(f"Database target: {db_file}")
@@ -972,7 +1014,7 @@ def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = Fals
 
         is_processed, existing_cnt = repo.is_category_processed(cat_name)
         is_prog_completed = progress_tracker.is_category_completed(cat_name)
-        if (is_processed or is_prog_completed) and not allow_reprocess:
+        if not (allow_reprocess or rescrape) and (is_processed or is_prog_completed):
             print(f"Category '{cat_name}' already completed ({existing_cnt} records). SKIPPING duplicate.")
             categories_skipped += 1
             category_results.append({
@@ -992,6 +1034,7 @@ def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = Fals
                 repo=repo,
                 headless=headless,
                 allow_reprocess=allow_reprocess,
+                rescrape=rescrape,
                 is_batch=True,
                 progress_tracker=progress_tracker
             )
@@ -1006,12 +1049,19 @@ def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = Fals
                     "status": "SKIPPED - ALREADY EXISTS",
                     "sellers": sellers_cnt
                 })
-            elif status_val in ("BLOCKED", "TIMEOUT", "FAILED"):
+            elif status_val in ("BLOCKED", "TIMEOUT", "FAILED", "NAVIGATION_FAILURE"):
                 categories_failed += 1
                 category_results.append({
                     "category": cat_name,
                     "status": status_val,
                     "sellers": sellers_cnt
+                })
+            elif status_val == "NO_PRODUCTS":
+                categories_processed += 1
+                category_results.append({
+                    "category": cat_name,
+                    "status": "NO_PRODUCTS",
+                    "sellers": 0
                 })
             else:
                 categories_processed += 1
@@ -1136,10 +1186,35 @@ Master Excel:
 ========================================
 """)
 
-    if categories_failed > 0 and categories_processed == 0:
-        raise RuntimeError(f"Batch run finished with {categories_failed} category failures.")
+    is_healthy = (categories_processed > 0)
+    health_status = "PASS" if is_healthy else "FAILED"
+    health_reason = (
+        f"Successfully processed {categories_processed} categories with {total_added_sellers} sellers added."
+        if is_healthy
+        else "No categories were successfully scraped."
+    )
 
-def run_single(config: dict, category: Optional[str] = None, url: Optional[str] = None, headless: Optional[bool] = None, force: bool = False):
+    print(f"""========================================
+AMAZON SCRAPER HEALTH CHECK
+========================================
+Requested: {categories_requested}
+Processed: {categories_processed}
+Skipped: {categories_skipped}
+Failed: {categories_failed}
+
+HEALTH:
+{health_status}
+
+Reason:
+{health_reason}
+========================================
+""")
+
+    if not is_healthy and categories_requested > 0:
+        logger.error("Scraper run failed health check: 0 categories processed.")
+        sys.exit(1)
+
+def run_single(config: dict, category: Optional[str] = None, url: Optional[str] = None, headless: Optional[bool] = None, force: bool = False, rescrape: bool = False):
     logger = setup_logging()
     logger.info("Starting Amazon Multi-Category Top 20 Seller Web Scraper (Single Category Mode)")
 
@@ -1154,7 +1229,7 @@ def run_single(config: dict, category: Optional[str] = None, url: Optional[str] 
         target_url = default_url
 
     headless_mode = headless if headless is not None else config.get("headless", False)
-    allow_reprocess = force or config.get("allow_category_reprocess", False)
+    allow_reprocess = force or rescrape or config.get("allow_category_reprocess", False)
     db_file = config.get("database_file", "amazon_sellers.db")
 
     init_db(db_file)
@@ -1173,6 +1248,7 @@ def run_single(config: dict, category: Optional[str] = None, url: Optional[str] 
             repo=repo,
             headless=headless_mode,
             allow_reprocess=allow_reprocess,
+            rescrape=rescrape,
             is_batch=False,
             progress_tracker=progress_tracker
         )
@@ -1312,11 +1388,25 @@ def main():
     parser.add_argument("--category", type=str, default=None, help="Target category name (single category mode)")
     parser.add_argument("--url", type=str, default=None, help="Target Amazon URL (single category mode)")
     parser.add_argument("--force", action="store_true", help="Force reprocess category")
+    parser.add_argument("--rescrape", action="store_true", help="Enable Rescrape Mode (reprocess existing categories without skipping)")
+    parser.add_argument("--preflight", action="store_true", help="Run Amazon connectivity and extraction preflight check")
     parser.add_argument("--test-business", type=str, default=None, help="Run Single Business Test")
     parser.add_argument("--test-product", type=str, default=None, help="Run Single Product Multi-Seller Extraction Test (ASIN or URL)")
     parser.add_argument("--test-asin", type=str, default=None, help="Run Single ASIN Multi-Seller Extraction Test")
     parser.add_argument("--headless", action="store_true", default=None, help="Headless browser mode")
     args, unknown = parser.parse_known_args()
+
+    if args.preflight:
+        headless_mode = args.headless if args.headless is not None else True
+        bm = BrowserManager(headless=headless_mode, timeout_ms=30000)
+        bm.start()
+        try:
+            res = run_amazon_preflight(bm)
+            if not res.get("success"):
+                sys.exit(1)
+            sys.exit(0)
+        finally:
+            bm.close()
 
     if args.test_business:
         run_single_business_test(args.test_business, headless=args.headless if args.headless is not None else False)
@@ -1329,13 +1419,15 @@ def main():
 
     config = load_config()
     headless = args.headless if args.headless is not None else config.get("headless", False)
-    allow_reprocess = args.force or config.get("allow_category_reprocess", False)
+    allow_reprocess = args.force or args.rescrape or config.get("allow_category_reprocess", False)
+    rescrape = args.rescrape or args.force or config.get("rescrape", False)
 
     if args.batch:
         run_batch(
             config=config,
             headless=headless,
             allow_reprocess=allow_reprocess,
+            rescrape=rescrape,
             urls_file=args.urls_file
         )
     else:
@@ -1344,7 +1436,8 @@ def main():
             category=args.category,
             url=args.url,
             headless=args.headless,
-            force=args.force
+            force=allow_reprocess,
+            rescrape=rescrape
         )
 
 if __name__ == "__main__":

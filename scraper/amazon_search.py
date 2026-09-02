@@ -1,3 +1,4 @@
+import os
 import logging
 import re
 import time
@@ -39,6 +40,12 @@ class AmazonNavigationException(Exception):
 def check_amazon_block(response, page: Optional[Page] = None, html_content: str = "") -> Tuple[bool, str]:
     """
     Checks if an Amazon page response or content represents a block/503/captcha.
+    Detects:
+    - HTTP status codes: 503, 429, 403, 405
+    - Robot Check / CAPTCHA
+    - Automated Access
+    - Unusual Traffic / Access Denied / Request Blocked / Challenge pages
+    - chrome-error:// or download-starting navigation failures
     """
     if response:
         try:
@@ -49,18 +56,36 @@ def check_amazon_block(response, page: Optional[Page] = None, html_content: str 
                 return True, "429 Too Many Requests"
             if status == 403:
                 return True, "403 Forbidden"
+            if status == 405:
+                return True, "405 Method Not Allowed (Blocked)"
         except Exception:
             pass
 
     try:
+        url = getattr(page, "url", "") if page else ""
+        if url and (url.startswith("chrome-error://") or "download is starting" in url.lower()):
+            return True, "Chrome Navigation Error / Download Starting"
+
         title = (page.title() or "").lower() if page else ""
+        content = html_content.lower() if html_content else ((page.content() or "").lower() if page else "")
+
         if "robot check" in title or "captcha" in title:
             return True, "Robot Check / CAPTCHA"
         if "503 - service unavailable" in title or "503 service unavailable" in title:
             return True, "503 Service Unavailable"
-
-        content = html_content.lower() if html_content else ((page.content() or "").lower() if page else "")
-        if "api-services-support@amazon.com" in content or "type the characters you see in this image" in content:
+        if "automated access" in title or "automated access" in content:
+            return True, "Automated Access Block"
+        if "unusual traffic" in title or "unusual traffic" in content:
+            return True, "Unusual Traffic Block"
+        if "access denied" in title or "access denied" in content:
+            return True, "Access Denied"
+        if "request blocked" in title or "request blocked" in content:
+            return True, "Request Blocked"
+        if "challenge" in title and "amazon" in title:
+            return True, "Challenge Page"
+        if "sorry... we just need to make sure you're not a robot" in content or "sorry! something went wrong" in content:
+            return True, "Robot Challenge Block"
+        if "api-services-support@amazon.com" in content or "type the characters you see in this image" in content or "enter the characters you see below" in content:
             return True, "Robot Check / CAPTCHA"
         if "sorry, we couldn't find that page" in title and "amazon" in title:
             return False, "Page Not Found"
@@ -262,19 +287,11 @@ class AmazonSearchScraper:
                 if hasattr(context, "browser") and context.browser:
                     new_ctx = context.browser.new_context(
                         viewport={"width": 1366, "height": 768},
-                        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+                        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
                         locale="en-IN",
+                        accept_downloads=False,
                         extra_http_headers={
-                            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
-                            "Accept-Language": "en-IN,en-GB;q=0.9,en;q=0.8",
-                            "Sec-Ch-Ua": '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
-                            "Sec-Ch-Ua-Mobile": "?0",
-                            "Sec-Ch-Ua-Platform": '"Windows"',
-                            "Sec-Fetch-Dest": "document",
-                            "Sec-Fetch-Mode": "navigate",
-                            "Sec-Fetch-Site": "none",
-                            "Sec-Fetch-User": "?1",
-                            "Upgrade-Insecure-Requests": "1"
+                            "Accept-Language": "en-IN,en-GB;q=0.9,en;q=0.8"
                         }
                     )
                     self.page = new_ctx.new_page()
@@ -323,32 +340,44 @@ class AmazonSearchScraper:
             is_blocked = False
 
             for attempt in range(1, self.max_retries + 1):
+                clean_url = current_url.strip()
+                m = re.search(r'https?://[^\s\)\]]+', clean_url)
+                if m:
+                    clean_url = m.group(0)
+
                 print(f"\n========================================")
                 print(f"AMAZON NAVIGATION")
                 print(f"Category: {category_hint}")
-                print(f"URL: {current_url}")
+                print(f"URL: {clean_url}")
+                print(f"URL repr: {repr(clean_url)}")
                 print(f"========================================")
+                print(repr(clean_url))
 
                 nav_result = "SUCCESS"
                 last_failure_reason = "Unknown"
                 is_blocked = False
                 response = None
+                nav_exception = None
 
                 # -------------------------------------------------------------
                 # 1. Primary Playwright Navigation
                 # -------------------------------------------------------------
                 try:
-                    response = self.page.goto(current_url, wait_until="commit", timeout=25000)
-                    status_code = getattr(response, "status", 200)
-                    nav_result = f"Status {status_code}"
+                    response = self.page.goto(clean_url, wait_until="commit", timeout=60000)
+                    status_code = getattr(response, "status", None)
+                    nav_result = f"Status {status_code}" if status_code else "Committed"
                 except Exception as e:
+                    nav_exception = e
                     err_str = str(e)
-                    if "download is starting" in err_str.lower() or "download" in err_str.lower() or "net::err_aborted" in err_str.lower():
+                    if "download is starting" in err_str.lower() or "download" in err_str.lower():
                         nav_result = "Download is starting"
                         last_failure_reason = "Download is starting"
+                    elif "net::err_aborted" in err_str.lower():
+                        nav_result = "Connection Aborted (net::ERR_ABORTED)"
+                        last_failure_reason = "Connection Aborted (net::ERR_ABORTED)"
                     elif isinstance(e, PlaywrightTimeoutError) or "timeout" in err_str.lower():
-                        nav_result = "Navigation Timeout (25s)"
-                        last_failure_reason = "Navigation Timeout (25s)"
+                        nav_result = "Navigation Timeout (60s)"
+                        last_failure_reason = "Navigation Timeout (60s)"
                     else:
                         nav_result = f"Error: {err_str[:60]}"
                         last_failure_reason = f"Navigation Error: {err_str[:60]}"
@@ -357,18 +386,17 @@ class AmazonSearchScraper:
                 print(f"Result: {nav_result}")
 
                 # -------------------------------------------------------------
-                # 2. Browser Page Settle & Inspection Recovery
+                # 2. Explicit Wait for Amazon Search / Product DOM Markers
                 # -------------------------------------------------------------
-                print(f"\nRecovery:")
-                print(f"Checking page after navigation exception...")
-
                 try:
-                    if hasattr(self.page, "wait_for_timeout"):
-                        self.page.wait_for_timeout(1000)
+                    self.page.wait_for_selector(
+                        "div[data-component-type='s-search-result'], div.s-result-item[data-asin], div.s-main-slot, span[data-component-type='s-search-results'], #search",
+                        timeout=15000
+                    )
                 except Exception:
                     pass
 
-                cur_url = getattr(self.page, "url", current_url) or current_url
+                cur_url = getattr(self.page, "url", clean_url) or clean_url
                 page_title = ""
                 html_content = ""
                 try:
@@ -383,6 +411,13 @@ class AmazonSearchScraper:
 
                 selectors_found = False
                 if is_valid:
+                    SEARCH_SELECTORS = [
+                        "div[data-component-type='s-search-result']",
+                        "div.s-result-item[data-asin]:not([data-asin=''])",
+                        "a[href*='/dp/']",
+                        "div.s-main-slot",
+                        "span[data-component-type='s-search-results']"
+                    ]
                     for sel in SEARCH_SELECTORS:
                         try:
                             if self.page.query_selector(sel):
@@ -391,18 +426,22 @@ class AmazonSearchScraper:
                         except Exception:
                             pass
 
+                is_blocked, block_reason = check_amazon_block(response, self.page, html_content)
+                is_download = ("download is starting" in nav_result.lower() or "chrome-error://" in cur_url or "download" in str(nav_exception).lower() or "net::err_aborted" in str(nav_exception).lower())
+
                 print(f"\nCurrent URL: {cur_url}")
                 print(f"Title: {page_title}")
                 print(f"HTML length: {html_len}")
                 print(f"Amazon search markers: {'YES' if has_amazon_markers else 'NO'}")
                 print(f"Product selectors: {'YES' if selectors_found else 'NO'}")
 
-                is_blocked, block_reason = check_amazon_block(response, self.page, html_content)
                 if is_blocked:
                     last_failure_reason = block_reason
+                elif is_download:
+                    last_failure_reason = "Download is starting navigation failure"
 
-                if is_valid and not is_blocked:
-                    candidate_prods = extract_products_from_page(self.page, limit - len(products), category_hint, search_url, visited_urls)
+                if is_valid and not is_blocked and not is_download:
+                    candidate_prods = extract_products_from_page(self.page, limit - len(products), category_hint, clean_url, visited_urls)
                     if len(candidate_prods) > 0:
                         stage_result = AmazonNavigationResult(
                             success=True,
@@ -427,11 +466,11 @@ class AmazonSearchScraper:
                 # -------------------------------------------------------------
                 # 3. Playwright Context Request Recovery (APIRequestContext)
                 # -------------------------------------------------------------
-                if not stage_result and not is_blocked:
+                if not stage_result and not is_blocked and not is_download:
                     try:
                         if hasattr(self.page, "context") and self.page.context and hasattr(self.page.context, "request"):
                             ctx_resp = self.page.context.request.get(
-                                current_url,
+                                clean_url,
                                 headers={
                                     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
                                     "accept-language": "en-IN,en-GB;q=0.9,en;q=0.8",
@@ -440,7 +479,7 @@ class AmazonSearchScraper:
                                 timeout=25000
                             )
                             ctx_html = ctx_resp.text()
-                            ctx_is_valid, ctx_reason = is_valid_amazon_html(None, ctx_html, current_url)
+                            ctx_is_valid, ctx_reason = is_valid_amazon_html(None, ctx_html, clean_url)
                             is_blocked, block_reason = check_amazon_block(ctx_resp, None, ctx_html)
                             
                             if ctx_is_valid and not is_blocked:
@@ -448,7 +487,7 @@ class AmazonSearchScraper:
                                     self.page.set_content(ctx_html, wait_until="domcontentloaded")
                                 except Exception:
                                     pass
-                                candidate_prods = extract_products_from_page(self.page, limit - len(products), category_hint, search_url, visited_urls, html_override=ctx_html)
+                                candidate_prods = extract_products_from_page(self.page, limit - len(products), category_hint, clean_url, visited_urls, html_override=ctx_html)
                                 if len(candidate_prods) > 0:
                                     stage_result = AmazonNavigationResult(
                                         success=True,
@@ -477,18 +516,18 @@ class AmazonSearchScraper:
                 # -------------------------------------------------------------
                 # 4. HTTP Fallback (urllib.request with Realistic Headers & Gzip)
                 # -------------------------------------------------------------
-                if not stage_result and not is_blocked:
+                if not stage_result and not is_blocked and not is_download:
                     print(f"\nHTTP FALLBACK")
                     try:
                         HTTP_HEADERS = {
-                            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+                            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
                             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
                             "Accept-Language": "en-IN,en-GB;q=0.9,en;q=0.8",
                             "Accept-Encoding": "gzip, deflate, br",
                             "Referer": "https://www.amazon.in/",
                             "Connection": "keep-alive"
                         }
-                        req = urllib.request.Request(current_url, headers=HTTP_HEADERS)
+                        req = urllib.request.Request(clean_url, headers=HTTP_HEADERS)
                         with urllib.request.urlopen(req, timeout=20) as http_resp:
                             http_status = http_resp.status
                             http_ct = http_resp.headers.get("Content-Type", "")
@@ -498,7 +537,7 @@ class AmazonSearchScraper:
                             else:
                                 http_html = raw_bytes.decode("utf-8", errors="replace")
 
-                            http_is_valid, http_reason = is_valid_amazon_html(None, http_html, current_url)
+                            http_is_valid, http_reason = is_valid_amazon_html(None, http_html, clean_url)
                             is_blocked, block_reason = check_amazon_block(http_resp, None, http_html)
 
                             print(f"Status: {http_status}")
@@ -511,7 +550,7 @@ class AmazonSearchScraper:
                                     self.page.set_content(http_html, wait_until="domcontentloaded")
                                 except Exception:
                                     pass
-                                candidate_prods = extract_products_from_page(self.page, limit - len(products), category_hint, search_url, visited_urls, html_override=http_html)
+                                candidate_prods = extract_products_from_page(self.page, limit - len(products), category_hint, clean_url, visited_urls, html_override=http_html)
                                 if len(candidate_prods) > 0:
                                     stage_result = AmazonNavigationResult(
                                         success=True,
@@ -555,22 +594,72 @@ class AmazonSearchScraper:
                         time.sleep(delay)
                         continue
                     else:
-                        print(f"""
-========================================
+                        debug_dir = "output/debug"
+                        os.makedirs(debug_dir, exist_ok=True)
+                        safe_cat_name = "".join(c if c.isalnum() else "_" for c in category_hint)
+                        ts = int(time.time())
+                        screenshot_path = os.path.join(debug_dir, f"nav_failure_{safe_cat_name}_{ts}.png")
+                        html_path = os.path.join(debug_dir, f"nav_failure_{safe_cat_name}_{ts}.html")
+                        try:
+                            self.page.screenshot(path=screenshot_path, full_page=False)
+                        except Exception:
+                            screenshot_path = "NOT AVAILABLE"
+                        try:
+                            with open(html_path, "w", encoding="utf-8") as f:
+                                f.write(html_content)
+                        except Exception:
+                            html_path = "NOT AVAILABLE"
+
+                        print(f"""========================================
 AMAZON NAVIGATION FAILURE
-Category: {category_hint}
-URL: {current_url}
-Reason: {last_failure_reason}
-Status: FAILED
-Do NOT mark category as completed/skipped.
 ========================================
-""")
+
+Category:
+{category_hint}
+
+URL:
+{clean_url}
+
+Exception:
+{nav_exception or last_failure_reason}
+
+Current URL:
+{cur_url}
+
+Page title:
+{page_title}
+
+HTTP/status if available:
+{getattr(response, 'status', 'N/A')}
+
+HTML length:
+{html_len}
+
+Amazon markers:
+{'FOUND' if has_amazon_markers else 'NOT FOUND'}
+
+Product selectors:
+{'FOUND' if selectors_found else 'NOT FOUND'}
+
+Blocked:
+{'YES' if is_blocked else 'NO'}
+
+Download:
+{'YES' if is_download else 'NO'}
+
+Screenshot:
+{screenshot_path}
+
+HTML dump:
+{html_path}
+
+========================================""")
                         logger.error(f"""
 AMAZON NAVIGATION FAILURE
 Category: {category_hint}
-URL: {current_url}
+URL: {clean_url}
 Reason: {last_failure_reason}
-Status: FAILED
+Status: {'BLOCKED' if is_blocked else 'FAILED'}
 """)
                         if is_blocked:
                             return AmazonNavigationResult(
@@ -658,3 +747,86 @@ Status: FAILED
             raise AmazonBlockedException(nav_result.reason, search_url)
         else:
             raise AmazonNavigationException(nav_result.reason, search_url)
+
+def run_amazon_preflight(browser_mgr, test_url: str = "https://www.amazon.in/s?k=Boots") -> Dict[str, Any]:
+    """
+    Executes a preflight validation against Amazon to verify:
+    1. Navigation succeeds
+    2. Amazon page loaded and valid markers present
+    3. Product selectors present
+    4. Products extracted > 0
+    5. Blocked = NO
+    """
+    page = browser_mgr.new_page()
+    clean_url = test_url.strip()
+    m = re.search(r'https?://[^\s\)\]]+', clean_url)
+    if m:
+        clean_url = m.group(0)
+
+    print("\n========================================")
+    print("RUNNING AMAZON PREFLIGHT TEST")
+    print(f"URL repr: {repr(clean_url)}")
+    print("========================================\n")
+
+    nav_pass = False
+    amazon_page_pass = False
+    selectors_pass = False
+    products_count = 0
+    blocked_flag = False
+
+    try:
+        response = page.goto(clean_url, wait_until="commit", timeout=60000)
+        status_code = getattr(response, "status", None)
+        if status_code in (200, 301, 302):
+            nav_pass = True
+        else:
+            nav_pass = False
+
+        try:
+            page.wait_for_selector(
+                "div[data-component-type='s-search-result'], div.s-result-item[data-asin], div.s-main-slot, span[data-component-type='s-search-results'], #search",
+                timeout=15000
+            )
+        except Exception:
+            pass
+
+        cur_url = page.url or clean_url
+        html_content = page.content() or ""
+        is_blocked, _ = check_amazon_block(response, page, html_content)
+        blocked_flag = is_blocked
+
+        is_valid, _ = is_valid_amazon_html(page, html_content, cur_url)
+        amazon_page_pass = is_valid and not is_blocked
+
+        if amazon_page_pass:
+            items = page.query_selector_all("div[data-component-type='s-search-result'], div.s-result-item[data-asin]:not([data-asin=''])")
+            if len(items) > 0:
+                selectors_pass = True
+            prods = extract_products_from_page(page, limit=10, category_hint="Boots", search_url=clean_url, visited_urls=set())
+            products_count = len(prods)
+            if products_count > 0:
+                selectors_pass = True
+    except Exception as e:
+        logger.error(f"Preflight exception: {e}")
+    finally:
+        safe_close_page(page)
+
+    overall_success = nav_pass and amazon_page_pass and selectors_pass and (products_count > 0) and not blocked_flag
+
+    print(f"""AMAZON PREFLIGHT
+----------------
+Navigation: {'PASS' if nav_pass else 'FAIL'}
+Amazon page: {'PASS' if amazon_page_pass else 'FAIL'}
+Product selectors: {'PASS' if selectors_pass else 'FAIL'}
+Products: {products_count}
+Blocked: {'YES' if blocked_flag else 'NO'}
+""")
+
+    return {
+        "success": overall_success,
+        "navigation": nav_pass,
+        "amazon_page": amazon_page_pass,
+        "product_selectors": selectors_pass,
+        "products_count": products_count,
+        "blocked": blocked_flag
+    }
