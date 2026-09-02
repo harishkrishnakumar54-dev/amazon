@@ -14,17 +14,18 @@ concurrency:
 
 jobs:
   scrape:
+    name: Amazon Scraper Execution
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 360
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: pip
@@ -38,53 +39,177 @@ jobs:
         run: |
           python -m playwright install --with-deps chromium
 
+      - name: Configure Git Bot Identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
       - name: Run Amazon scraper
         env:
           PYTHONUNBUFFERED: "1"
           CI: "true"
         run: |
           echo "Amazon scraper started: $(date -u)"
-
           START=$(date +%s)
 
+          # Run scraper with checkpoint commits directly to git after every category
           python "main.py" --batch --headless
 
           END=$(date +%s)
           ELAPSED=$((END - START))
-
           echo "Amazon scraper finished: $(date -u)"
-          echo "Runtime: ${ELAPSED} seconds"
-          echo "Runtime: $((ELAPSED / 60)) minutes"
+          echo "Runtime: ${ELAPSED} seconds ($((ELAPSED / 60)) minutes)"
 
-      - name: Upload logs and debug files
-        if: always()
-        uses: actions/upload-artifact@v6
+  publish-output:
+    name: Publish Checkpoint Artifacts
+    if: ${{ always() }}
+    needs: scrape
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout latest repository state
+        uses: actions/checkout@v4
         with:
-          name: amazon-scraper-logs-and-debug
-          path: |
-            logs/**
-            output/debug/**
-          if-no-files-found: warn
-          retention-days: 7
+          fetch-depth: 0
 
-      - name: Commit updated Master Excel and database
-        if: success()
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install openpyxl for verification
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python -m pip install --upgrade pip
+          pip install openpyxl
 
-          echo "Checking generated files..."
+      - name: Inspect latest committed checkpoint
+        id: inspect-checkpoint
+        run: |
+          python -c "
+          import os, json, sys
 
-          ls -lh output/Amazon_Seller_Master_Data.xlsx 2>/dev/null || true
-          ls -lh amazon_sellers.db 2>/dev/null || true
+          scrape_result = '${{ needs.scrape.result }}'
+          excel_path = 'output/Amazon_Seller_Master_Data.xlsx'
+          db_path = 'amazon_sellers.db'
+          prog_path = 'output/progress.json'
 
-          git status --short
+          excel_found = os.path.exists(excel_path)
+          db_found = os.path.exists(db_path)
+          prog_found = os.path.exists(prog_path)
 
-          git add -- output/Amazon_Seller_Master_Data.xlsx amazon_sellers.db
+          excel_size = os.path.getsize(excel_path) if excel_found else 0
 
-          if git diff --cached --quiet; then
-            echo "No Amazon data changes to commit."
-          else
-            git commit -m "Update Amazon seller master data"
-            git push origin HEAD:main
+          excel_rows = 0
+          last_category = 'None'
+          if prog_found:
+              try:
+                  with open(prog_path, 'r', encoding='utf-8') as f:
+                      pdata = json.load(f)
+                      last_category = pdata.get('last_completed_category') or 'None'
+                      excel_rows = pdata.get('excel_row_count', 0)
+              except Exception as e:
+                  print(f'Warning loading progress.json: {e}')
+
+          print('========================================')
+          print('AMAZON PERSISTENT OUTPUT PUBLISH')
+          print('========================================')
+          print(f'Scraper job result:\n{scrape_result}\n')
+          print(f'Master Excel:\n{\"FOUND\" if excel_found else \"NOT FOUND\"}\n')
+          print(f'Excel size:\n{excel_size} bytes\n')
+          print(f'Database:\n{\"FOUND\" if db_found else \"NOT FOUND\"}\n')
+          print(f'Progress:\n{\"FOUND\" if prog_found else \"NOT FOUND\"}\n')
+          print(f'Excel rows:\n{excel_rows}\n')
+          print(f'Last completed category:\n{last_category}\n')
+          print('========================================')
+          "
+
+      - name: Verify Master Excel Checkpoint
+        id: verify-excel
+        run: |
+          python -c "
+          import os, sys, zipfile, openpyxl
+
+          excel_path = 'output/Amazon_Seller_Master_Data.xlsx'
+          if not os.path.exists(excel_path):
+              print('========================================')
+              print('NO MASTER EXCEL CHECKPOINT FOUND')
+              print('========================================')
+              sys.exit(0)
+
+          excel_size = os.path.getsize(excel_path)
+          if excel_size == 0:
+              print('ERROR: Master Excel file size is 0 bytes!')
+              sys.exit(1)
+
+          if not zipfile.is_zipfile(excel_path):
+              print('ERROR: Master Excel is not a valid ZIP/XLSX file!')
+              sys.exit(1)
+
+          try:
+              wb = openpyxl.load_workbook(excel_path, data_only=True)
+          except Exception as e:
+              print(f'ERROR: Master Excel failed openpyxl validation: {e}')
+              sys.exit(1)
+
+          if 'Amazon Sellers' not in wb.sheetnames:
+              wb.close()
+              print('ERROR: Master Excel missing \'Amazon Sellers\' worksheet!')
+              sys.exit(1)
+
+          ws = wb['Amazon Sellers']
+          total_rows = ws.max_row
+          if total_rows < 1:
+              wb.close()
+              print('ERROR: Master Excel is completely empty!')
+              sys.exit(1)
+
+          wb.close()
+
+          print('========================================')
+          print('MASTER EXCEL CHECKPOINT VERIFIED')
+          print(f'Excel file: {excel_path}')
+          print(f'File size: {excel_size} bytes')
+          print(f'Total rows (including header): {total_rows}')
+          print('========================================')
+          "
+
+      - name: Package latest output
+        run: |
+          mkdir -p artifact-output
+          if [ -f "output/Amazon_Seller_Master_Data.xlsx" ]; then
+            cp output/Amazon_Seller_Master_Data.xlsx artifact-output/
           fi
+          if [ -f "amazon_sellers.db" ]; then
+            cp amazon_sellers.db artifact-output/
+          fi
+          if [ -f "output/progress.json" ]; then
+            cp output/progress.json artifact-output/
+          fi
+          if [ -d "output/backups" ]; then
+            cp -r output/backups artifact-output/
+          fi
+          if [ -d "logs" ]; then
+            cp -r logs artifact-output/
+          fi
+          if [ -d "output/debug" ]; then
+            cp -r output/debug artifact-output/
+          fi
+
+          echo "Contents of artifact-output:"
+          ls -lah artifact-output/
+
+      - name: Upload Master Excel artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: amazon-master-excel
+          path: artifact-output/Amazon_Seller_Master_Data.xlsx
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Upload complete output ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: amazon-scraper-output
+          path: artifact-output/
+          if-no-files-found: warn
+          retention-days: 30

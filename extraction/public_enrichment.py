@@ -26,6 +26,9 @@ def _attach_safe_dialog_handler(page):
     """Attach a dialog handler that safely dismisses dialogs without raising."""
     if not page:
         return
+    if getattr(page, "_has_safe_dialog_handler", False):
+        return
+    page._has_safe_dialog_handler = True
     def safe_handle_dialog(dialog):
         try:
             dialog.dismiss()

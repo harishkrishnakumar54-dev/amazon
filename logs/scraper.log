@@ -7,3 +7,9 @@
 2026-08-29 15:51:27,096 - INFO - Navigating to Amazon search page 1: https://www.amazon.in/s?k=Men%27s+Casual+Shoes
 2026-08-29 15:51:35,976 - WARNING - Category run 'Men'S Casual Shoes' interrupted by user.
 2026-08-29 15:51:36,154 - WARNING - Batch run interrupted by user (Ctrl+C).
+2026-09-02 17:33:52 | INFO     | indiamart_scraper:export_to_excel:156 - Successfully exported 56 sellers to E:\Vivimart _data\seller\Indiamart\exports\indiamart_sellers.xlsx with exactly 18 columns.
+2026-09-02 17:35:54 | INFO     | indiamart_scraper:export_to_excel:156 - Successfully exported 56 sellers to E:\Vivimart _data\seller\Indiamart\exports\indiamart_sellers.xlsx with exactly 18 columns.
+2026-09-02 17:39:40 | INFO     | indiamart_scraper:export_to_excel:156 - Successfully exported 56 sellers to E:\Vivimart _data\seller\Indiamart\exports\indiamart_sellers.xlsx with exactly 18 columns.
+2026-09-02 18:12:26 | INFO     | indiamart_scraper:scrape_seller_profile:53 - [PROFILE] Scraping seller TEST_LEHA: Lehar Footwears Limited
+2026-09-02 18:12:39 | INFO     | indiamart_scraper:scrape_seller_profile:53 - [PROFILE] Scraping seller TEST_RONA: Ronaldo Agency
+2026-09-02 18:12:55 | INFO     | indiamart_scraper:scrape_seller_profile:53 - [PROFILE] Scraping seller TEST_SHRI: Shri Krishna Handicraft

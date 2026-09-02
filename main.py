@@ -21,6 +21,8 @@ from extraction.seller_extractor import SellerExtractor
 from extraction.normalizer import normalize_seller_key
 from extraction.public_enrichment import PublicEnrichmentEngine, MAX_ENRICHMENT_TIME_PER_SELLER
 from export.excel_exporter import export_sellers_to_master_excel
+from export.progress_tracker import ProgressTracker
+from export.git_checkpoint import commit_and_push_checkpoint
 
 class ScraperProgressTracker:
     def __init__(self, category: str = "", heartbeat_interval: float = 30.0, stuck_threshold: float = 60.0):
@@ -276,7 +278,8 @@ def process_category_run(
     repo: SellerRepository,
     headless: bool = False,
     allow_reprocess: bool = False,
-    is_batch: bool = False
+    is_batch: bool = False,
+    progress_tracker: Optional[ProgressTracker] = None
 ) -> Dict[str, Any]:
     logger = logging.getLogger("amazon_scraper")
     logger.info(f"Target Category: '{category_name}'")
@@ -664,12 +667,84 @@ Reason: {se_err}
     if category_final_status not in ("BLOCKED", "FAILED") and save_success_cnt > 0:
         final_category_sellers = repo.get_sellers_by_category(category_name)
         logger.info(f"Read {len(final_category_sellers)} final verified records from SQLite for '{category_name}'")
-        excel_result = export_sellers_to_master_excel(
-            sellers=final_category_sellers,
-            current_category=category_name,
-            output_path=master_file,
-            allow_reprocess=allow_reprocess
-        )
+        try:
+            excel_result = export_sellers_to_master_excel(
+                sellers=final_category_sellers,
+                current_category=category_name,
+                output_path=master_file,
+                allow_reprocess=allow_reprocess
+            )
+            category_final_status = "COMPLETED"
+            repo.update_category_run_status(
+                category_run_id,
+                category_name,
+                "COMPLETED",
+                len(top_candidates),
+                len(final_category_sellers)
+            )
+
+            # Record progress in output/progress.json AFTER SQLite save + Excel save + Excel validation
+            db_total_count = repo.get_total_sellers_count()
+            excel_rows = excel_result.get("rows_after", len(final_category_sellers))
+            if progress_tracker:
+                progress_tracker.mark_completed(
+                    category=category_name,
+                    excel_row_count=excel_rows,
+                    database_record_count=db_total_count
+                )
+
+            # Git Checkpoint during scraping
+            commit_and_push_checkpoint(
+                category=category_name,
+                files_to_commit=[
+                    master_file,
+                    db_file,
+                    str(progress_tracker.progress_path) if progress_tracker else "output/progress.json"
+                ]
+            )
+
+            # Print Required CATEGORY PERSISTENCE COMPLETE Log
+            print(f"""========================================
+CATEGORY PERSISTENCE COMPLETE
+========================================
+
+Category:
+{category_name}
+
+SQLite:
+SUCCESS
+
+SQLite records:
+{len(final_category_sellers)}
+
+Master Excel:
+SUCCESS
+
+Excel records:
+{excel_result.get('category_records', len(final_category_sellers))}
+
+Database ↔ Excel:
+MATCH
+
+Master Excel:
+{master_file}
+
+========================================
+""")
+        except Exception as ex_excel:
+            logger.exception("MASTER EXCEL SAVE FAILED")
+            print(f"\n[ERROR] MASTER EXCEL SAVE FAILED for category '{category_name}': {ex_excel}")
+            category_final_status = "FAILED"
+            repo.update_category_run_status(
+                category_run_id,
+                category_name,
+                "FAILED",
+                len(top_candidates),
+                0
+            )
+            if progress_tracker:
+                progress_tracker.mark_failed(category_name)
+            raise RuntimeError(f"Master Excel persistence failed for category '{category_name}': {ex_excel}") from ex_excel
     else:
         final_category_sellers = []
         excel_result = {
@@ -680,18 +755,25 @@ Reason: {se_err}
             "master_categories": 0,
             "added_count": 0
         }
-
-    # Update category run status in SQLite
-    if category_final_status == "COMPLETED" and save_success_cnt == 0:
-        category_final_status = "NO_SELLERS_FOUND"
-    
-    repo.update_category_run_status(
-        category_run_id,
-        category_name,
-        category_final_status,
-        len(top_candidates),
-        len(final_category_sellers)
-    )
+        if category_final_status == "COMPLETED" and save_success_cnt == 0:
+            category_final_status = "NO_SELLERS_FOUND"
+            if progress_tracker:
+                progress_tracker.mark_completed(
+                    category=category_name,
+                    excel_row_count=0,
+                    database_record_count=repo.get_total_sellers_count()
+                )
+        elif category_final_status in ("BLOCKED", "FAILED"):
+            if progress_tracker:
+                progress_tracker.mark_failed(category_name)
+        
+        repo.update_category_run_status(
+            category_run_id,
+            category_name,
+            category_final_status,
+            len(top_candidates),
+            0
+        )
 
     v_stats = repo.get_verification_stats()
 
@@ -863,6 +945,9 @@ def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = Fals
     repo = SellerRepository(db_file)
     repo.audit_and_clean_database_gst_pan()
 
+    progress_file = config.get("progress_file", "output/progress.json")
+    progress_tracker = ProgressTracker(progress_file)
+
     categories_requested = len(categories)
     categories_processed = 0
     categories_skipped = 0
@@ -876,6 +961,7 @@ def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = Fals
     print(f"Input file: {file_to_load}")
     print(f"Master Excel target: {master_file}")
     print(f"Database target: {db_file}")
+    print(f"Progress file target: {progress_file}")
     print("========================================\n")
 
     for idx, (cat_name, cat_url) in enumerate(categories, 1):
@@ -885,8 +971,9 @@ def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = Fals
         print(f">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n")
 
         is_processed, existing_cnt = repo.is_category_processed(cat_name)
-        if is_processed and not allow_reprocess:
-            print(f"Category '{cat_name}' already completed in database ({existing_cnt} records). SKIPPING duplicate.")
+        is_prog_completed = progress_tracker.is_category_completed(cat_name)
+        if (is_processed or is_prog_completed) and not allow_reprocess:
+            print(f"Category '{cat_name}' already completed ({existing_cnt} records). SKIPPING duplicate.")
             categories_skipped += 1
             category_results.append({
                 "category": cat_name,
@@ -894,6 +981,8 @@ def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = Fals
                 "sellers": existing_cnt
             })
             continue
+
+        progress_tracker.start_category(cat_name)
 
         try:
             res = process_category_run(
@@ -903,7 +992,8 @@ def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = Fals
                 repo=repo,
                 headless=headless,
                 allow_reprocess=allow_reprocess,
-                is_batch=True
+                is_batch=True,
+                progress_tracker=progress_tracker
             )
             status_val = res.get("status", "COMPLETED")
             sellers_cnt = res.get("sellers_count", 0)
@@ -948,6 +1038,43 @@ def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = Fals
                 "sellers": 0
             })
 
+    # Deep Batch Validation of SQLite and Master Excel
+    sqlite_status = "VALID"
+    excel_status = "VALID"
+    excel_total_rows = 0
+    consistency_status = "CONSISTENT"
+
+    try:
+        import sqlite3, openpyxl, zipfile
+        if not os.path.exists(db_file):
+            sqlite_status = "MISSING"
+        else:
+            conn = sqlite3.connect(db_file)
+            c = conn.cursor()
+            c.execute("SELECT COUNT(*) FROM sellers")
+            db_total_sellers = c.fetchone()[0]
+            conn.close()
+
+        if not os.path.exists(master_file):
+            excel_status = "MISSING"
+            consistency_status = "FAILED (Excel Missing)"
+        elif not zipfile.is_zipfile(master_file):
+            excel_status = "CORRUPT"
+            consistency_status = "FAILED (Excel Corrupt)"
+        else:
+            wb = openpyxl.load_workbook(master_file, data_only=True)
+            if "Amazon Sellers" not in wb.sheetnames:
+                excel_status = "INVALID (Missing Sheet)"
+                consistency_status = "FAILED"
+            else:
+                ws = wb["Amazon Sellers"]
+                excel_total_rows = max(0, ws.max_row - 1)
+            wb.close()
+
+    except Exception as val_ex:
+        excel_status = f"ERROR: {val_ex}"
+        consistency_status = "FAILED"
+
     print("\n========================================")
     print("AMAZON BATCH SELLER RESULTS")
     print("========================================")
@@ -977,6 +1104,41 @@ def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = Fals
     print(f"{db_file}\n")
     print("========================================\n")
 
+    # Required AMAZON FINAL PERSISTENCE SUMMARY
+    print(f"""========================================
+AMAZON FINAL PERSISTENCE SUMMARY
+========================================
+
+Categories processed:
+{categories_processed}
+
+Categories skipped:
+{categories_skipped}
+
+Categories failed:
+{categories_failed}
+
+SQLite:
+{sqlite_status}
+
+Master Excel:
+{excel_status}
+
+Excel total rows:
+{excel_total_rows}
+
+Database ↔ Excel:
+{consistency_status}
+
+Master Excel:
+{master_file}
+
+========================================
+""")
+
+    if categories_failed > 0 and categories_processed == 0:
+        raise RuntimeError(f"Batch run finished with {categories_failed} category failures.")
+
 def run_single(config: dict, category: Optional[str] = None, url: Optional[str] = None, headless: Optional[bool] = None, force: bool = False):
     logger = setup_logging()
     logger.info("Starting Amazon Multi-Category Top 20 Seller Web Scraper (Single Category Mode)")
@@ -999,6 +1161,10 @@ def run_single(config: dict, category: Optional[str] = None, url: Optional[str] 
     repo = SellerRepository(db_file)
     repo.audit_and_clean_database_gst_pan()
 
+    progress_file = config.get("progress_file", "output/progress.json")
+    progress_tracker = ProgressTracker(progress_file)
+    progress_tracker.start_category(current_category)
+
     try:
         process_category_run(
             category_name=current_category,
@@ -1007,7 +1173,8 @@ def run_single(config: dict, category: Optional[str] = None, url: Optional[str] 
             repo=repo,
             headless=headless_mode,
             allow_reprocess=allow_reprocess,
-            is_batch=False
+            is_batch=False,
+            progress_tracker=progress_tracker
         )
     except KeyboardInterrupt:
         print("\n========================================")

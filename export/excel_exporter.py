@@ -42,21 +42,27 @@ def export_sellers_to_master_excel(
     sellers: List[SellerRecord],
     current_category: str,
     output_path: str = "output/Amazon_Seller_Master_Data.xlsx",
-    allow_reprocess: bool = False
+    allow_reprocess: bool = True
 ) -> Dict[str, Any]:
     """
-    Appends new category records (top 20) to the permanent master Excel workbook.
-    Strictly preserves all existing categories, worksheets, and formatting.
-    Performs deep backup validation, write lock testing, temporary workbook validation,
-    atomic replacement, and post-save verification.
+    Appends or updates category records in the persistent master Excel workbook.
+    Strictly preserves all other categories, worksheets, and styling.
+    Performs deep backup validation, atomic temporary file replacement,
+    post-save verification, and SQLite <-> Excel consistency checking.
     """
+    if not current_category or not current_category.strip():
+        raise ValueError("Cannot export to Master Excel without a valid category name.")
+
+    norm_category = current_category.strip()
+    norm_cat_lower = norm_category.lower()
+
     final_path = Path(output_path).resolve()
     output_dir = final_path.parent
     output_dir.mkdir(parents=True, exist_ok=True)
     backup_dir = output_dir / "backups"
     backup_dir.mkdir(parents=True, exist_ok=True)
 
-    temp_path = output_dir / f".Amazon_Seller_Master_Data_tmp_{os.getpid()}.xlsx"
+    temp_path = output_dir / f"{final_path.name}.tmp"
     if temp_path.exists():
         try:
             temp_path.unlink()
@@ -77,147 +83,94 @@ def export_sellers_to_master_excel(
     # Text format column indices (1-based): Phone(8), GST(10), PAN(11), FSSAI(12), Pincode(17)
     text_cols = {8, 10, 11, 12, 17}
 
-    existing_master_records = 0
+    existing_rows = []
+    other_rows = []
     existing_categories = set()
+    rows_before = 0
     file_existed = final_path.exists()
 
-    if file_existed:
-        # Step 1: Validate Source Master Before Modification or Backup
-        source_size = os.path.getsize(final_path)
-        if source_size == 0:
-            raise RuntimeError("MASTER EXCEL IS EMPTY OR INVALID (size is 0 bytes).")
-        
-        if not zipfile.is_zipfile(str(final_path)):
-            raise RuntimeError("MASTER EXCEL IS NOT A VALID XLSX (invalid ZIP structure).")
+    try:
+        if file_existed:
+            # Step 1: Validate Source Master Before Modification or Backup
+            source_size = os.path.getsize(final_path)
+            if source_size == 0:
+                raise RuntimeError("MASTER EXCEL IS EMPTY OR INVALID (size is 0 bytes).")
 
-        # Read source master bytes into memory
-        with open(final_path, "rb") as f:
-            source_bytes = f.read()
+            if not zipfile.is_zipfile(str(final_path)):
+                raise RuntimeError("MASTER EXCEL IS NOT A VALID XLSX (invalid ZIP structure).")
 
-        try:
-            source_wb = load_workbook(io.BytesIO(source_bytes), data_only=True)
-        except Exception as e:
-            raise RuntimeError(f"MASTER EXCEL FAILED OPENPYXL VALIDATION: {e}")
+            with open(final_path, "rb") as f:
+                source_bytes = f.read()
 
-        if "Amazon Sellers" not in source_wb.sheetnames:
+            try:
+                source_wb = load_workbook(io.BytesIO(source_bytes), data_only=True)
+            except Exception as e:
+                raise RuntimeError(f"MASTER EXCEL FAILED OPENPYXL VALIDATION: {e}")
+
+            if "Amazon Sellers" not in source_wb.sheetnames:
+                source_wb.close()
+                raise RuntimeError("MASTER EXCEL IS MISSING 'Amazon Sellers' WORKSHEET.")
+
+            source_ws = source_wb["Amazon Sellers"]
+            source_row_count = source_ws.max_row
+
+            # Collect existing rows
+            for row in source_ws.iter_rows(min_row=2, values_only=True):
+                if row and any(cell is not None for cell in row):
+                    cat_val = str(row[0]).strip() if row[0] is not None else ""
+                    if cat_val:
+                        existing_categories.add(cat_val)
+                        existing_rows.append(list(row))
+                        if cat_val.lower() != norm_cat_lower:
+                            other_rows.append(list(row))
             source_wb.close()
-            raise RuntimeError("MASTER EXCEL IS MISSING 'Amazon Sellers' WORKSHEET.")
+            rows_before = len(existing_rows)
 
-        source_ws = source_wb["Amazon Sellers"]
-        source_row_count = source_ws.max_row
-        
-        # Collect existing rows and seller names
-        source_sellers = []
-        existing_rows = []
-        for row in source_ws.iter_rows(min_row=2, values_only=True):
-            if row and row[0]:
-                cat_val = str(row[0]).strip()
-                if cat_val:
-                    existing_categories.add(cat_val.lower())
-                    existing_rows.append(row)
-                    existing_master_records += 1
-                if len(row) > 3 and row[3]:
-                    source_sellers.append(str(row[3]).strip())
-        source_wb.close()
+            # Step 2: Lock / Exclusivity Check before mutation
+            try:
+                with open(final_path, "a+b") as test_f:
+                    pass
+            except (PermissionError, OSError) as e:
+                print("\n========================================")
+                print("MASTER EXCEL IS CURRENTLY OPEN/LOCKED.")
+                print(f"Please close: {final_path}")
+                print("========================================\n")
+                raise RuntimeError(f"MASTER EXCEL IS OPEN/LOCKED: {e}")
 
-        # Step 2: Lock / Exclusivity Check before any mutation
-        try:
-            with open(final_path, "a+b") as test_f:
-                pass
-        except (PermissionError, OSError) as e:
-            print("\n========================================")
-            print("MASTER EXCEL IS CURRENTLY OPEN/LOCKED.")
-            print("\nPlease close:")
-            print(f"{final_path}")
-            print("\nThen run the category again.")
-            print("========================================\n")
-            raise RuntimeError(f"MASTER EXCEL IS CURRENTLY OPEN/LOCKED ({e}). Please close the file in Excel and retry.")
+            # Step 3: Create & Validate Safety Backup
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            backup_path = backup_dir / f"Amazon_Seller_Master_Data_{timestamp}_backup.xlsx"
 
-        # Step 3: Create & Validate Safety Backup
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        backup_path = backup_dir / f"Amazon_Seller_Master_Data_{timestamp}_backup.xlsx"
+            try:
+                shutil.copy2(str(final_path), str(backup_path))
+            except Exception as e:
+                raise RuntimeError(f"FAILED TO COPY MASTER TO BACKUP: {e}")
 
-        try:
-            shutil.copy2(str(final_path), str(backup_path))
-        except Exception as e:
-            raise RuntimeError(f"FAILED TO COPY MASTER TO BACKUP: {e}")
+            if not backup_path.exists():
+                raise RuntimeError("BACKUP VALIDATION FAILED: Backup file does not exist after copy.")
 
-        # Deep Backup Verification
-        if not backup_path.exists():
-            raise RuntimeError("BACKUP VALIDATION FAILED: Backup file does not exist after copy.")
-        
-        backup_size = os.path.getsize(backup_path)
-        if backup_size == 0:
-            raise RuntimeError("BACKUP VALIDATION FAILED: Backup file size is 0 bytes.")
+            backup_size = os.path.getsize(backup_path)
+            if backup_size == 0 or not zipfile.is_zipfile(str(backup_path)):
+                raise RuntimeError("BACKUP VALIDATION FAILED: Backup file is empty or corrupted ZIP.")
 
-        if not zipfile.is_zipfile(str(backup_path)):
-            raise RuntimeError("BACKUP VALIDATION FAILED: Backup file is not a valid ZIP/XLSX.")
+            try:
+                with open(backup_path, "rb") as bf:
+                    backup_bytes = bf.read()
+                backup_wb = load_workbook(io.BytesIO(backup_bytes), data_only=True)
+                if "Amazon Sellers" not in backup_wb.sheetnames:
+                    backup_wb.close()
+                    raise RuntimeError("BACKUP VALIDATION FAILED: Missing 'Amazon Sellers' sheet.")
+                backup_row_count = backup_wb["Amazon Sellers"].max_row
+                backup_wb.close()
+            except Exception as e:
+                raise RuntimeError(f"BACKUP VALIDATION FAILED: {e}")
 
-        try:
-            with open(backup_path, "rb") as bf:
-                backup_bytes = bf.read()
-            backup_wb = load_workbook(io.BytesIO(backup_bytes), data_only=True)
-        except Exception as e:
-            raise RuntimeError(f"BACKUP VALIDATION FAILED: openpyxl failed to open backup file: {e}")
+            if backup_row_count != source_row_count:
+                raise RuntimeError(f"BACKUP VALIDATION FAILED: Row count mismatch ({source_row_count} vs {backup_row_count})")
 
-        if "Amazon Sellers" not in backup_wb.sheetnames:
-            backup_wb.close()
-            raise RuntimeError("BACKUP VALIDATION FAILED: 'Amazon Sellers' worksheet missing in backup.")
+            logger.info(f"Created verified safety backup: {backup_path}")
 
-        backup_ws = backup_wb["Amazon Sellers"]
-        backup_row_count = backup_ws.max_row
-        backup_wb.close()
-
-        if backup_row_count != source_row_count:
-            raise RuntimeError(f"BACKUP VALIDATION FAILED: Row count mismatch (Source: {source_row_count}, Backup: {backup_row_count})")
-
-        # Print formatted backup verification block
-        first_sellers_str = "\n".join([f"{i}. {name}" for i, name in enumerate(source_sellers[:5], 1)])
-        if not first_sellers_str:
-            first_sellers_str = "None (Header only)"
-
-        print("\n========================================")
-        print("BACKUP VALIDATION")
-        print("=================")
-        print(f"Backup:\n{backup_path}\n")
-        print(f"Source rows:\n{source_row_count}\n")
-        print(f"Backup rows:\n{backup_row_count}\n")
-        print(f"Source size:\n{source_size} bytes\n")
-        print(f"Backup size:\n{backup_size} bytes\n")
-        print("Backup XLSX:\nVALID\n")
-        print("Worksheet:\nAmazon Sellers\n")
-        print(f"First sellers:\n{first_sellers_str}\n")
-        print("BACKUP VERIFIED SUCCESSFULLY")
-        print("========================================\n")
-        logger.info(f"Created safety backup of master Excel at {backup_path}")
-
-        # Check Category Duplicate Protection
-        if not allow_reprocess and current_category.strip().lower() in existing_categories:
-            cat_count = sum(1 for r in existing_rows if r[0] and str(r[0]).strip().lower() == current_category.strip().lower())
-            return {
-                "status": "SKIPPED_ALREADY_EXISTS",
-                "file_path": str(final_path),
-                "existing_records": existing_master_records,
-                "total_records": existing_master_records,
-                "master_categories": len(existing_categories),
-                "added_count": 0,
-                "cat_count": cat_count
-            }
-
-        # Load existing workbook for modifications
-        wb = load_workbook(io.BytesIO(source_bytes))
-        ws = wb["Amazon Sellers"]
-
-        # If allow_reprocess and category already existed in workbook, rebuild rows excluding old category rows
-        if allow_reprocess and current_category.strip().lower() in existing_categories:
-            other_rows = [r for r in existing_rows if str(r[0]).strip().lower() != current_category.strip().lower()]
-            ws.delete_rows(2, ws.max_row)
-            for r in other_rows:
-                ws.append(list(r))
-            existing_master_records = len(other_rows)
-            existing_categories = set(str(r[0]).strip().lower() for r in other_rows if r and r[0])
-    else:
-        # Create brand new master workbook
+        # Build fresh workbook structure with preserved other categories + new records
         wb = openpyxl.Workbook()
         ws = wb.active
         ws.title = "Amazon Sellers"
@@ -230,187 +183,210 @@ def export_sellers_to_master_excel(
             cell.font = header_font
             cell.alignment = header_alignment
             cell.border = thin_border
-        
+
         ws.row_dimensions[1].height = 28
         ws.freeze_panes = "A2"
 
-    # Step 4: Append ONLY New Category Records (All collected sellers)
-    added_count = 0
-
-    for idx, s in enumerate(sellers, 1):
-        row_data = [
-            s.sub_sub_category or current_category,
-            s.sub_sub_sub_category or "",
-            idx,  # S.NO resets to 1..N for each category
-            s.business_name,
-            s.business_model,
-            s.business_category,
-            s.owner_name,
-            str(s.phone_number) if s.phone_number else "Not Found",
-            s.email_address,
-            str(s.gst_number) if s.gst_number else "Not Found",
-            str(s.pan_number) if s.pan_number else "Not Found",
-            str(s.fssai_number) if s.fssai_number else "N/A",
-            s.billing_address,
-            "",  # x column
-            s.city,
-            s.state,
-            str(s.pincode) if s.pincode else "Not Found",
-            s.country,
-            s.website_url,
-            s.status,
-            s.source
-        ]
-        ws.append(row_data)
-        added_count += 1
-        
-        row_idx = ws.max_row
-        for col_idx in range(1, len(COLUMNS) + 1):
-            cell = ws.cell(row=row_idx, column=col_idx)
-            cell.border = thin_border
-            cell.font = Font(name="Calibri", size=10)
+        # Append existing preserved records from other categories
+        for r in other_rows:
+            row_vals = list(r)
+            if len(row_vals) < len(COLUMNS):
+                row_vals.extend([""] * (len(COLUMNS) - len(row_vals)))
+            elif len(row_vals) > len(COLUMNS):
+                row_vals = row_vals[:len(COLUMNS)]
+            ws.append(row_vals)
             
-            if col_idx in text_cols:
-                cell.number_format = '@'
-                cell.alignment = Alignment(horizontal="center", vertical="center")
-            elif col_idx == 13: # Billing Address
-                cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
-            elif col_idx == 3: # S.NO
-                cell.alignment = Alignment(horizontal="center", vertical="center")
-            else:
-                cell.alignment = Alignment(horizontal="left", vertical="center")
+            row_idx = ws.max_row
+            for col_idx in range(1, len(COLUMNS) + 1):
+                cell = ws.cell(row=row_idx, column=col_idx)
+                cell.border = thin_border
+                cell.font = Font(name="Calibri", size=10)
+                if col_idx in text_cols:
+                    cell.number_format = '@'
+                    cell.alignment = Alignment(horizontal="center", vertical="center")
+                elif col_idx == 13: # Billing Address
+                    cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
+                elif col_idx == 3: # S.NO
+                    cell.alignment = Alignment(horizontal="center", vertical="center")
+                else:
+                    cell.alignment = Alignment(horizontal="left", vertical="center")
 
-    # Enable Auto Filter
-    ws.auto_filter.ref = ws.dimensions
+        # Step 4: Append current category verified records with clean S.NO 1..N
+        added_count = 0
+        for idx, s in enumerate(sellers, 1):
+            row_data = [
+                s.sub_sub_category or norm_category,
+                s.sub_sub_sub_category or "",
+                idx,  # S.NO 1..N for current category
+                s.business_name,
+                s.business_model or "Marketplace Seller",
+                s.business_category or norm_category,
+                s.owner_name or "Not Found",
+                str(s.phone_number) if s.phone_number and s.phone_number != "None" else "Not Found",
+                s.email_address or "Not Found",
+                str(s.gst_number) if s.gst_number and s.gst_number != "None" else "Not Found",
+                str(s.pan_number) if s.pan_number and s.pan_number != "None" else "Not Found",
+                str(s.fssai_number) if s.fssai_number and s.fssai_number != "None" else "N/A",
+                s.billing_address or "Not Found",
+                "",  # x column
+                s.city or "Not Found",
+                s.state or "Not Found",
+                str(s.pincode) if s.pincode and s.pincode != "None" else "Not Found",
+                s.country or "India",
+                s.website_url or "Not Found",
+                s.status or "Observed on Amazon",
+                s.source or "Amazon"
+            ]
+            ws.append(row_data)
+            added_count += 1
 
-    # Auto-adjust column widths
-    for col in ws.columns:
-        max_len = 0
-        col_idx = col[0].column
-        col_letter = get_column_letter(col_idx)
-        for cell in col:
-            val_str = str(cell.value or '')
-            if col_idx == 13: # Billing Address
-                max_len = 35
-                break
-            max_len = max(max_len, len(val_str))
-        
-        ws.column_dimensions[col_letter].width = max(max_len + 4, 12)
+            row_idx = ws.max_row
+            for col_idx in range(1, len(COLUMNS) + 1):
+                cell = ws.cell(row=row_idx, column=col_idx)
+                cell.border = thin_border
+                cell.font = Font(name="Calibri", size=10)
+                if col_idx in text_cols:
+                    cell.number_format = '@'
+                    cell.alignment = Alignment(horizontal="center", vertical="center")
+                elif col_idx == 13: # Billing Address
+                    cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
+                elif col_idx == 3: # S.NO
+                    cell.alignment = Alignment(horizontal="center", vertical="center")
+                else:
+                    cell.alignment = Alignment(horizontal="left", vertical="center")
 
-    # Step 5: Save to Temporary XLSX
-    try:
+        # Auto Filter
+        ws.auto_filter.ref = ws.dimensions
+
+        # Column widths auto-adjustment
+        for col in ws.columns:
+            max_len = 0
+            col_idx = col[0].column
+            col_letter = get_column_letter(col_idx)
+            for cell in col:
+                val_str = str(cell.value or '')
+                if col_idx == 13: # Billing Address
+                    max_len = 35
+                    break
+                max_len = max(max_len, len(val_str))
+            ws.column_dimensions[col_letter].width = max(max_len + 4, 12)
+
+        # Step 5: Save to Temporary XLSX & explicitly close
         wb.save(str(temp_path))
         wb.close()
-    except Exception as e:
-        if temp_path.exists():
-            try:
-                temp_path.unlink()
-            except Exception:
-                pass
-        raise RuntimeError(f"Failed to write temporary Excel file: {e}")
 
-    # Step 6: Validate Temporary XLSX before modifying Master
-    if not temp_path.exists() or not zipfile.is_zipfile(str(temp_path)):
-        if temp_path.exists():
-            try:
-                temp_path.unlink()
-            except Exception:
-                pass
-        raise RuntimeError("Generated temporary Excel file is invalid/corrupted ZIP.")
+        # Step 6: Validate Temporary XLSX before modifying Master
+        if not temp_path.exists() or not zipfile.is_zipfile(str(temp_path)):
+            raise RuntimeError("Generated temporary Excel file is missing or invalid ZIP.")
 
-    try:
         with open(temp_path, "rb") as tf:
-            test_wb = load_workbook(io.BytesIO(tf.read()), read_only=True)
+            test_wb = load_workbook(tf, data_only=True)
             if "Amazon Sellers" not in test_wb.sheetnames:
                 test_wb.close()
-                raise RuntimeError("Temporary Excel file missing 'Amazon Sellers' sheet.")
+                raise RuntimeError("Temporary Excel missing 'Amazon Sellers' worksheet.")
+            temp_rows = test_wb["Amazon Sellers"].max_row
             test_wb.close()
-    except Exception as e:
-        if temp_path.exists():
-            try:
-                temp_path.unlink()
-            except Exception:
-                pass
-        raise RuntimeError(f"Generated temporary Excel file failed openpyxl validation: {e}")
 
-    # Step 7: Atomic Replacement of Master Excel
-    try:
+        expected_total_rows = len(other_rows) + added_count + 1
+        if temp_rows < expected_total_rows:
+            raise RuntimeError(f"Temporary Excel row count mismatch: Expected >= {expected_total_rows}, got {temp_rows}")
+
+        # Step 7: Atomic Replacement of Master Excel
         os.replace(str(temp_path), str(final_path))
-    except (PermissionError, OSError) as e:
+
+        # Step 8: Deep Read-Back Verification of Master Excel
+        if not final_path.exists() or not zipfile.is_zipfile(str(final_path)):
+            raise RuntimeError("Master Excel missing or invalid after atomic replacement.")
+
+        final_size = os.path.getsize(final_path)
+        check_wb = load_workbook(str(final_path), data_only=True)
+        if "Amazon Sellers" not in check_wb.sheetnames:
+            check_wb.close()
+            raise RuntimeError("Master Excel missing 'Amazon Sellers' sheet after replacement.")
+
+        check_ws = check_wb["Amazon Sellers"]
+        rows_after = check_ws.max_row - 1  # exclude header
+
+        master_categories = set()
+        cat_records_in_excel = []
+        for row in check_ws.iter_rows(min_row=2, values_only=True):
+            if row and any(c is not None for c in row):
+                cat_val = str(row[0]).strip() if row[0] is not None else ""
+                if cat_val:
+                    master_categories.add(cat_val)
+                    if cat_val.lower() == norm_cat_lower:
+                        cat_records_in_excel.append(row)
+
+        # Step 9: Verify Headers & Cumulative Structure
+        header_row = [cell for cell in next(check_ws.iter_rows(min_row=1, max_row=1, values_only=True))]
+        if header_row != COLUMNS:
+            check_wb.close()
+            raise RuntimeError("Master Excel headers do not match expected schema.")
+
+        # Step 10: Verify previous categories still exist
+        other_category_names = {str(r[0]).strip() for r in other_rows if r and r[0]}
+        if not other_category_names.issubset(master_categories):
+            missing_prev = other_category_names - master_categories
+            check_wb.close()
+            raise RuntimeError(f"EXCEL PERSISTENCE FAILURE: Previous categories lost: {missing_prev}")
+
+        # Step 11: Verify current category exists
+        if len(sellers) > 0 and not any(c.lower() == norm_cat_lower for c in master_categories):
+            check_wb.close()
+            raise RuntimeError(f"EXCEL PERSISTENCE FAILURE: Current completed category '{norm_category}' missing from Master Excel.")
+
+        check_wb.close()
+
+        # Step 12: Verify Current Category Records in Excel
+        cat_count_in_excel = len(cat_records_in_excel)
+        if len(sellers) > 0 and cat_count_in_excel == 0:
+            raise RuntimeError(f"EXCEL PERSISTENCE FAILURE: Expected {len(sellers)} records in Excel for '{norm_category}', found 0.")
+
+        if cat_count_in_excel != len(sellers):
+            raise RuntimeError(f"EXCEL PERSISTENCE FAILURE: Category record count mismatch for '{norm_category}' (DB: {len(sellers)}, Excel: {cat_count_in_excel})")
+
+        # Formatted AMAZON EXCEL CHECKPOINT Banner
+        print("\n========================================")
+        print("AMAZON EXCEL CHECKPOINT")
+        print("========================================")
+        print(f"\nCategory:\n{norm_category}\n")
+        print(f"Excel:\n{output_path}\n")
+        print(f"Rows:\n{rows_after}\n")
+        print("Validation:\nPASSED\n")
+        print("Checkpoint:\nSAVED\n")
+        print("========================================\n")
+
+        # Database <-> Excel Consistency Verification Banner
+        consistency_passed = (len(sellers) == cat_count_in_excel)
+        print(f"DATABASE RECORDS: {len(sellers)}")
+        print(f"EXCEL RECORDS: {cat_count_in_excel}")
+        print(f"CONSISTENCY: {'PASSED' if consistency_passed else 'FAILED'}\n")
+
+        if not consistency_passed:
+            raise RuntimeError(f"DATABASE <-> EXCEL CONSISTENCY FAILED for category '{norm_category}'")
+
+        logger.info(f"Master Excel updated successfully: '{norm_category}' added {added_count} rows. Total rows={rows_after}")
+
+        return {
+            "status": "SUCCESS",
+            "file_path": str(final_path),
+            "rows_before": rows_before,
+            "rows_after": rows_after,
+            "added_count": added_count,
+            "category_records": cat_count_in_excel,
+            "total_categories": len(master_categories),
+            "file_size": final_size
+        }
+
+    except Exception as e:
+        logger.exception(f"MASTER EXCEL SAVE FAILED: {e}")
         if temp_path.exists():
             try:
                 temp_path.unlink()
             except Exception:
                 pass
         print("\n========================================")
-        print("MASTER REPLACEMENT FAILED — ORIGINAL MASTER PRESERVED.")
-        print("MASTER EXCEL IS CURRENTLY OPEN/LOCKED.")
-        print("\nPlease close:")
-        print(f"{final_path}")
-        print("\nThen run again.")
+        print("MASTER EXCEL SAVE FAILED")
+        print(f"Error: {e}")
         print("========================================\n")
-        raise RuntimeError(f"MASTER REPLACEMENT FAILED — ORIGINAL MASTER PRESERVED ({e}). Please close Excel and retry.")
-
-    # Step 8: Final Master Excel Deep Read-Back & Verification
-    if not final_path.exists() or not zipfile.is_zipfile(str(final_path)):
-        raise RuntimeError("Master file is invalid or missing after replacement.")
-
-    with open(final_path, "rb") as f:
-        final_bytes = f.read()
-
-    final_size = len(final_bytes)
-    check_wb = load_workbook(io.BytesIO(final_bytes), data_only=True)
-    if "Amazon Sellers" not in check_wb.sheetnames:
-        check_wb.close()
-        raise RuntimeError("Final Master Excel missing 'Amazon Sellers' sheet.")
-
-    check_ws = check_wb["Amazon Sellers"]
-    final_total_rows = check_ws.max_row
-    
-    master_categories = set()
-    category_rows_count = 0
-    first_cat_sellers = []
-
-    for row in check_ws.iter_rows(min_row=2, values_only=True):
-        if row and row[0]:
-            cat_name = str(row[0]).strip()
-            master_categories.add(cat_name)
-            if cat_name.lower() == current_category.strip().lower():
-                category_rows_count += 1
-                if len(row) > 3 and row[3]:
-                    first_cat_sellers.append(str(row[3]).strip())
-
-    check_wb.close()
-
-    first_cat_sellers_str = "\n".join([f"{i}. {name}" for i, name in enumerate(first_cat_sellers[:5], 1)])
-    if not first_cat_sellers_str:
-        first_cat_sellers_str = "None"
-
-    cat_list_str = "\n".join([f"- {c}" for c in sorted(master_categories)])
-
-    print("\n========================================")
-    print("FINAL MASTER EXCEL VALIDATION")
-    print("=============================\n")
-    print(f"File:\n{final_path}\n")
-    print(f"File size:\n{final_size} bytes\n")
-    print(f"Rows:\n{final_total_rows}\n")
-    print(f"Categories:\n{cat_list_str}\n")
-    print(f"{current_category} rows:\n{category_rows_count}\n")
-    print(f"First 5 {current_category} sellers:\n{first_cat_sellers_str}\n")
-    print("Excel validation:\nPASSED")
-    print("========================================\n")
-
-    total_master_records = existing_master_records + added_count
-    existing_categories.add(current_category.strip().lower())
-
-    status_str = "SUCCESS" if not file_existed else "APPENDED SUCCESSFULLY"
-    logger.info(f"Master Excel updated: Added {added_count} rows for category '{current_category}'. Total master rows={total_master_records}")
-
-    return {
-        "status": status_str,
-        "file_path": str(final_path),
-        "existing_records": existing_master_records,
-        "total_records": total_master_records,
-        "master_categories": len(existing_categories),
-        "added_count": added_count
-    }
+        raise

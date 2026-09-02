@@ -17,6 +17,9 @@ def attach_safe_dialog_handler(page: Optional[Page]):
     """Attach a single safe dialog handler to automatically dismiss alert/confirm/beforeunload dialogs."""
     if not page:
         return
+    if getattr(page, "_has_safe_dialog_handler", False):
+        return
+    page._has_safe_dialog_handler = True
     def safe_handle_dialog(dialog):
         try:
             dialog.dismiss()

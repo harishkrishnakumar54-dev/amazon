@@ -1,8 +1,9 @@
 import sqlite3
 import logging
 from typing import List, Optional, Tuple, Dict, Any
-from database.models import SellerRecord, SellerSource, SellerOffer
-from database.database import get_db_connection
+from .models import SellerRecord, SellerSource, SellerOffer
+from .database import get_db_connection
+
 
 logger = logging.getLogger("amazon_scraper")
 
@@ -20,6 +21,14 @@ class SellerRepository:
             sellers.append(self._row_to_record(r))
         conn.close()
         return sellers
+
+    def get_total_sellers_count(self) -> int:
+        conn = get_db_connection(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM sellers")
+        count = cursor.fetchone()[0]
+        conn.close()
+        return count
 
     def get_sellers_by_category(self, category: str) -> List[SellerRecord]:
         conn = get_db_connection(self.db_path)

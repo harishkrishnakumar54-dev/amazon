@@ -3,3 +3,9 @@ __pycache__/
 .venv/
 venv/
 .env
+logs/
+output/backups/
+output/debug/
+output/*_test.xlsx
+*test*.db
+scratch/
