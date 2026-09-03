@@ -31,6 +31,8 @@ from export.excel_exporter import export_sellers_to_master_excel
 from export.progress_tracker import ProgressTracker
 from export.git_checkpoint import commit_and_push_checkpoint
 
+logger = logging.getLogger("amazon_scraper")
+
 class ScraperProgressTracker:
     def __init__(self, category: str = "", heartbeat_interval: float = 30.0, stuck_threshold: float = 60.0):
         self.category = category
@@ -46,7 +48,7 @@ class ScraperProgressTracker:
         self.last_successful_op = "Started"
         self.last_url = ""
 
-    def update_stage(self, stage: str, seller: str = "", asin: str = "", field: str = "", url: str = ""):
+    def update_stage(self, stage: str, seller: Optional[str] = "", asin: Optional[str] = "", field: Optional[str] = "", url: Optional[str] = ""):
         self.current_stage = stage
         if seller: self.current_seller = seller
         if asin: self.current_asin = asin
@@ -447,8 +449,8 @@ def process_category_run(
                 category_final_status = "TIMEOUT"
                 break
 
-            asin = prod.get("asin")
-            tracker.update_stage("Product Offer Extraction", asin=asin, url=prod.get("product_url", ""))
+            asin = str(prod.get("asin") or "")
+            tracker.update_stage("Product Offer Extraction", asin=asin, url=str(prod.get("product_url") or ""))
             logger.info(f"[{idx}/{len(products)}] Processing product ASIN: {asin}")
 
             seller_offers_data = []
@@ -603,20 +605,23 @@ Reason: {se_err}
                 if not is_new:
                     updates_count += 1
 
-                verified_rec = repo.get_seller_by_id(saved_record.id)
-                is_verified = bool(verified_rec and verified_rec.business_name not in ("Not Found", "Unknown", ""))
-                if is_verified:
-                    verified_success_cnt += 1
+                verified_rec: Optional[SellerRecord] = None
+                is_verified = False
+                if saved_record.id is not None:
+                    verified_rec = repo.get_seller_by_id(saved_record.id)
+                    is_verified = bool(verified_rec and verified_rec.business_name not in ("Not Found", "Unknown", ""))
+                    if is_verified:
+                        verified_success_cnt += 1
 
                 for src in sources + extra_sources:
                     src.seller_id = saved_record.id
                     repo.add_seller_source(src)
 
                 repo.add_seller_offer(SellerOffer(
-                    seller_id=saved_record.id,
-                    asin=prod.get("asin"),
-                    product_url=prod.get("product_url"),
-                    product_title=prod.get("product_title", ""),
+                    seller_id=saved_record.id or 0,
+                    asin=str(prod.get("asin") or ""),
+                    product_url=str(prod.get("product_url") or ""),
+                    product_title=str(prod.get("product_title") or ""),
                     category=category_name,
                     seller_name=offer_data.get("display_name"),
                     seller_profile_url=offer_data.get("seller_profile_url"),
@@ -1337,7 +1342,7 @@ def run_single_product_test(product_url_or_asin: str, headless: bool = False, ca
         if not disp_name:
             continue
         if off.get("product_title"):
-            product_title = off.get("product_title")
+            product_title = str(off.get("product_title") or f"Amazon Product {asin}")
 
         source = off.get("source", "")
         if "Buy Box" in source:
@@ -1364,10 +1369,10 @@ def run_single_product_test(product_url_or_asin: str, headless: bool = False, ca
             src.seller_id = saved_rec.id
             repo.add_seller_source(src)
         repo.add_seller_offer(SellerOffer(
-            seller_id=saved_rec.id,
+            seller_id=saved_rec.id or 0,
             asin=asin,
             product_url=product_url,
-            product_title=product_title,
+            product_title=str(product_title or f"Amazon Product {asin}"),
             category=category_name,
             seller_name=off.get("display_name"),
             seller_profile_url=off.get("seller_profile_url"),
