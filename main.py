@@ -18,6 +18,7 @@ from database.models import SellerRecord, SellerOffer, CategoryRun
 from scraper.browser import BrowserManager, safe_close_page
 from scraper.amazon_public import AmazonPublicSource
 from scraper.amazon_search import AmazonBlockedException, AmazonNavigationException, run_amazon_preflight
+from scraper.url_utils import normalize_amazon_url, validate_amazon_url
 from extraction.seller_extractor import SellerExtractor
 from extraction.normalizer import normalize_seller_key
 from extraction.public_enrichment import PublicEnrichmentEngine, MAX_ENRICHMENT_TIME_PER_SELLER
@@ -142,30 +143,36 @@ def load_current_category_and_url(config: dict) -> Tuple[str, str]:
     if os.path.exists(cat_file):
         with open(cat_file, "r", encoding="utf-8") as f:
             for line in f:
-                line = line.strip()
-                if line and not line.startswith("#"):
-                    if "|" in line:
-                        parts = line.split("|", 1)
-                        cat_name = parts[0].strip()
-                        url_val = parts[1].strip()
-                        if not cat_name or cat_name.lower() == "current category":
-                            raise ValueError(f"Invalid category '{cat_name}' in {cat_file}. Please provide a valid category name.")
-                        return cat_name, url_val
-                    elif line.startswith("http"):
-                        parsed = urlparse(line)
-                        qs = parse_qs(parsed.query)
-                        if "k" in qs and qs["k"][0].strip():
-                            inferred = qs["k"][0].replace("+", " ").strip().title()
-                            return inferred, line
-                        # Infer category from URL path e.g. /Sports-Outdoor-Women-Shoes/b?node=...
-                        path_parts = [p for p in parsed.path.split("/") if p and p not in ("b", "s", "dp", "gp", "ref=sr_1_1")]
+                raw_line = line.strip()
+                if not raw_line or raw_line.startswith("#"):
+                    continue
+                if "|" in raw_line:
+                    parts = raw_line.split("|", 1)
+                    cat_name = parts[0].strip()
+                    raw_url = parts[1].strip()
+                    if not cat_name or cat_name.lower() == "current category":
+                        raise ValueError(f"Invalid category '{cat_name}' in {cat_file}. Please provide a valid category name.")
+                    url_val = normalize_amazon_url(raw_url) if raw_url else ("https://www.amazon.in/s?k=" + quote_plus(cat_name))
+                    return cat_name, url_val
+                else:
+                    norm_candidate = normalize_amazon_url(raw_line)
+                    parsed_cand = urlparse(norm_candidate)
+                    if parsed_cand.scheme in ("http", "https") and parsed_cand.netloc:
+                        qs = parse_qs(parsed_cand.query)
+                        if "k" in qs and qs["k"] and qs["k"][0].strip():
+                            cat_name = qs["k"][0].replace("+", " ").strip().title()
+                            return cat_name, norm_candidate
+                        path_parts = [p for p in parsed_cand.path.split("/") if p and p not in ("b", "s", "dp", "gp", "ref=sr_1_1")]
                         if path_parts:
-                            inferred = path_parts[0].replace("-", " ").replace("+", " ").replace("_", " ").strip().title()
-                            if inferred and inferred.lower() != "current category":
-                                return inferred, line
-                        raise ValueError(f"Could not infer category name from URL '{line}'. Please format input/current_category.txt as 'Category Name|URL'.")
+                            cat_name = path_parts[0].replace("-", " ").replace("+", " ").replace("_", " ").strip().title()
+                            if cat_name and cat_name.lower() != "current category":
+                                return cat_name, norm_candidate
+                        md_m = re.search(r'\[(.*?)\]', raw_line)
+                        if md_m and md_m.group(1).strip() and not md_m.group(1).strip().startswith("http"):
+                            return md_m.group(1).strip(), norm_candidate
+                        raise ValueError(f"Could not infer category name from URL '{raw_line}'. Please format input/current_category.txt as 'Category Name|URL'.")
                     else:
-                        cat_name = line.strip()
+                        cat_name = raw_line.strip().strip("'\"`").strip()
                         if not cat_name or cat_name.lower() == "current category":
                             raise ValueError(f"Invalid category '{cat_name}' in {cat_file}.")
                         return cat_name, "https://www.amazon.in/s?k=" + quote_plus(cat_name)
@@ -177,67 +184,63 @@ def load_batch_categories(file_path: str = "input/amazon_urls.txt") -> List[Tupl
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"Batch URL file not found: {file_path}")
 
-    def normalize_category_url(url: str) -> str:
-        u = url.strip()
-        m = re.search(r'https?://[^\s\)\]]+', u)
-        if m:
-            u = m.group(0)
-        parsed = urlparse(u)
-        scheme = parsed.scheme.lower() or "https"
-        netloc = parsed.netloc.lower()
-        path = parsed.path.rstrip("/")
-        qs = parse_qs(parsed.query)
-        if "k" in qs and qs["k"]:
-            norm_k = qs["k"][0].strip().replace("+", " ")
-            clean_query = "k=" + quote_plus(norm_k)
-        else:
-            clean_query = parsed.query
-        return f"{scheme}://{netloc}{path}{'?' + clean_query if clean_query else ''}"
-
     categories = []
     seen_urls = set()
 
     with open(file_path, "r", encoding="utf-8") as f:
         for line_idx, line in enumerate(f, 1):
-            line = line.strip()
-            if not line or line.startswith("#"):
+            raw_line = line.strip()
+            if not raw_line or raw_line.startswith("#"):
                 continue
 
-            if "|" in line:
-                parts = line.split("|", 1)
+            if "|" in raw_line:
+                parts = raw_line.split("|", 1)
                 cat_name = parts[0].strip()
-                url_val = parts[1].strip()
+                raw_url = parts[1].strip()
                 if not cat_name or cat_name.lower() == "current category":
                     raise ValueError(f"Invalid category name '{cat_name}' on line {line_idx} of {file_path}.")
-                if not url_val:
-                    url_val = "https://www.amazon.in/s?k=" + quote_plus(cat_name)
-            elif line.startswith("http"):
-                parsed = urlparse(line)
-                qs = parse_qs(parsed.query)
-                if "k" in qs and qs["k"][0].strip():
-                    cat_name = qs["k"][0].replace("+", " ").strip().title()
+                if raw_url:
+                    clean_url = normalize_amazon_url(raw_url)
                 else:
-                    path_parts = [p for p in parsed.path.split("/") if p and p not in ("b", "s", "dp", "gp", "ref=sr_1_1")]
-                    if path_parts:
-                        cat_name = path_parts[0].replace("-", " ").replace("+", " ").replace("_", " ").strip().title()
-                    else:
-                        raise ValueError(f"Could not infer category name from URL '{line}' on line {line_idx} of {file_path}. Please format as 'Category Name|URL'.")
-                if not cat_name or cat_name.lower() == "current category":
-                    raise ValueError(f"Invalid category inferred on line {line_idx} of {file_path}.")
-                url_val = line
+                    clean_url = "https://www.amazon.in/s?k=" + quote_plus(cat_name)
             else:
-                cat_name = line.strip()
-                if not cat_name or cat_name.lower() == "current category":
-                    raise ValueError(f"Invalid category name on line {line_idx} of {file_path}.")
-                url_val = "https://www.amazon.in/s?k=" + quote_plus(cat_name)
+                norm_cand = normalize_amazon_url(raw_line)
+                parsed_cand = urlparse(norm_cand)
+                if parsed_cand.scheme in ("http", "https") and parsed_cand.netloc:
+                    clean_url = norm_cand
+                    qs = parse_qs(parsed_cand.query)
+                    if "k" in qs and qs["k"] and qs["k"][0].strip():
+                        cat_name = qs["k"][0].replace("+", " ").strip().title()
+                    else:
+                        path_parts = [p for p in parsed_cand.path.split("/") if p and p not in ("b", "s", "dp", "gp", "ref=sr_1_1")]
+                        if path_parts:
+                            cat_name = path_parts[0].replace("-", " ").replace("+", " ").replace("_", " ").strip().title()
+                        else:
+                            md_m = re.search(r'\[(.*?)\]', raw_line)
+                            if md_m and md_m.group(1).strip() and not md_m.group(1).strip().startswith("http"):
+                                cat_name = md_m.group(1).strip()
+                            else:
+                                raise ValueError(f"Could not infer category name from URL '{raw_line}' on line {line_idx} of {file_path}. Please format as 'Category Name|URL'.")
+                else:
+                    cat_name = raw_line.strip().strip("'\"`").strip()
+                    if not cat_name or cat_name.lower() == "current category":
+                        raise ValueError(f"Invalid category name on line {line_idx} of {file_path}.")
+                    clean_url = "https://www.amazon.in/s?k=" + quote_plus(cat_name)
 
-            norm_u = normalize_category_url(url_val)
-            if norm_u in seen_urls:
-                logging.getLogger("amazon_scraper").info(f"Skipping duplicate target URL in input: {norm_u} (Category: '{cat_name}')")
+            if not cat_name or cat_name.lower() == "current category":
+                raise ValueError(f"Invalid category inferred on line {line_idx} of {file_path}.")
+
+            parsed_final = urlparse(clean_url)
+            if not (parsed_final.scheme in ("http", "https") and parsed_final.netloc):
+                raise ValueError(f"Invalid URL '{clean_url}' on line {line_idx} of {file_path}.")
+
+            norm_key = clean_url.rstrip("/").lower()
+            if norm_key in seen_urls:
+                logging.getLogger("amazon_scraper").info(f"Skipping duplicate target URL in input: {clean_url} (Category: '{cat_name}')")
                 continue
 
-            seen_urls.add(norm_u)
-            categories.append((cat_name, url_val))
+            seen_urls.add(norm_key)
+            categories.append((cat_name, clean_url))
 
     return categories
 
@@ -309,6 +312,7 @@ def process_category_run(
     progress_tracker: Optional[ProgressTracker] = None
 ) -> Dict[str, Any]:
     logger = logging.getLogger("amazon_scraper")
+    target_url = normalize_amazon_url(target_url)
     logger.info(f"Target Category: '{category_name}'")
     logger.info(f"Target URL: '{target_url}'")
 
@@ -958,6 +962,13 @@ def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = Fals
     logger = setup_logging()
     logger.info("Starting Amazon Multi-Category Batch Processing Mode")
 
+    file_to_load = urls_file or config.get("urls_file", "input/amazon_urls.txt")
+    categories = load_batch_categories(file_to_load)
+
+    if not categories:
+        print(f"\nNo valid categories found in {file_to_load}.")
+        return
+
     # Run Preflight Test first to avoid wasting runtime on broken navigation
     print("\n========================================")
     print("RUNNING BATCH PREFLIGHT CHECK")
@@ -965,19 +976,13 @@ def run_batch(config: dict, headless: bool = False, allow_reprocess: bool = Fals
     preflight_bm = BrowserManager(headless=headless, timeout_ms=30000)
     preflight_bm.start()
     try:
-        pf_res = run_amazon_preflight(preflight_bm)
+        first_url = categories[0][1] if categories else "https://www.amazon.in/s?k=Boots"
+        pf_res = run_amazon_preflight(preflight_bm, test_url=first_url)
         if not pf_res.get("success"):
             print("\n[ABORT] Amazon Preflight Check FAILED! Halting batch execution early to prevent wasting scraper runtime.")
             sys.exit(1)
     finally:
         preflight_bm.close()
-
-    file_to_load = urls_file or config.get("urls_file", "input/amazon_urls.txt")
-    categories = load_batch_categories(file_to_load)
-
-    if not categories:
-        print(f"\nNo valid categories found in {file_to_load}.")
-        return
 
     db_file = config.get("database_file", "amazon_sellers.db")
     master_file = config.get("master_output_file", "output/Amazon_Seller_Master_Data.xlsx")
@@ -1222,11 +1227,16 @@ def run_single(config: dict, category: Optional[str] = None, url: Optional[str] 
 
     current_category = category if category else default_category
     if url:
-        target_url = url
+        target_url = normalize_amazon_url(url)
     elif category and category != default_category:
-        target_url = "https://www.amazon.in/s?k=" + quote_plus(category)
+        norm_cat = normalize_amazon_url(category)
+        parsed_cat = urlparse(norm_cat)
+        if parsed_cat.scheme in ("http", "https") and parsed_cat.netloc:
+            target_url = norm_cat
+        else:
+            target_url = "https://www.amazon.in/s?k=" + quote_plus(category)
     else:
-        target_url = default_url
+        target_url = normalize_amazon_url(default_url)
 
     headless_mode = headless if headless is not None else config.get("headless", False)
     allow_reprocess = force or rescrape or config.get("allow_category_reprocess", False)
@@ -1264,11 +1274,12 @@ def run_single_product_test(product_url_or_asin: str, headless: bool = False, ca
     config = load_config()
 
     raw_input = product_url_or_asin.strip()
-    if not raw_input.startswith("http"):
-        asin = raw_input
+    clean_input = normalize_amazon_url(raw_input)
+    if not clean_input.startswith("http"):
+        asin = clean_input
         product_url = f"https://www.amazon.in/dp/{asin}"
     else:
-        product_url = raw_input
+        product_url = clean_input
         m = re.search(r"/dp/([A-Z0-9]{10})", product_url)
         asin = m.group(1) if m else "UNKNOWN"
 
@@ -1401,7 +1412,8 @@ def main():
         bm = BrowserManager(headless=headless_mode, timeout_ms=30000)
         bm.start()
         try:
-            res = run_amazon_preflight(bm)
+            target_url = args.url if args.url else "https://www.amazon.in/s?k=Boots"
+            res = run_amazon_preflight(bm, test_url=target_url)
             if not res.get("success"):
                 sys.exit(1)
             sys.exit(0)

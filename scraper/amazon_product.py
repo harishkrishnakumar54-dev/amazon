@@ -4,6 +4,7 @@ import time
 from typing import List, Dict, Any, Optional, Tuple
 from playwright.sync_api import Page, TimeoutError as PlaywrightTimeoutError
 from scraper.amazon_search import check_amazon_block
+from scraper.url_utils import normalize_amazon_url, prepare_navigation_url
 from extraction.normalizer import normalize_seller_key
 
 logger = logging.getLogger("amazon_scraper")
@@ -41,10 +42,15 @@ class AmazonProductScraper:
         start_time = time.time()
 
         logger.info(f"Opening Amazon product page for multi-seller extraction: {product_url}")
+        is_valid, clean_product_url = prepare_navigation_url(product_url, logger)
+        if not is_valid:
+            logger.error(f"Cannot navigate to invalid product URL: {product_url}")
+            return []
+
         page_loaded = False
         for attempt in range(1, 4):
             try:
-                response = self.page.goto(product_url, wait_until="domcontentloaded", timeout=30000)
+                response = self.page.goto(clean_product_url, wait_until="domcontentloaded", timeout=30000)
                 is_blocked, block_reason = check_amazon_block(response, self.page)
                 if is_blocked:
                     logger.warning(f"Amazon product page blocked ({block_reason}) on attempt {attempt}/3: {product_url}")

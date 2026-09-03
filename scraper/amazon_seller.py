@@ -3,6 +3,7 @@ import re
 from typing import Dict, Any, Optional, List, Tuple
 from playwright.sync_api import Page, TimeoutError as PlaywrightTimeoutError
 from scraper.amazon_search import check_amazon_block
+from scraper.url_utils import normalize_amazon_url, prepare_navigation_url
 
 logger = logging.getLogger("amazon_scraper")
 
@@ -365,6 +366,15 @@ class AmazonSellerProfileScraper:
         nav_success = False
         last_error = "Unknown"
 
+        is_valid, clean_seller_url = prepare_navigation_url(seller_profile_url, logger)
+        if not is_valid:
+            logger.error(f"Cannot navigate to invalid seller profile URL: {seller_profile_url}")
+            return {
+                "seller_id": seller_id,
+                "display_name": seller_name,
+                "error": "INVALID AMAZON URL"
+            }
+
         for attempt in range(1, max_attempts + 1):
             print("\n========================================")
             print("AMAZON SELLER PROFILE")
@@ -372,10 +382,10 @@ class AmazonSellerProfileScraper:
             print(f"Seller: {seller_name or 'Unknown'}")
             print(f"Seller ID: {seller_id}")
             print(f"ASIN: {asin or 'Unknown'}")
-            print(f"URL: {seller_profile_url}")
+            print(f"URL: {clean_seller_url}")
             print(f"\nNavigation attempt: {attempt}/{max_attempts}")
             print(f"Timeout: {per_attempt_timeout_sec}s")
-            logger.info(f"Opening Amazon seller profile page (Attempt {attempt}/{max_attempts}): {seller_profile_url}")
+            logger.info(f"Opening Amazon seller profile page (Attempt {attempt}/{max_attempts}): {clean_seller_url}")
 
             try:
                 try:
@@ -383,7 +393,7 @@ class AmazonSellerProfileScraper:
                 except Exception:
                     pass
 
-                response = self.page.goto(seller_profile_url, wait_until="commit", timeout=per_attempt_timeout_ms)
+                response = self.page.goto(clean_seller_url, wait_until="commit", timeout=per_attempt_timeout_ms)
 
                 is_blocked, block_reason = check_amazon_block(response, self.page)
                 if is_blocked:

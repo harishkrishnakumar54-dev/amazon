@@ -10,6 +10,7 @@ from typing import List, Dict, Any, Tuple, Optional
 from urllib.parse import urlparse, parse_qs
 from playwright.sync_api import Page, TimeoutError as PlaywrightTimeoutError, Error as PlaywrightError
 from scraper.browser import safe_close_page
+from scraper.url_utils import normalize_amazon_url, validate_amazon_url, prepare_navigation_url
 
 logger = logging.getLogger("amazon_scraper")
 
@@ -316,12 +317,12 @@ class AmazonSearchScraper:
         """
         products = []
         visited_urls = set()
-        current_url = search_url
+        current_url = normalize_amazon_url(search_url)
         page_num = 1
 
-        parsed = urlparse(search_url)
+        parsed = urlparse(current_url)
         qs = parse_qs(parsed.query)
-        category_hint = category_name or qs.get("k", ["General"])[0].replace("+", " ")
+        category_hint = category_name or (qs.get("k", ["General"])[0].replace("+", " ") if "k" in qs and qs["k"] else "General")
 
         backoff_delays = [2, 5, 10]
 
@@ -340,18 +341,20 @@ class AmazonSearchScraper:
             is_blocked = False
 
             for attempt in range(1, self.max_retries + 1):
-                clean_url = current_url.strip()
-                m = re.search(r'https?://[^\s\)\]]+', clean_url)
-                if m:
-                    clean_url = m.group(0)
-
                 print(f"\n========================================")
                 print(f"AMAZON NAVIGATION")
                 print(f"Category: {category_hint}")
-                print(f"URL: {clean_url}")
-                print(f"URL repr: {repr(clean_url)}")
                 print(f"========================================")
-                print(repr(clean_url))
+
+                is_valid_url, clean_url = prepare_navigation_url(current_url, logger)
+                if not is_valid_url:
+                    last_failure_reason = "INVALID AMAZON URL"
+                    return AmazonNavigationResult(
+                        success=False,
+                        status="NAVIGATION_FAILURE",
+                        reason="INVALID AMAZON URL",
+                        products=[]
+                    )
 
                 nav_result = "SUCCESS"
                 last_failure_reason = "Unknown"
@@ -703,7 +706,8 @@ Status: {'BLOCKED' if is_blocked else 'FAILED'}
                     if next_btn:
                         next_href = next_btn.get_attribute("href")
                         if next_href:
-                            current_url = f"https://www.amazon.in{next_href}" if next_href.startswith("/") else next_href
+                            raw_next = f"https://www.amazon.in{next_href}" if next_href.startswith("/") else next_href
+                            current_url = normalize_amazon_url(raw_next)
                             page_num += 1
                         else:
                             break
@@ -758,15 +762,31 @@ def run_amazon_preflight(browser_mgr, test_url: str = "https://www.amazon.in/s?k
     5. Blocked = NO
     """
     page = browser_mgr.new_page()
-    clean_url = test_url.strip()
-    m = re.search(r'https?://[^\s\)\]]+', clean_url)
-    if m:
-        clean_url = m.group(0)
 
     print("\n========================================")
     print("RUNNING AMAZON PREFLIGHT TEST")
-    print(f"URL repr: {repr(clean_url)}")
     print("========================================\n")
+
+    is_valid_url, clean_url = prepare_navigation_url(test_url, logger)
+    if not is_valid_url:
+        print("""AMAZON PREFLIGHT
+----------------
+Navigation: FAIL
+Amazon page: FAIL
+Product selectors: FAIL
+Products: 0
+Blocked: NO
+----------------
+""")
+        safe_close_page(page)
+        return {
+            "success": False,
+            "navigation": False,
+            "amazon_page": False,
+            "product_selectors": False,
+            "products_count": 0,
+            "blocked": False
+        }
 
     nav_pass = False
     amazon_page_pass = False
@@ -820,6 +840,7 @@ Amazon page: {'PASS' if amazon_page_pass else 'FAIL'}
 Product selectors: {'PASS' if selectors_pass else 'FAIL'}
 Products: {products_count}
 Blocked: {'YES' if blocked_flag else 'NO'}
+----------------
 """)
 
     return {

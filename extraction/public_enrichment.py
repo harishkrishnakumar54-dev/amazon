@@ -18,6 +18,7 @@ from extraction.normalizer import (
 from extraction.address_parser import parse_indian_address
 from extraction.business_extractor import extract_email, extract_fssai, extract_phone
 from scraper.browser import BrowserManager, safe_close_page
+from scraper.url_utils import normalize_amazon_url, validate_amazon_url
 from playwright.sync_api import Page, TimeoutError as PlaywrightTimeoutError
 
 logger = logging.getLogger("amazon_scraper")
@@ -43,17 +44,21 @@ def _safe_goto(page, url, wait_until='domcontentloaded', timeout=None):
     """Navigate safely, catching Playwright protocol and target closed errors.
     Returns the response object or None on failure.
     """
+    clean_url = normalize_amazon_url(url)
+    if not validate_amazon_url(clean_url):
+        logger.warning(f"INVALID URL: {url}")
+        return None
     try:
-        return page.goto(url, wait_until=wait_until, timeout=timeout)
+        return page.goto(clean_url, wait_until=wait_until, timeout=timeout)
     except (PlaywrightTimeoutError, Error) as e:
         # Log concise warning based on exception type
         if isinstance(e, PlaywrightTimeoutError):
-            logger.warning(f"WEBSITE TIMEOUT: {url}")
+            logger.warning(f"WEBSITE TIMEOUT: {clean_url}")
         else:
-            logger.warning(f"PLAYWRIGHT PROTOCOL ERROR on {url}: {e}")
+            logger.warning(f"PLAYWRIGHT PROTOCOL ERROR on {clean_url}: {e}")
         return None
     except Exception as e:
-        logger.debug(f"Unexpected error during navigation to {url}: {e}")
+        logger.debug(f"Unexpected error during navigation to {clean_url}: {e}")
         return None
 
 # -------------------------------------------------------------
