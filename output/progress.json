@@ -11,12 +11,13 @@
     "Women'S Formals",
     "Fashion Slippers",
     "Boys' Footwear",
-    "Infant Footwear"
+    "Infant Footwear",
+    "Swimwear"
   ],
   "failed_categories": [],
   "current_category": "",
-  "last_completed_category": "Infant Footwear",
-  "last_checkpoint_timestamp": "2026-10-13T11:43:21.227287",
-  "excel_row_count": 43,
-  "database_record_count": 1340
+  "last_completed_category": "Swimwear",
+  "last_checkpoint_timestamp": "2026-10-13T11:54:49.343682",
+  "excel_row_count": 48,
+  "database_record_count": 1345
 }
