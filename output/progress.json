@@ -3,12 +3,13 @@
     "Men'S Slippers & Flip Flops",
     "Men'S Ethnic Shoes",
     "Men'S Clogs",
-    "Boots"
+    "Boots",
+    "Sneakers"
   ],
   "failed_categories": [],
   "current_category": "",
-  "last_completed_category": "Men'S Clogs",
-  "last_checkpoint_timestamp": "2026-10-13T11:00:20.623359",
-  "excel_row_count": 16,
-  "database_record_count": 1316
+  "last_completed_category": "Sneakers",
+  "last_checkpoint_timestamp": "2026-10-13T11:05:21.462389",
+  "excel_row_count": 21,
+  "database_record_count": 1321
 }
