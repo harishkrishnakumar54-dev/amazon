@@ -10,12 +10,13 @@
     "Women'S Casual Shoes",
     "Women'S Formals",
     "Fashion Slippers",
-    "Boys' Footwear"
+    "Boys' Footwear",
+    "Infant Footwear"
   ],
   "failed_categories": [],
   "current_category": "",
-  "last_completed_category": "Boys' Footwear",
-  "last_checkpoint_timestamp": "2026-10-13T11:40:06.713679",
-  "excel_row_count": 39,
-  "database_record_count": 1339
+  "last_completed_category": "Infant Footwear",
+  "last_checkpoint_timestamp": "2026-10-13T11:43:21.227287",
+  "excel_row_count": 43,
+  "database_record_count": 1340
 }
