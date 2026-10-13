@@ -9,12 +9,13 @@
     "Women'S Heels",
     "Women'S Casual Shoes",
     "Women'S Formals",
-    "Fashion Slippers"
+    "Fashion Slippers",
+    "Boys' Footwear"
   ],
   "failed_categories": [],
   "current_category": "",
-  "last_completed_category": "Fashion Slippers",
-  "last_checkpoint_timestamp": "2026-10-13T11:37:16.925143",
-  "excel_row_count": 38,
-  "database_record_count": 1338
+  "last_completed_category": "Boys' Footwear",
+  "last_checkpoint_timestamp": "2026-10-13T11:40:06.713679",
+  "excel_row_count": 39,
+  "database_record_count": 1339
 }
