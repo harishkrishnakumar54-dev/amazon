@@ -6,12 +6,13 @@
     "Boots",
     "Sneakers",
     "Women'S Flats",
-    "Women'S Heels"
+    "Women'S Heels",
+    "Women'S Casual Shoes"
   ],
   "failed_categories": [],
   "current_category": "",
-  "last_completed_category": "Women'S Heels",
-  "last_checkpoint_timestamp": "2026-10-13T11:14:07.444806",
-  "excel_row_count": 26,
-  "database_record_count": 1326
+  "last_completed_category": "Women'S Casual Shoes",
+  "last_checkpoint_timestamp": "2026-10-13T11:23:42.698677",
+  "excel_row_count": 31,
+  "database_record_count": 1331
 }
