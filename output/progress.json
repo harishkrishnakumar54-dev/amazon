@@ -8,12 +8,13 @@
     "Women'S Flats",
     "Women'S Heels",
     "Women'S Casual Shoes",
-    "Women'S Formals"
+    "Women'S Formals",
+    "Fashion Slippers"
   ],
   "failed_categories": [],
   "current_category": "",
-  "last_completed_category": "Women'S Formals",
-  "last_checkpoint_timestamp": "2026-10-13T11:28:40.974672",
-  "excel_row_count": 34,
-  "database_record_count": 1334
+  "last_completed_category": "Fashion Slippers",
+  "last_checkpoint_timestamp": "2026-10-13T11:37:16.925143",
+  "excel_row_count": 38,
+  "database_record_count": 1338
 }
