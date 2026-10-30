@@ -12,12 +12,13 @@
     "Fashion Slippers",
     "Boys' Footwear",
     "Infant Footwear",
-    "Swimwear"
+    "Swimwear",
+    "Women'S Sports Sandals"
   ],
   "failed_categories": [],
   "current_category": "",
-  "last_completed_category": "Swimwear",
-  "last_checkpoint_timestamp": "2026-10-13T11:54:49.343682",
-  "excel_row_count": 48,
-  "database_record_count": 1345
+  "last_completed_category": "Women'S Sports Sandals",
+  "last_checkpoint_timestamp": "2026-10-30T10:41:08.300925",
+  "excel_row_count": 52,
+  "database_record_count": 1349
 }
