@@ -14,12 +14,13 @@
     "Infant Footwear",
     "Swimwear",
     "Women'S Sports Sandals",
-    "School Uniforms"
+    "School Uniforms",
+    "Dungarees"
   ],
   "failed_categories": [],
   "current_category": "",
-  "last_completed_category": "School Uniforms",
-  "last_checkpoint_timestamp": "2026-10-30T11:24:16.051582",
-  "excel_row_count": 55,
-  "database_record_count": 1352
+  "last_completed_category": "Dungarees",
+  "last_checkpoint_timestamp": "2026-10-30T11:34:07.846977",
+  "excel_row_count": 61,
+  "database_record_count": 1358
 }
